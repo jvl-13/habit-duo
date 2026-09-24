@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String         @id @default(cuid())
+  email           String         @unique
+  name            String?
+  createdAt       DateTime       @default(now())
+  passwordHash    String
+  sentInvites     PairInvite[]   @relation("InviteSender")
+  pairMemberships PairMember[]
+  refreshTokens   RefreshToken[]
+  notifications   Notification[]
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+}
+
+model HabitPair {
+  id            String     @id @default(cuid())
+  habitName     String
+  deadlineHour  Int
+  timezone      String     @default("Asia/Ho_Chi_Minh")
+  currentStreak Int        @default(0)
+  bestStreak    Int        @default(0)
+  status        PairStatus @default(ACTIVE) // ACTIVE, PAUSED, ENDED
+  createdAt     DateTime   @default(now())
+
+  members  PairMember[]
+  checkIns CheckIn[]
+  invite   PairInvite?
+  pokes    Poke[]
+}
+
+model PairMember {
+  id       String   @id @default(cuid())
+  userId   String
+  pairId   String
+  role     PairRole @default(MEMBER) // OWNER, MEMBER
+  joinedAt DateTime @default(now())
+
+  user User      @relation(fields: [userId], references: [id])
+  pair HabitPair @relation(fields: [pairId], references: [id])
+
+  @@unique([userId, pairId])
+}
+
+model PairInvite {
+  id        String       @id @default(cuid())
+  pairId    String       @unique
+  senderId  String
+  token     String       @unique
+  email     String?
+  status    InviteStatus @default(PENDING) // PENDING, ACCEPTED, EXPIRED
+  expiresAt DateTime
+
+  pair   HabitPair @relation(fields: [pairId], references: [id])
+  sender User      @relation("InviteSender", fields: [senderId], references: [id])
+}
+
+model CheckIn {
+  id        String   @id @default(cuid())
+  pairId    String
+  userId    String
+  imageUrl  String
+  note      String?
+  date      DateTime
+  onTime    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  pair HabitPair @relation(fields: [pairId], references: [id])
+
+  @@unique([pairId, userId, date])
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  type      NotifType // CHECKIN, POKE, STREAK_BROKEN, STREAK_MILESTONE
+  payload   Json
+  read      Boolean   @default(false)
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Poke {
+  id         String   @id @default(cuid())
+  pairId     String
+  senderId   String
+  receiverId String
+  createdAt  DateTime @default(now())
+
+  pair HabitPair @relation(fields: [pairId], references: [id])
+
+  @@index([pairId, senderId, createdAt])
+}
+
+enum PairStatus {
+  ACTIVE
+  PAUSED
+  ENDED
+}
+
+enum PairRole {
+  OWNER
+  MEMBER
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+}
+
+enum NotifType {
+  CHECKIN
+  POKE
+  STREAK_BROKEN
+  STREAK_MILESTONE
+}
