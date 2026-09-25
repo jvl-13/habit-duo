@@ -4,6 +4,7 @@ import { RegisterDto } from './dto/register.dto.js';
 import { LoginDto } from './dto/login.dto.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
 import type { Request } from 'express';
+import { RefreshTokenDto } from './dto/refresh-token.dto.js';
 
 @Controller('auth')
 export class AuthController {
@@ -24,5 +25,17 @@ export class AuthController {
     @Get('me')
     me(@Req() req: Request) {
         return req.user;
+    }
+
+    @Post('refresh')
+    @HttpCode(HttpStatus.OK)
+    refresh(@Body() dto: RefreshTokenDto) {
+        return this.authService.refresh(dto);
+    }
+
+    @Post('logout')
+    @HttpCode(HttpStatus.OK)
+    logout(@Body() dto: RefreshTokenDto) {
+        return this.authService.logout(dto.refreshToken);
     }
 }
