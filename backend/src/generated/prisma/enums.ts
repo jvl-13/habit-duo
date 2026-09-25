@@ -9,37 +9,27 @@
 * 🟢 You can import this file directly.
 */
 
-export const PairStatus = {
+export const DuoStatus = {
+  PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',
-  PAUSED: 'PAUSED',
+  REJECTED: 'REJECTED',
   ENDED: 'ENDED'
 } as const
 
-export type PairStatus = (typeof PairStatus)[keyof typeof PairStatus]
+export type DuoStatus = (typeof DuoStatus)[keyof typeof DuoStatus]
 
 
-export const PairRole = {
-  OWNER: 'OWNER',
-  MEMBER: 'MEMBER'
+export const HabitFrequency = {
+  DAILY: 'DAILY'
 } as const
 
-export type PairRole = (typeof PairRole)[keyof typeof PairRole]
+export type HabitFrequency = (typeof HabitFrequency)[keyof typeof HabitFrequency]
 
 
-export const InviteStatus = {
-  PENDING: 'PENDING',
-  ACCEPTED: 'ACCEPTED',
-  EXPIRED: 'EXPIRED'
+export const NotificationType = {
+  CHECKIN_CREATED: 'CHECKIN_CREATED',
+  POKE_RECEIVED: 'POKE_RECEIVED',
+  DUO_INVITATION: 'DUO_INVITATION'
 } as const
 
-export type InviteStatus = (typeof InviteStatus)[keyof typeof InviteStatus]
-
-
-export const NotifType = {
-  CHECKIN: 'CHECKIN',
-  POKE: 'POKE',
-  STREAK_BROKEN: 'STREAK_BROKEN',
-  STREAK_MILESTONE: 'STREAK_MILESTONE'
-} as const
-
-export type NotifType = (typeof NotifType)[keyof typeof NotifType]
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

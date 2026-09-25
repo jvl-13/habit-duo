@@ -26,34 +26,31 @@ export type AggregateCheckIn = {
 
 export type CheckInMinAggregateOutputType = {
   id: string | null
-  pairId: string | null
+  habitId: string | null
   userId: string | null
-  imageUrl: string | null
-  note: string | null
   date: Date | null
-  onTime: boolean | null
+  photoUrl: string | null
+  note: string | null
   createdAt: Date | null
 }
 
 export type CheckInMaxAggregateOutputType = {
   id: string | null
-  pairId: string | null
+  habitId: string | null
   userId: string | null
-  imageUrl: string | null
-  note: string | null
   date: Date | null
-  onTime: boolean | null
+  photoUrl: string | null
+  note: string | null
   createdAt: Date | null
 }
 
 export type CheckInCountAggregateOutputType = {
   id: number
-  pairId: number
+  habitId: number
   userId: number
-  imageUrl: number
-  note: number
   date: number
-  onTime: number
+  photoUrl: number
+  note: number
   createdAt: number
   _all: number
 }
@@ -61,34 +58,31 @@ export type CheckInCountAggregateOutputType = {
 
 export type CheckInMinAggregateInputType = {
   id?: true
-  pairId?: true
+  habitId?: true
   userId?: true
-  imageUrl?: true
-  note?: true
   date?: true
-  onTime?: true
+  photoUrl?: true
+  note?: true
   createdAt?: true
 }
 
 export type CheckInMaxAggregateInputType = {
   id?: true
-  pairId?: true
+  habitId?: true
   userId?: true
-  imageUrl?: true
-  note?: true
   date?: true
-  onTime?: true
+  photoUrl?: true
+  note?: true
   createdAt?: true
 }
 
 export type CheckInCountAggregateInputType = {
   id?: true
-  pairId?: true
+  habitId?: true
   userId?: true
-  imageUrl?: true
-  note?: true
   date?: true
-  onTime?: true
+  photoUrl?: true
+  note?: true
   createdAt?: true
   _all?: true
 }
@@ -167,12 +161,11 @@ export type CheckInGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type CheckInGroupByOutputType = {
   id: string
-  pairId: string
+  habitId: string
   userId: string
-  imageUrl: string
-  note: string | null
   date: Date
-  onTime: boolean
+  photoUrl: string | null
+  note: string | null
   createdAt: Date
   _count: CheckInCountAggregateOutputType | null
   _min: CheckInMinAggregateOutputType | null
@@ -199,52 +192,51 @@ export type CheckInWhereInput = {
   OR?: Prisma.CheckInWhereInput[]
   NOT?: Prisma.CheckInWhereInput | Prisma.CheckInWhereInput[]
   id?: Prisma.StringFilter<"CheckIn"> | string
-  pairId?: Prisma.StringFilter<"CheckIn"> | string
+  habitId?: Prisma.StringFilter<"CheckIn"> | string
   userId?: Prisma.StringFilter<"CheckIn"> | string
-  imageUrl?: Prisma.StringFilter<"CheckIn"> | string
-  note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   date?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
-  onTime?: Prisma.BoolFilter<"CheckIn"> | boolean
+  photoUrl?: Prisma.StringNullableFilter<"CheckIn"> | string | null
+  note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
-  pair?: Prisma.XOR<Prisma.HabitPairScalarRelationFilter, Prisma.HabitPairWhereInput>
+  habit?: Prisma.XOR<Prisma.HabitScalarRelationFilter, Prisma.HabitWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type CheckInOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
-  note?: Prisma.SortOrderInput | Prisma.SortOrder
   date?: Prisma.SortOrder
-  onTime?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  pair?: Prisma.HabitPairOrderByWithRelationInput
+  habit?: Prisma.HabitOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type CheckInWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  pairId_userId_date?: Prisma.CheckInPairIdUserIdDateCompoundUniqueInput
+  habitId_userId_date?: Prisma.CheckInHabitIdUserIdDateCompoundUniqueInput
   AND?: Prisma.CheckInWhereInput | Prisma.CheckInWhereInput[]
   OR?: Prisma.CheckInWhereInput[]
   NOT?: Prisma.CheckInWhereInput | Prisma.CheckInWhereInput[]
-  pairId?: Prisma.StringFilter<"CheckIn"> | string
+  habitId?: Prisma.StringFilter<"CheckIn"> | string
   userId?: Prisma.StringFilter<"CheckIn"> | string
-  imageUrl?: Prisma.StringFilter<"CheckIn"> | string
-  note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   date?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
-  onTime?: Prisma.BoolFilter<"CheckIn"> | boolean
+  photoUrl?: Prisma.StringNullableFilter<"CheckIn"> | string | null
+  note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
-  pair?: Prisma.XOR<Prisma.HabitPairScalarRelationFilter, Prisma.HabitPairWhereInput>
-}, "id" | "pairId_userId_date">
+  habit?: Prisma.XOR<Prisma.HabitScalarRelationFilter, Prisma.HabitWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+}, "id" | "habitId_userId_date">
 
 export type CheckInOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
-  note?: Prisma.SortOrderInput | Prisma.SortOrder
   date?: Prisma.SortOrder
-  onTime?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CheckInCountOrderByAggregateInput
   _max?: Prisma.CheckInMaxOrderByAggregateInput
@@ -256,88 +248,79 @@ export type CheckInScalarWhereWithAggregatesInput = {
   OR?: Prisma.CheckInScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CheckInScalarWhereWithAggregatesInput | Prisma.CheckInScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
-  pairId?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
+  habitId?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
   userId?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
-  imageUrl?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
-  note?: Prisma.StringNullableWithAggregatesFilter<"CheckIn"> | string | null
   date?: Prisma.DateTimeWithAggregatesFilter<"CheckIn"> | Date | string
-  onTime?: Prisma.BoolWithAggregatesFilter<"CheckIn"> | boolean
+  photoUrl?: Prisma.StringNullableWithAggregatesFilter<"CheckIn"> | string | null
+  note?: Prisma.StringNullableWithAggregatesFilter<"CheckIn"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CheckIn"> | Date | string
 }
 
 export type CheckInCreateInput = {
   id?: string
-  userId: string
-  imageUrl: string
-  note?: string | null
   date: Date | string
-  onTime?: boolean
+  photoUrl?: string | null
+  note?: string | null
   createdAt?: Date | string
-  pair: Prisma.HabitPairCreateNestedOneWithoutCheckInsInput
+  habit: Prisma.HabitCreateNestedOneWithoutCheckInsInput
+  user: Prisma.UserCreateNestedOneWithoutCheckInsInput
 }
 
 export type CheckInUncheckedCreateInput = {
   id?: string
-  pairId: string
+  habitId: string
   userId: string
-  imageUrl: string
-  note?: string | null
   date: Date | string
-  onTime?: boolean
+  photoUrl?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
 export type CheckInUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onTime?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pair?: Prisma.HabitPairUpdateOneRequiredWithoutCheckInsNestedInput
+  habit?: Prisma.HabitUpdateOneRequiredWithoutCheckInsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutCheckInsNestedInput
 }
 
 export type CheckInUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  pairId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onTime?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CheckInCreateManyInput = {
   id?: string
-  pairId: string
+  habitId: string
   userId: string
-  imageUrl: string
-  note?: string | null
   date: Date | string
-  onTime?: boolean
+  photoUrl?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
 export type CheckInUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onTime?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type CheckInUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  pairId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onTime?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -351,131 +334,168 @@ export type CheckInOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type CheckInPairIdUserIdDateCompoundUniqueInput = {
-  pairId: string
+export type CheckInHabitIdUserIdDateCompoundUniqueInput = {
+  habitId: string
   userId: string
   date: Date | string
 }
 
 export type CheckInCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
-  note?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  onTime?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrder
+  note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type CheckInMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
-  note?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  onTime?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrder
+  note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type CheckInMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  imageUrl?: Prisma.SortOrder
-  note?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  onTime?: Prisma.SortOrder
+  photoUrl?: Prisma.SortOrder
+  note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
-export type CheckInCreateNestedManyWithoutPairInput = {
-  create?: Prisma.XOR<Prisma.CheckInCreateWithoutPairInput, Prisma.CheckInUncheckedCreateWithoutPairInput> | Prisma.CheckInCreateWithoutPairInput[] | Prisma.CheckInUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutPairInput | Prisma.CheckInCreateOrConnectWithoutPairInput[]
-  createMany?: Prisma.CheckInCreateManyPairInputEnvelope
+export type CheckInCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
   connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
 }
 
-export type CheckInUncheckedCreateNestedManyWithoutPairInput = {
-  create?: Prisma.XOR<Prisma.CheckInCreateWithoutPairInput, Prisma.CheckInUncheckedCreateWithoutPairInput> | Prisma.CheckInCreateWithoutPairInput[] | Prisma.CheckInUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutPairInput | Prisma.CheckInCreateOrConnectWithoutPairInput[]
-  createMany?: Prisma.CheckInCreateManyPairInputEnvelope
+export type CheckInUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
   connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
 }
 
-export type CheckInUpdateManyWithoutPairNestedInput = {
-  create?: Prisma.XOR<Prisma.CheckInCreateWithoutPairInput, Prisma.CheckInUncheckedCreateWithoutPairInput> | Prisma.CheckInCreateWithoutPairInput[] | Prisma.CheckInUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutPairInput | Prisma.CheckInCreateOrConnectWithoutPairInput[]
-  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutPairInput | Prisma.CheckInUpsertWithWhereUniqueWithoutPairInput[]
-  createMany?: Prisma.CheckInCreateManyPairInputEnvelope
+export type CheckInUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput | Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
   set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
   disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
   delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
   connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
-  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutPairInput | Prisma.CheckInUpdateWithWhereUniqueWithoutPairInput[]
-  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutPairInput | Prisma.CheckInUpdateManyWithWhereWithoutPairInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput | Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutUserInput | Prisma.CheckInUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
 }
 
-export type CheckInUncheckedUpdateManyWithoutPairNestedInput = {
-  create?: Prisma.XOR<Prisma.CheckInCreateWithoutPairInput, Prisma.CheckInUncheckedCreateWithoutPairInput> | Prisma.CheckInCreateWithoutPairInput[] | Prisma.CheckInUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutPairInput | Prisma.CheckInCreateOrConnectWithoutPairInput[]
-  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutPairInput | Prisma.CheckInUpsertWithWhereUniqueWithoutPairInput[]
-  createMany?: Prisma.CheckInCreateManyPairInputEnvelope
+export type CheckInUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput> | Prisma.CheckInCreateWithoutUserInput[] | Prisma.CheckInUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutUserInput | Prisma.CheckInCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput | Prisma.CheckInUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.CheckInCreateManyUserInputEnvelope
   set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
   disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
   delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
   connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
-  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutPairInput | Prisma.CheckInUpdateWithWhereUniqueWithoutPairInput[]
-  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutPairInput | Prisma.CheckInUpdateManyWithWhereWithoutPairInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput | Prisma.CheckInUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutUserInput | Prisma.CheckInUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
 }
 
-export type CheckInCreateWithoutPairInput = {
+export type CheckInCreateNestedManyWithoutHabitInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutHabitInput, Prisma.CheckInUncheckedCreateWithoutHabitInput> | Prisma.CheckInCreateWithoutHabitInput[] | Prisma.CheckInUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutHabitInput | Prisma.CheckInCreateOrConnectWithoutHabitInput[]
+  createMany?: Prisma.CheckInCreateManyHabitInputEnvelope
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+}
+
+export type CheckInUncheckedCreateNestedManyWithoutHabitInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutHabitInput, Prisma.CheckInUncheckedCreateWithoutHabitInput> | Prisma.CheckInCreateWithoutHabitInput[] | Prisma.CheckInUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutHabitInput | Prisma.CheckInCreateOrConnectWithoutHabitInput[]
+  createMany?: Prisma.CheckInCreateManyHabitInputEnvelope
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+}
+
+export type CheckInUpdateManyWithoutHabitNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutHabitInput, Prisma.CheckInUncheckedCreateWithoutHabitInput> | Prisma.CheckInCreateWithoutHabitInput[] | Prisma.CheckInUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutHabitInput | Prisma.CheckInCreateOrConnectWithoutHabitInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutHabitInput | Prisma.CheckInUpsertWithWhereUniqueWithoutHabitInput[]
+  createMany?: Prisma.CheckInCreateManyHabitInputEnvelope
+  set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutHabitInput | Prisma.CheckInUpdateWithWhereUniqueWithoutHabitInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutHabitInput | Prisma.CheckInUpdateManyWithWhereWithoutHabitInput[]
+  deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
+}
+
+export type CheckInUncheckedUpdateManyWithoutHabitNestedInput = {
+  create?: Prisma.XOR<Prisma.CheckInCreateWithoutHabitInput, Prisma.CheckInUncheckedCreateWithoutHabitInput> | Prisma.CheckInCreateWithoutHabitInput[] | Prisma.CheckInUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.CheckInCreateOrConnectWithoutHabitInput | Prisma.CheckInCreateOrConnectWithoutHabitInput[]
+  upsert?: Prisma.CheckInUpsertWithWhereUniqueWithoutHabitInput | Prisma.CheckInUpsertWithWhereUniqueWithoutHabitInput[]
+  createMany?: Prisma.CheckInCreateManyHabitInputEnvelope
+  set?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  disconnect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  delete?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  connect?: Prisma.CheckInWhereUniqueInput | Prisma.CheckInWhereUniqueInput[]
+  update?: Prisma.CheckInUpdateWithWhereUniqueWithoutHabitInput | Prisma.CheckInUpdateWithWhereUniqueWithoutHabitInput[]
+  updateMany?: Prisma.CheckInUpdateManyWithWhereWithoutHabitInput | Prisma.CheckInUpdateManyWithWhereWithoutHabitInput[]
+  deleteMany?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
+}
+
+export type CheckInCreateWithoutUserInput = {
   id?: string
-  userId: string
-  imageUrl: string
-  note?: string | null
   date: Date | string
-  onTime?: boolean
+  photoUrl?: string | null
+  note?: string | null
+  createdAt?: Date | string
+  habit: Prisma.HabitCreateNestedOneWithoutCheckInsInput
+}
+
+export type CheckInUncheckedCreateWithoutUserInput = {
+  id?: string
+  habitId: string
+  date: Date | string
+  photoUrl?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
-export type CheckInUncheckedCreateWithoutPairInput = {
-  id?: string
-  userId: string
-  imageUrl: string
-  note?: string | null
-  date: Date | string
-  onTime?: boolean
-  createdAt?: Date | string
-}
-
-export type CheckInCreateOrConnectWithoutPairInput = {
+export type CheckInCreateOrConnectWithoutUserInput = {
   where: Prisma.CheckInWhereUniqueInput
-  create: Prisma.XOR<Prisma.CheckInCreateWithoutPairInput, Prisma.CheckInUncheckedCreateWithoutPairInput>
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput>
 }
 
-export type CheckInCreateManyPairInputEnvelope = {
-  data: Prisma.CheckInCreateManyPairInput | Prisma.CheckInCreateManyPairInput[]
+export type CheckInCreateManyUserInputEnvelope = {
+  data: Prisma.CheckInCreateManyUserInput | Prisma.CheckInCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
-export type CheckInUpsertWithWhereUniqueWithoutPairInput = {
+export type CheckInUpsertWithWhereUniqueWithoutUserInput = {
   where: Prisma.CheckInWhereUniqueInput
-  update: Prisma.XOR<Prisma.CheckInUpdateWithoutPairInput, Prisma.CheckInUncheckedUpdateWithoutPairInput>
-  create: Prisma.XOR<Prisma.CheckInCreateWithoutPairInput, Prisma.CheckInUncheckedCreateWithoutPairInput>
+  update: Prisma.XOR<Prisma.CheckInUpdateWithoutUserInput, Prisma.CheckInUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutUserInput, Prisma.CheckInUncheckedCreateWithoutUserInput>
 }
 
-export type CheckInUpdateWithWhereUniqueWithoutPairInput = {
+export type CheckInUpdateWithWhereUniqueWithoutUserInput = {
   where: Prisma.CheckInWhereUniqueInput
-  data: Prisma.XOR<Prisma.CheckInUpdateWithoutPairInput, Prisma.CheckInUncheckedUpdateWithoutPairInput>
+  data: Prisma.XOR<Prisma.CheckInUpdateWithoutUserInput, Prisma.CheckInUncheckedUpdateWithoutUserInput>
 }
 
-export type CheckInUpdateManyWithWhereWithoutPairInput = {
+export type CheckInUpdateManyWithWhereWithoutUserInput = {
   where: Prisma.CheckInScalarWhereInput
-  data: Prisma.XOR<Prisma.CheckInUpdateManyMutationInput, Prisma.CheckInUncheckedUpdateManyWithoutPairInput>
+  data: Prisma.XOR<Prisma.CheckInUpdateManyMutationInput, Prisma.CheckInUncheckedUpdateManyWithoutUserInput>
 }
 
 export type CheckInScalarWhereInput = {
@@ -483,52 +503,127 @@ export type CheckInScalarWhereInput = {
   OR?: Prisma.CheckInScalarWhereInput[]
   NOT?: Prisma.CheckInScalarWhereInput | Prisma.CheckInScalarWhereInput[]
   id?: Prisma.StringFilter<"CheckIn"> | string
-  pairId?: Prisma.StringFilter<"CheckIn"> | string
+  habitId?: Prisma.StringFilter<"CheckIn"> | string
   userId?: Prisma.StringFilter<"CheckIn"> | string
-  imageUrl?: Prisma.StringFilter<"CheckIn"> | string
-  note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   date?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
-  onTime?: Prisma.BoolFilter<"CheckIn"> | boolean
+  photoUrl?: Prisma.StringNullableFilter<"CheckIn"> | string | null
+  note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
 }
 
-export type CheckInCreateManyPairInput = {
+export type CheckInCreateWithoutHabitInput = {
+  id?: string
+  date: Date | string
+  photoUrl?: string | null
+  note?: string | null
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCheckInsInput
+}
+
+export type CheckInUncheckedCreateWithoutHabitInput = {
   id?: string
   userId: string
-  imageUrl: string
-  note?: string | null
   date: Date | string
-  onTime?: boolean
+  photoUrl?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
-export type CheckInUpdateWithoutPairInput = {
+export type CheckInCreateOrConnectWithoutHabitInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutHabitInput, Prisma.CheckInUncheckedCreateWithoutHabitInput>
+}
+
+export type CheckInCreateManyHabitInputEnvelope = {
+  data: Prisma.CheckInCreateManyHabitInput | Prisma.CheckInCreateManyHabitInput[]
+  skipDuplicates?: boolean
+}
+
+export type CheckInUpsertWithWhereUniqueWithoutHabitInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  update: Prisma.XOR<Prisma.CheckInUpdateWithoutHabitInput, Prisma.CheckInUncheckedUpdateWithoutHabitInput>
+  create: Prisma.XOR<Prisma.CheckInCreateWithoutHabitInput, Prisma.CheckInUncheckedCreateWithoutHabitInput>
+}
+
+export type CheckInUpdateWithWhereUniqueWithoutHabitInput = {
+  where: Prisma.CheckInWhereUniqueInput
+  data: Prisma.XOR<Prisma.CheckInUpdateWithoutHabitInput, Prisma.CheckInUncheckedUpdateWithoutHabitInput>
+}
+
+export type CheckInUpdateManyWithWhereWithoutHabitInput = {
+  where: Prisma.CheckInScalarWhereInput
+  data: Prisma.XOR<Prisma.CheckInUpdateManyMutationInput, Prisma.CheckInUncheckedUpdateManyWithoutHabitInput>
+}
+
+export type CheckInCreateManyUserInput = {
+  id?: string
+  habitId: string
+  date: Date | string
+  photoUrl?: string | null
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type CheckInUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onTime?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  habit?: Prisma.HabitUpdateOneRequiredWithoutCheckInsNestedInput
+}
+
+export type CheckInUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type CheckInUncheckedUpdateWithoutPairInput = {
+export type CheckInUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onTime?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type CheckInUncheckedUpdateManyWithoutPairInput = {
+export type CheckInCreateManyHabitInput = {
+  id?: string
+  userId: string
+  date: Date | string
+  photoUrl?: string | null
+  note?: string | null
+  createdAt?: Date | string
+}
+
+export type CheckInUpdateWithoutHabitInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCheckInsNestedInput
+}
+
+export type CheckInUncheckedUpdateWithoutHabitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onTime?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CheckInUncheckedUpdateManyWithoutHabitInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -536,75 +631,77 @@ export type CheckInUncheckedUpdateManyWithoutPairInput = {
 
 export type CheckInSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  pairId?: boolean
+  habitId?: boolean
   userId?: boolean
-  imageUrl?: boolean
-  note?: boolean
   date?: boolean
-  onTime?: boolean
+  photoUrl?: boolean
+  note?: boolean
   createdAt?: boolean
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["checkIn"]>
 
 export type CheckInSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  pairId?: boolean
+  habitId?: boolean
   userId?: boolean
-  imageUrl?: boolean
-  note?: boolean
   date?: boolean
-  onTime?: boolean
+  photoUrl?: boolean
+  note?: boolean
   createdAt?: boolean
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["checkIn"]>
 
 export type CheckInSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  pairId?: boolean
+  habitId?: boolean
   userId?: boolean
-  imageUrl?: boolean
-  note?: boolean
   date?: boolean
-  onTime?: boolean
+  photoUrl?: boolean
+  note?: boolean
   createdAt?: boolean
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["checkIn"]>
 
 export type CheckInSelectScalar = {
   id?: boolean
-  pairId?: boolean
+  habitId?: boolean
   userId?: boolean
-  imageUrl?: boolean
-  note?: boolean
   date?: boolean
-  onTime?: boolean
+  photoUrl?: boolean
+  note?: boolean
   createdAt?: boolean
 }
 
-export type CheckInOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pairId" | "userId" | "imageUrl" | "note" | "date" | "onTime" | "createdAt", ExtArgs["result"]["checkIn"]>
+export type CheckInOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "habitId" | "userId" | "date" | "photoUrl" | "note" | "createdAt", ExtArgs["result"]["checkIn"]>
 export type CheckInInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type CheckInIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type CheckInIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $CheckInPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CheckIn"
   objects: {
-    pair: Prisma.$HabitPairPayload<ExtArgs>
+    habit: Prisma.$HabitPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    pairId: string
+    habitId: string
     userId: string
-    imageUrl: string
-    note: string | null
     date: Date
-    onTime: boolean
+    photoUrl: string | null
+    note: string | null
     createdAt: Date
   }, ExtArgs["result"]["checkIn"]>
   composites: {}
@@ -1000,7 +1097,8 @@ readonly fields: CheckInFieldRefs;
  */
 export interface Prisma__CheckInClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  pair<T extends Prisma.HabitPairDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HabitPairDefaultArgs<ExtArgs>>): Prisma.Prisma__HabitPairClient<runtime.Types.Result.GetResult<Prisma.$HabitPairPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  habit<T extends Prisma.HabitDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HabitDefaultArgs<ExtArgs>>): Prisma.Prisma__HabitClient<runtime.Types.Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1031,12 +1129,11 @@ export interface Prisma__CheckInClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface CheckInFieldRefs {
   readonly id: Prisma.FieldRef<"CheckIn", 'String'>
-  readonly pairId: Prisma.FieldRef<"CheckIn", 'String'>
+  readonly habitId: Prisma.FieldRef<"CheckIn", 'String'>
   readonly userId: Prisma.FieldRef<"CheckIn", 'String'>
-  readonly imageUrl: Prisma.FieldRef<"CheckIn", 'String'>
-  readonly note: Prisma.FieldRef<"CheckIn", 'String'>
   readonly date: Prisma.FieldRef<"CheckIn", 'DateTime'>
-  readonly onTime: Prisma.FieldRef<"CheckIn", 'Boolean'>
+  readonly photoUrl: Prisma.FieldRef<"CheckIn", 'String'>
+  readonly note: Prisma.FieldRef<"CheckIn", 'String'>
   readonly createdAt: Prisma.FieldRef<"CheckIn", 'DateTime'>
 }
     

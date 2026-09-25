@@ -399,9 +399,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
-  HabitPair: 'HabitPair',
-  PairMember: 'PairMember',
-  PairInvite: 'PairInvite',
+  Duo: 'Duo',
+  DuoMember: 'DuoMember',
+  Habit: 'Habit',
   CheckIn: 'CheckIn',
   Notification: 'Notification',
   Poke: 'Poke'
@@ -420,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "habitPair" | "pairMember" | "pairInvite" | "checkIn" | "notification" | "poke"
+    modelProps: "user" | "refreshToken" | "duo" | "duoMember" | "habit" | "checkIn" | "notification" | "poke"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -572,225 +572,225 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    HabitPair: {
-      payload: Prisma.$HabitPairPayload<ExtArgs>
-      fields: Prisma.HabitPairFieldRefs
+    Duo: {
+      payload: Prisma.$DuoPayload<ExtArgs>
+      fields: Prisma.DuoFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.HabitPairFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload> | null
+          args: Prisma.DuoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.HabitPairFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>
+          args: Prisma.DuoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>
         }
         findFirst: {
-          args: Prisma.HabitPairFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload> | null
+          args: Prisma.DuoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.HabitPairFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>
+          args: Prisma.DuoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>
         }
         findMany: {
-          args: Prisma.HabitPairFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>[]
+          args: Prisma.DuoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>[]
         }
         create: {
-          args: Prisma.HabitPairCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>
+          args: Prisma.DuoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>
         }
         createMany: {
-          args: Prisma.HabitPairCreateManyArgs<ExtArgs>
+          args: Prisma.DuoCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.HabitPairCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>[]
+          args: Prisma.DuoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>[]
         }
         delete: {
-          args: Prisma.HabitPairDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>
+          args: Prisma.DuoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>
         }
         update: {
-          args: Prisma.HabitPairUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>
+          args: Prisma.DuoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>
         }
         deleteMany: {
-          args: Prisma.HabitPairDeleteManyArgs<ExtArgs>
+          args: Prisma.DuoDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.HabitPairUpdateManyArgs<ExtArgs>
+          args: Prisma.DuoUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.HabitPairUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>[]
+          args: Prisma.DuoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>[]
         }
         upsert: {
-          args: Prisma.HabitPairUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPairPayload>
+          args: Prisma.DuoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPayload>
         }
         aggregate: {
-          args: Prisma.HabitPairAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateHabitPair>
+          args: Prisma.DuoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDuo>
         }
         groupBy: {
-          args: Prisma.HabitPairGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.HabitPairGroupByOutputType>[]
+          args: Prisma.DuoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DuoGroupByOutputType>[]
         }
         count: {
-          args: Prisma.HabitPairCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.HabitPairCountAggregateOutputType> | number
+          args: Prisma.DuoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DuoCountAggregateOutputType> | number
         }
       }
     }
-    PairMember: {
-      payload: Prisma.$PairMemberPayload<ExtArgs>
-      fields: Prisma.PairMemberFieldRefs
+    DuoMember: {
+      payload: Prisma.$DuoMemberPayload<ExtArgs>
+      fields: Prisma.DuoMemberFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.PairMemberFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload> | null
+          args: Prisma.DuoMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.PairMemberFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>
+          args: Prisma.DuoMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>
         }
         findFirst: {
-          args: Prisma.PairMemberFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload> | null
+          args: Prisma.DuoMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.PairMemberFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>
+          args: Prisma.DuoMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>
         }
         findMany: {
-          args: Prisma.PairMemberFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>[]
+          args: Prisma.DuoMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>[]
         }
         create: {
-          args: Prisma.PairMemberCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>
+          args: Prisma.DuoMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>
         }
         createMany: {
-          args: Prisma.PairMemberCreateManyArgs<ExtArgs>
+          args: Prisma.DuoMemberCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.PairMemberCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>[]
+          args: Prisma.DuoMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>[]
         }
         delete: {
-          args: Prisma.PairMemberDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>
+          args: Prisma.DuoMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>
         }
         update: {
-          args: Prisma.PairMemberUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>
+          args: Prisma.DuoMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>
         }
         deleteMany: {
-          args: Prisma.PairMemberDeleteManyArgs<ExtArgs>
+          args: Prisma.DuoMemberDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.PairMemberUpdateManyArgs<ExtArgs>
+          args: Prisma.DuoMemberUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.PairMemberUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>[]
+          args: Prisma.DuoMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>[]
         }
         upsert: {
-          args: Prisma.PairMemberUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairMemberPayload>
+          args: Prisma.DuoMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoMemberPayload>
         }
         aggregate: {
-          args: Prisma.PairMemberAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregatePairMember>
+          args: Prisma.DuoMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDuoMember>
         }
         groupBy: {
-          args: Prisma.PairMemberGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PairMemberGroupByOutputType>[]
+          args: Prisma.DuoMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DuoMemberGroupByOutputType>[]
         }
         count: {
-          args: Prisma.PairMemberCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PairMemberCountAggregateOutputType> | number
+          args: Prisma.DuoMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DuoMemberCountAggregateOutputType> | number
         }
       }
     }
-    PairInvite: {
-      payload: Prisma.$PairInvitePayload<ExtArgs>
-      fields: Prisma.PairInviteFieldRefs
+    Habit: {
+      payload: Prisma.$HabitPayload<ExtArgs>
+      fields: Prisma.HabitFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.PairInviteFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload> | null
+          args: Prisma.HabitFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.PairInviteFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>
+          args: Prisma.HabitFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>
         }
         findFirst: {
-          args: Prisma.PairInviteFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload> | null
+          args: Prisma.HabitFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.PairInviteFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>
+          args: Prisma.HabitFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>
         }
         findMany: {
-          args: Prisma.PairInviteFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>[]
+          args: Prisma.HabitFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>[]
         }
         create: {
-          args: Prisma.PairInviteCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>
+          args: Prisma.HabitCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>
         }
         createMany: {
-          args: Prisma.PairInviteCreateManyArgs<ExtArgs>
+          args: Prisma.HabitCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.PairInviteCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>[]
+          args: Prisma.HabitCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>[]
         }
         delete: {
-          args: Prisma.PairInviteDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>
+          args: Prisma.HabitDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>
         }
         update: {
-          args: Prisma.PairInviteUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>
+          args: Prisma.HabitUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>
         }
         deleteMany: {
-          args: Prisma.PairInviteDeleteManyArgs<ExtArgs>
+          args: Prisma.HabitDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.PairInviteUpdateManyArgs<ExtArgs>
+          args: Prisma.HabitUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.PairInviteUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>[]
+          args: Prisma.HabitUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>[]
         }
         upsert: {
-          args: Prisma.PairInviteUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PairInvitePayload>
+          args: Prisma.HabitUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$HabitPayload>
         }
         aggregate: {
-          args: Prisma.PairInviteAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregatePairInvite>
+          args: Prisma.HabitAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateHabit>
         }
         groupBy: {
-          args: Prisma.PairInviteGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PairInviteGroupByOutputType>[]
+          args: Prisma.HabitGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HabitGroupByOutputType>[]
         }
         count: {
-          args: Prisma.PairInviteCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.PairInviteCountAggregateOutputType> | number
+          args: Prisma.HabitCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.HabitCountAggregateOutputType> | number
         }
       }
     }
@@ -1058,9 +1058,12 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  passwordHash: 'passwordHash',
   name: 'name',
+  avatarUrl: 'avatarUrl',
+  lastSeenAt: 'lastSeenAt',
   createdAt: 'createdAt',
-  passwordHash: 'passwordHash'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1068,61 +1071,58 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const RefreshTokenScalarFieldEnum = {
   id: 'id',
-  token: 'token',
+  tokenHash: 'tokenHash',
   userId: 'userId',
   expiresAt: 'expiresAt',
-  revoked: 'revoked'
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt'
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
-export const HabitPairScalarFieldEnum = {
+export const DuoScalarFieldEnum = {
   id: 'id',
-  habitName: 'habitName',
-  deadlineHour: 'deadlineHour',
-  timezone: 'timezone',
-  currentStreak: 'currentStreak',
-  bestStreak: 'bestStreak',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type HabitPairScalarFieldEnum = (typeof HabitPairScalarFieldEnum)[keyof typeof HabitPairScalarFieldEnum]
+export type DuoScalarFieldEnum = (typeof DuoScalarFieldEnum)[keyof typeof DuoScalarFieldEnum]
 
 
-export const PairMemberScalarFieldEnum = {
-  id: 'id',
+export const DuoMemberScalarFieldEnum = {
+  duoId: 'duoId',
   userId: 'userId',
-  pairId: 'pairId',
-  role: 'role',
   joinedAt: 'joinedAt'
 } as const
 
-export type PairMemberScalarFieldEnum = (typeof PairMemberScalarFieldEnum)[keyof typeof PairMemberScalarFieldEnum]
+export type DuoMemberScalarFieldEnum = (typeof DuoMemberScalarFieldEnum)[keyof typeof DuoMemberScalarFieldEnum]
 
 
-export const PairInviteScalarFieldEnum = {
+export const HabitScalarFieldEnum = {
   id: 'id',
-  pairId: 'pairId',
-  senderId: 'senderId',
-  token: 'token',
-  email: 'email',
-  status: 'status',
-  expiresAt: 'expiresAt'
+  duoId: 'duoId',
+  name: 'name',
+  description: 'description',
+  frequency: 'frequency',
+  deadline: 'deadline',
+  startDate: 'startDate',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type PairInviteScalarFieldEnum = (typeof PairInviteScalarFieldEnum)[keyof typeof PairInviteScalarFieldEnum]
+export type HabitScalarFieldEnum = (typeof HabitScalarFieldEnum)[keyof typeof HabitScalarFieldEnum]
 
 
 export const CheckInScalarFieldEnum = {
   id: 'id',
-  pairId: 'pairId',
+  habitId: 'habitId',
   userId: 'userId',
-  imageUrl: 'imageUrl',
-  note: 'note',
   date: 'date',
-  onTime: 'onTime',
+  photoUrl: 'photoUrl',
+  note: 'note',
   createdAt: 'createdAt'
 } as const
 
@@ -1143,9 +1143,9 @@ export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[k
 
 export const PokeScalarFieldEnum = {
   id: 'id',
-  pairId: 'pairId',
-  senderId: 'senderId',
-  receiverId: 'receiverId',
+  fromUserId: 'fromUserId',
+  toUserId: 'toUserId',
+  habitId: 'habitId',
   createdAt: 'createdAt'
 } as const
 
@@ -1227,6 +1227,34 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'DuoStatus'
+ */
+export type EnumDuoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DuoStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DuoStatus[]'
+ */
+export type ListEnumDuoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DuoStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'HabitFrequency'
+ */
+export type EnumHabitFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitFrequency'>
+    
+
+
+/**
+ * Reference to a field of type 'HabitFrequency[]'
+ */
+export type ListEnumHabitFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitFrequency[]'>
+    
+
+
+/**
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -1234,72 +1262,16 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Int'
+ * Reference to a field of type 'NotificationType'
  */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType'>
     
 
 
 /**
- * Reference to a field of type 'Int[]'
+ * Reference to a field of type 'NotificationType[]'
  */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
- * Reference to a field of type 'PairStatus'
- */
-export type EnumPairStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PairStatus'>
-    
-
-
-/**
- * Reference to a field of type 'PairStatus[]'
- */
-export type ListEnumPairStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PairStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'PairRole'
- */
-export type EnumPairRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PairRole'>
-    
-
-
-/**
- * Reference to a field of type 'PairRole[]'
- */
-export type ListEnumPairRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PairRole[]'>
-    
-
-
-/**
- * Reference to a field of type 'InviteStatus'
- */
-export type EnumInviteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InviteStatus'>
-    
-
-
-/**
- * Reference to a field of type 'InviteStatus[]'
- */
-export type ListEnumInviteStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InviteStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'NotifType'
- */
-export type EnumNotifTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotifType'>
-    
-
-
-/**
- * Reference to a field of type 'NotifType[]'
- */
-export type ListEnumNotifTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotifType[]'>
+export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
     
 
 
@@ -1318,16 +1290,16 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
- * Reference to a field of type 'Float'
+ * Reference to a field of type 'Int'
  */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
 /**
- * Reference to a field of type 'Float[]'
+ * Reference to a field of type 'Int[]'
  */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 /**
@@ -1483,9 +1455,9 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   refreshToken?: Prisma.RefreshTokenOmit
-  habitPair?: Prisma.HabitPairOmit
-  pairMember?: Prisma.PairMemberOmit
-  pairInvite?: Prisma.PairInviteOmit
+  duo?: Prisma.DuoOmit
+  duoMember?: Prisma.DuoMemberOmit
+  habit?: Prisma.HabitOmit
   checkIn?: Prisma.CheckInOmit
   notification?: Prisma.NotificationOmit
   poke?: Prisma.PokeOmit

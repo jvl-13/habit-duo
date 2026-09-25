@@ -10,9 +10,9 @@
  */
 export type * from './models/User.js'
 export type * from './models/RefreshToken.js'
-export type * from './models/HabitPair.js'
-export type * from './models/PairMember.js'
-export type * from './models/PairInvite.js'
+export type * from './models/Duo.js'
+export type * from './models/DuoMember.js'
+export type * from './models/Habit.js'
 export type * from './models/CheckIn.js'
 export type * from './models/Notification.js'
 export type * from './models/Poke.js'

@@ -28,20 +28,20 @@ export type User = Prisma.UserModel
  */
 export type RefreshToken = Prisma.RefreshTokenModel
 /**
- * Model HabitPair
+ * Model Duo
  * 
  */
-export type HabitPair = Prisma.HabitPairModel
+export type Duo = Prisma.DuoModel
 /**
- * Model PairMember
+ * Model DuoMember
  * 
  */
-export type PairMember = Prisma.PairMemberModel
+export type DuoMember = Prisma.DuoMemberModel
 /**
- * Model PairInvite
+ * Model Habit
  * 
  */
-export type PairInvite = Prisma.PairInviteModel
+export type Habit = Prisma.HabitModel
 /**
  * Model CheckIn
  * 

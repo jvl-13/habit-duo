@@ -26,25 +26,25 @@ export type AggregatePoke = {
 
 export type PokeMinAggregateOutputType = {
   id: string | null
-  pairId: string | null
-  senderId: string | null
-  receiverId: string | null
+  fromUserId: string | null
+  toUserId: string | null
+  habitId: string | null
   createdAt: Date | null
 }
 
 export type PokeMaxAggregateOutputType = {
   id: string | null
-  pairId: string | null
-  senderId: string | null
-  receiverId: string | null
+  fromUserId: string | null
+  toUserId: string | null
+  habitId: string | null
   createdAt: Date | null
 }
 
 export type PokeCountAggregateOutputType = {
   id: number
-  pairId: number
-  senderId: number
-  receiverId: number
+  fromUserId: number
+  toUserId: number
+  habitId: number
   createdAt: number
   _all: number
 }
@@ -52,25 +52,25 @@ export type PokeCountAggregateOutputType = {
 
 export type PokeMinAggregateInputType = {
   id?: true
-  pairId?: true
-  senderId?: true
-  receiverId?: true
+  fromUserId?: true
+  toUserId?: true
+  habitId?: true
   createdAt?: true
 }
 
 export type PokeMaxAggregateInputType = {
   id?: true
-  pairId?: true
-  senderId?: true
-  receiverId?: true
+  fromUserId?: true
+  toUserId?: true
+  habitId?: true
   createdAt?: true
 }
 
 export type PokeCountAggregateInputType = {
   id?: true
-  pairId?: true
-  senderId?: true
-  receiverId?: true
+  fromUserId?: true
+  toUserId?: true
+  habitId?: true
   createdAt?: true
   _all?: true
 }
@@ -149,9 +149,9 @@ export type PokeGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type PokeGroupByOutputType = {
   id: string
-  pairId: string
-  senderId: string
-  receiverId: string
+  fromUserId: string
+  toUserId: string
+  habitId: string
   createdAt: Date
   _count: PokeCountAggregateOutputType | null
   _min: PokeMinAggregateOutputType | null
@@ -178,20 +178,24 @@ export type PokeWhereInput = {
   OR?: Prisma.PokeWhereInput[]
   NOT?: Prisma.PokeWhereInput | Prisma.PokeWhereInput[]
   id?: Prisma.StringFilter<"Poke"> | string
-  pairId?: Prisma.StringFilter<"Poke"> | string
-  senderId?: Prisma.StringFilter<"Poke"> | string
-  receiverId?: Prisma.StringFilter<"Poke"> | string
+  fromUserId?: Prisma.StringFilter<"Poke"> | string
+  toUserId?: Prisma.StringFilter<"Poke"> | string
+  habitId?: Prisma.StringFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeFilter<"Poke"> | Date | string
-  pair?: Prisma.XOR<Prisma.HabitPairScalarRelationFilter, Prisma.HabitPairWhereInput>
+  fromUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  toUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  habit?: Prisma.XOR<Prisma.HabitScalarRelationFilter, Prisma.HabitWhereInput>
 }
 
 export type PokeOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  receiverId?: Prisma.SortOrder
+  fromUserId?: Prisma.SortOrder
+  toUserId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  pair?: Prisma.HabitPairOrderByWithRelationInput
+  fromUser?: Prisma.UserOrderByWithRelationInput
+  toUser?: Prisma.UserOrderByWithRelationInput
+  habit?: Prisma.HabitOrderByWithRelationInput
 }
 
 export type PokeWhereUniqueInput = Prisma.AtLeast<{
@@ -199,18 +203,20 @@ export type PokeWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PokeWhereInput | Prisma.PokeWhereInput[]
   OR?: Prisma.PokeWhereInput[]
   NOT?: Prisma.PokeWhereInput | Prisma.PokeWhereInput[]
-  pairId?: Prisma.StringFilter<"Poke"> | string
-  senderId?: Prisma.StringFilter<"Poke"> | string
-  receiverId?: Prisma.StringFilter<"Poke"> | string
+  fromUserId?: Prisma.StringFilter<"Poke"> | string
+  toUserId?: Prisma.StringFilter<"Poke"> | string
+  habitId?: Prisma.StringFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeFilter<"Poke"> | Date | string
-  pair?: Prisma.XOR<Prisma.HabitPairScalarRelationFilter, Prisma.HabitPairWhereInput>
+  fromUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  toUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  habit?: Prisma.XOR<Prisma.HabitScalarRelationFilter, Prisma.HabitWhereInput>
 }, "id">
 
 export type PokeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  receiverId?: Prisma.SortOrder
+  fromUserId?: Prisma.SortOrder
+  toUserId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PokeCountOrderByAggregateInput
   _max?: Prisma.PokeMaxOrderByAggregateInput
@@ -222,64 +228,62 @@ export type PokeScalarWhereWithAggregatesInput = {
   OR?: Prisma.PokeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PokeScalarWhereWithAggregatesInput | Prisma.PokeScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Poke"> | string
-  pairId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
-  senderId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
-  receiverId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
+  fromUserId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
+  toUserId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
+  habitId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Poke"> | Date | string
 }
 
 export type PokeCreateInput = {
   id?: string
-  senderId: string
-  receiverId: string
   createdAt?: Date | string
-  pair: Prisma.HabitPairCreateNestedOneWithoutPokesInput
+  fromUser: Prisma.UserCreateNestedOneWithoutSentPokesInput
+  toUser: Prisma.UserCreateNestedOneWithoutReceivedPokesInput
+  habit: Prisma.HabitCreateNestedOneWithoutPokesInput
 }
 
 export type PokeUncheckedCreateInput = {
   id?: string
-  pairId: string
-  senderId: string
-  receiverId: string
+  fromUserId: string
+  toUserId: string
+  habitId: string
   createdAt?: Date | string
 }
 
 export type PokeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  receiverId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  pair?: Prisma.HabitPairUpdateOneRequiredWithoutPokesNestedInput
+  fromUser?: Prisma.UserUpdateOneRequiredWithoutSentPokesNestedInput
+  toUser?: Prisma.UserUpdateOneRequiredWithoutReceivedPokesNestedInput
+  habit?: Prisma.HabitUpdateOneRequiredWithoutPokesNestedInput
 }
 
 export type PokeUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  pairId?: Prisma.StringFieldUpdateOperationsInput | string
-  senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  receiverId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  toUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PokeCreateManyInput = {
   id?: string
-  pairId: string
-  senderId: string
-  receiverId: string
+  fromUserId: string
+  toUserId: string
+  habitId: string
   createdAt?: Date | string
 }
 
 export type PokeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  receiverId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PokeUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  pairId?: Prisma.StringFieldUpdateOperationsInput | string
-  senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  receiverId?: Prisma.StringFieldUpdateOperationsInput | string
+  fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  toUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -295,108 +299,216 @@ export type PokeOrderByRelationAggregateInput = {
 
 export type PokeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  receiverId?: Prisma.SortOrder
+  fromUserId?: Prisma.SortOrder
+  toUserId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type PokeMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  receiverId?: Prisma.SortOrder
+  fromUserId?: Prisma.SortOrder
+  toUserId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type PokeMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  pairId?: Prisma.SortOrder
-  senderId?: Prisma.SortOrder
-  receiverId?: Prisma.SortOrder
+  fromUserId?: Prisma.SortOrder
+  toUserId?: Prisma.SortOrder
+  habitId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
-export type PokeCreateNestedManyWithoutPairInput = {
-  create?: Prisma.XOR<Prisma.PokeCreateWithoutPairInput, Prisma.PokeUncheckedCreateWithoutPairInput> | Prisma.PokeCreateWithoutPairInput[] | Prisma.PokeUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutPairInput | Prisma.PokeCreateOrConnectWithoutPairInput[]
-  createMany?: Prisma.PokeCreateManyPairInputEnvelope
+export type PokeCreateNestedManyWithoutFromUserInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutFromUserInput, Prisma.PokeUncheckedCreateWithoutFromUserInput> | Prisma.PokeCreateWithoutFromUserInput[] | Prisma.PokeUncheckedCreateWithoutFromUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutFromUserInput | Prisma.PokeCreateOrConnectWithoutFromUserInput[]
+  createMany?: Prisma.PokeCreateManyFromUserInputEnvelope
   connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
 }
 
-export type PokeUncheckedCreateNestedManyWithoutPairInput = {
-  create?: Prisma.XOR<Prisma.PokeCreateWithoutPairInput, Prisma.PokeUncheckedCreateWithoutPairInput> | Prisma.PokeCreateWithoutPairInput[] | Prisma.PokeUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutPairInput | Prisma.PokeCreateOrConnectWithoutPairInput[]
-  createMany?: Prisma.PokeCreateManyPairInputEnvelope
+export type PokeCreateNestedManyWithoutToUserInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutToUserInput, Prisma.PokeUncheckedCreateWithoutToUserInput> | Prisma.PokeCreateWithoutToUserInput[] | Prisma.PokeUncheckedCreateWithoutToUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutToUserInput | Prisma.PokeCreateOrConnectWithoutToUserInput[]
+  createMany?: Prisma.PokeCreateManyToUserInputEnvelope
   connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
 }
 
-export type PokeUpdateManyWithoutPairNestedInput = {
-  create?: Prisma.XOR<Prisma.PokeCreateWithoutPairInput, Prisma.PokeUncheckedCreateWithoutPairInput> | Prisma.PokeCreateWithoutPairInput[] | Prisma.PokeUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutPairInput | Prisma.PokeCreateOrConnectWithoutPairInput[]
-  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutPairInput | Prisma.PokeUpsertWithWhereUniqueWithoutPairInput[]
-  createMany?: Prisma.PokeCreateManyPairInputEnvelope
+export type PokeUncheckedCreateNestedManyWithoutFromUserInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutFromUserInput, Prisma.PokeUncheckedCreateWithoutFromUserInput> | Prisma.PokeCreateWithoutFromUserInput[] | Prisma.PokeUncheckedCreateWithoutFromUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutFromUserInput | Prisma.PokeCreateOrConnectWithoutFromUserInput[]
+  createMany?: Prisma.PokeCreateManyFromUserInputEnvelope
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+}
+
+export type PokeUncheckedCreateNestedManyWithoutToUserInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutToUserInput, Prisma.PokeUncheckedCreateWithoutToUserInput> | Prisma.PokeCreateWithoutToUserInput[] | Prisma.PokeUncheckedCreateWithoutToUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutToUserInput | Prisma.PokeCreateOrConnectWithoutToUserInput[]
+  createMany?: Prisma.PokeCreateManyToUserInputEnvelope
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+}
+
+export type PokeUpdateManyWithoutFromUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutFromUserInput, Prisma.PokeUncheckedCreateWithoutFromUserInput> | Prisma.PokeCreateWithoutFromUserInput[] | Prisma.PokeUncheckedCreateWithoutFromUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutFromUserInput | Prisma.PokeCreateOrConnectWithoutFromUserInput[]
+  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutFromUserInput | Prisma.PokeUpsertWithWhereUniqueWithoutFromUserInput[]
+  createMany?: Prisma.PokeCreateManyFromUserInputEnvelope
   set?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
   disconnect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
   delete?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
   connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
-  update?: Prisma.PokeUpdateWithWhereUniqueWithoutPairInput | Prisma.PokeUpdateWithWhereUniqueWithoutPairInput[]
-  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutPairInput | Prisma.PokeUpdateManyWithWhereWithoutPairInput[]
+  update?: Prisma.PokeUpdateWithWhereUniqueWithoutFromUserInput | Prisma.PokeUpdateWithWhereUniqueWithoutFromUserInput[]
+  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutFromUserInput | Prisma.PokeUpdateManyWithWhereWithoutFromUserInput[]
   deleteMany?: Prisma.PokeScalarWhereInput | Prisma.PokeScalarWhereInput[]
 }
 
-export type PokeUncheckedUpdateManyWithoutPairNestedInput = {
-  create?: Prisma.XOR<Prisma.PokeCreateWithoutPairInput, Prisma.PokeUncheckedCreateWithoutPairInput> | Prisma.PokeCreateWithoutPairInput[] | Prisma.PokeUncheckedCreateWithoutPairInput[]
-  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutPairInput | Prisma.PokeCreateOrConnectWithoutPairInput[]
-  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutPairInput | Prisma.PokeUpsertWithWhereUniqueWithoutPairInput[]
-  createMany?: Prisma.PokeCreateManyPairInputEnvelope
+export type PokeUpdateManyWithoutToUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutToUserInput, Prisma.PokeUncheckedCreateWithoutToUserInput> | Prisma.PokeCreateWithoutToUserInput[] | Prisma.PokeUncheckedCreateWithoutToUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutToUserInput | Prisma.PokeCreateOrConnectWithoutToUserInput[]
+  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutToUserInput | Prisma.PokeUpsertWithWhereUniqueWithoutToUserInput[]
+  createMany?: Prisma.PokeCreateManyToUserInputEnvelope
   set?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
   disconnect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
   delete?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
   connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
-  update?: Prisma.PokeUpdateWithWhereUniqueWithoutPairInput | Prisma.PokeUpdateWithWhereUniqueWithoutPairInput[]
-  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutPairInput | Prisma.PokeUpdateManyWithWhereWithoutPairInput[]
+  update?: Prisma.PokeUpdateWithWhereUniqueWithoutToUserInput | Prisma.PokeUpdateWithWhereUniqueWithoutToUserInput[]
+  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutToUserInput | Prisma.PokeUpdateManyWithWhereWithoutToUserInput[]
   deleteMany?: Prisma.PokeScalarWhereInput | Prisma.PokeScalarWhereInput[]
 }
 
-export type PokeCreateWithoutPairInput = {
+export type PokeUncheckedUpdateManyWithoutFromUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutFromUserInput, Prisma.PokeUncheckedCreateWithoutFromUserInput> | Prisma.PokeCreateWithoutFromUserInput[] | Prisma.PokeUncheckedCreateWithoutFromUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutFromUserInput | Prisma.PokeCreateOrConnectWithoutFromUserInput[]
+  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutFromUserInput | Prisma.PokeUpsertWithWhereUniqueWithoutFromUserInput[]
+  createMany?: Prisma.PokeCreateManyFromUserInputEnvelope
+  set?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  disconnect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  delete?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  update?: Prisma.PokeUpdateWithWhereUniqueWithoutFromUserInput | Prisma.PokeUpdateWithWhereUniqueWithoutFromUserInput[]
+  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutFromUserInput | Prisma.PokeUpdateManyWithWhereWithoutFromUserInput[]
+  deleteMany?: Prisma.PokeScalarWhereInput | Prisma.PokeScalarWhereInput[]
+}
+
+export type PokeUncheckedUpdateManyWithoutToUserNestedInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutToUserInput, Prisma.PokeUncheckedCreateWithoutToUserInput> | Prisma.PokeCreateWithoutToUserInput[] | Prisma.PokeUncheckedCreateWithoutToUserInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutToUserInput | Prisma.PokeCreateOrConnectWithoutToUserInput[]
+  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutToUserInput | Prisma.PokeUpsertWithWhereUniqueWithoutToUserInput[]
+  createMany?: Prisma.PokeCreateManyToUserInputEnvelope
+  set?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  disconnect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  delete?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  update?: Prisma.PokeUpdateWithWhereUniqueWithoutToUserInput | Prisma.PokeUpdateWithWhereUniqueWithoutToUserInput[]
+  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutToUserInput | Prisma.PokeUpdateManyWithWhereWithoutToUserInput[]
+  deleteMany?: Prisma.PokeScalarWhereInput | Prisma.PokeScalarWhereInput[]
+}
+
+export type PokeCreateNestedManyWithoutHabitInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutHabitInput, Prisma.PokeUncheckedCreateWithoutHabitInput> | Prisma.PokeCreateWithoutHabitInput[] | Prisma.PokeUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutHabitInput | Prisma.PokeCreateOrConnectWithoutHabitInput[]
+  createMany?: Prisma.PokeCreateManyHabitInputEnvelope
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+}
+
+export type PokeUncheckedCreateNestedManyWithoutHabitInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutHabitInput, Prisma.PokeUncheckedCreateWithoutHabitInput> | Prisma.PokeCreateWithoutHabitInput[] | Prisma.PokeUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutHabitInput | Prisma.PokeCreateOrConnectWithoutHabitInput[]
+  createMany?: Prisma.PokeCreateManyHabitInputEnvelope
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+}
+
+export type PokeUpdateManyWithoutHabitNestedInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutHabitInput, Prisma.PokeUncheckedCreateWithoutHabitInput> | Prisma.PokeCreateWithoutHabitInput[] | Prisma.PokeUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutHabitInput | Prisma.PokeCreateOrConnectWithoutHabitInput[]
+  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutHabitInput | Prisma.PokeUpsertWithWhereUniqueWithoutHabitInput[]
+  createMany?: Prisma.PokeCreateManyHabitInputEnvelope
+  set?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  disconnect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  delete?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  update?: Prisma.PokeUpdateWithWhereUniqueWithoutHabitInput | Prisma.PokeUpdateWithWhereUniqueWithoutHabitInput[]
+  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutHabitInput | Prisma.PokeUpdateManyWithWhereWithoutHabitInput[]
+  deleteMany?: Prisma.PokeScalarWhereInput | Prisma.PokeScalarWhereInput[]
+}
+
+export type PokeUncheckedUpdateManyWithoutHabitNestedInput = {
+  create?: Prisma.XOR<Prisma.PokeCreateWithoutHabitInput, Prisma.PokeUncheckedCreateWithoutHabitInput> | Prisma.PokeCreateWithoutHabitInput[] | Prisma.PokeUncheckedCreateWithoutHabitInput[]
+  connectOrCreate?: Prisma.PokeCreateOrConnectWithoutHabitInput | Prisma.PokeCreateOrConnectWithoutHabitInput[]
+  upsert?: Prisma.PokeUpsertWithWhereUniqueWithoutHabitInput | Prisma.PokeUpsertWithWhereUniqueWithoutHabitInput[]
+  createMany?: Prisma.PokeCreateManyHabitInputEnvelope
+  set?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  disconnect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  delete?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  connect?: Prisma.PokeWhereUniqueInput | Prisma.PokeWhereUniqueInput[]
+  update?: Prisma.PokeUpdateWithWhereUniqueWithoutHabitInput | Prisma.PokeUpdateWithWhereUniqueWithoutHabitInput[]
+  updateMany?: Prisma.PokeUpdateManyWithWhereWithoutHabitInput | Prisma.PokeUpdateManyWithWhereWithoutHabitInput[]
+  deleteMany?: Prisma.PokeScalarWhereInput | Prisma.PokeScalarWhereInput[]
+}
+
+export type PokeCreateWithoutFromUserInput = {
   id?: string
-  senderId: string
-  receiverId: string
+  createdAt?: Date | string
+  toUser: Prisma.UserCreateNestedOneWithoutReceivedPokesInput
+  habit: Prisma.HabitCreateNestedOneWithoutPokesInput
+}
+
+export type PokeUncheckedCreateWithoutFromUserInput = {
+  id?: string
+  toUserId: string
+  habitId: string
   createdAt?: Date | string
 }
 
-export type PokeUncheckedCreateWithoutPairInput = {
-  id?: string
-  senderId: string
-  receiverId: string
-  createdAt?: Date | string
-}
-
-export type PokeCreateOrConnectWithoutPairInput = {
+export type PokeCreateOrConnectWithoutFromUserInput = {
   where: Prisma.PokeWhereUniqueInput
-  create: Prisma.XOR<Prisma.PokeCreateWithoutPairInput, Prisma.PokeUncheckedCreateWithoutPairInput>
+  create: Prisma.XOR<Prisma.PokeCreateWithoutFromUserInput, Prisma.PokeUncheckedCreateWithoutFromUserInput>
 }
 
-export type PokeCreateManyPairInputEnvelope = {
-  data: Prisma.PokeCreateManyPairInput | Prisma.PokeCreateManyPairInput[]
+export type PokeCreateManyFromUserInputEnvelope = {
+  data: Prisma.PokeCreateManyFromUserInput | Prisma.PokeCreateManyFromUserInput[]
   skipDuplicates?: boolean
 }
 
-export type PokeUpsertWithWhereUniqueWithoutPairInput = {
-  where: Prisma.PokeWhereUniqueInput
-  update: Prisma.XOR<Prisma.PokeUpdateWithoutPairInput, Prisma.PokeUncheckedUpdateWithoutPairInput>
-  create: Prisma.XOR<Prisma.PokeCreateWithoutPairInput, Prisma.PokeUncheckedCreateWithoutPairInput>
+export type PokeCreateWithoutToUserInput = {
+  id?: string
+  createdAt?: Date | string
+  fromUser: Prisma.UserCreateNestedOneWithoutSentPokesInput
+  habit: Prisma.HabitCreateNestedOneWithoutPokesInput
 }
 
-export type PokeUpdateWithWhereUniqueWithoutPairInput = {
-  where: Prisma.PokeWhereUniqueInput
-  data: Prisma.XOR<Prisma.PokeUpdateWithoutPairInput, Prisma.PokeUncheckedUpdateWithoutPairInput>
+export type PokeUncheckedCreateWithoutToUserInput = {
+  id?: string
+  fromUserId: string
+  habitId: string
+  createdAt?: Date | string
 }
 
-export type PokeUpdateManyWithWhereWithoutPairInput = {
+export type PokeCreateOrConnectWithoutToUserInput = {
+  where: Prisma.PokeWhereUniqueInput
+  create: Prisma.XOR<Prisma.PokeCreateWithoutToUserInput, Prisma.PokeUncheckedCreateWithoutToUserInput>
+}
+
+export type PokeCreateManyToUserInputEnvelope = {
+  data: Prisma.PokeCreateManyToUserInput | Prisma.PokeCreateManyToUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type PokeUpsertWithWhereUniqueWithoutFromUserInput = {
+  where: Prisma.PokeWhereUniqueInput
+  update: Prisma.XOR<Prisma.PokeUpdateWithoutFromUserInput, Prisma.PokeUncheckedUpdateWithoutFromUserInput>
+  create: Prisma.XOR<Prisma.PokeCreateWithoutFromUserInput, Prisma.PokeUncheckedCreateWithoutFromUserInput>
+}
+
+export type PokeUpdateWithWhereUniqueWithoutFromUserInput = {
+  where: Prisma.PokeWhereUniqueInput
+  data: Prisma.XOR<Prisma.PokeUpdateWithoutFromUserInput, Prisma.PokeUncheckedUpdateWithoutFromUserInput>
+}
+
+export type PokeUpdateManyWithWhereWithoutFromUserInput = {
   where: Prisma.PokeScalarWhereInput
-  data: Prisma.XOR<Prisma.PokeUpdateManyMutationInput, Prisma.PokeUncheckedUpdateManyWithoutPairInput>
+  data: Prisma.XOR<Prisma.PokeUpdateManyMutationInput, Prisma.PokeUncheckedUpdateManyWithoutFromUserInput>
 }
 
 export type PokeScalarWhereInput = {
@@ -404,37 +516,149 @@ export type PokeScalarWhereInput = {
   OR?: Prisma.PokeScalarWhereInput[]
   NOT?: Prisma.PokeScalarWhereInput | Prisma.PokeScalarWhereInput[]
   id?: Prisma.StringFilter<"Poke"> | string
-  pairId?: Prisma.StringFilter<"Poke"> | string
-  senderId?: Prisma.StringFilter<"Poke"> | string
-  receiverId?: Prisma.StringFilter<"Poke"> | string
+  fromUserId?: Prisma.StringFilter<"Poke"> | string
+  toUserId?: Prisma.StringFilter<"Poke"> | string
+  habitId?: Prisma.StringFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeFilter<"Poke"> | Date | string
 }
 
-export type PokeCreateManyPairInput = {
+export type PokeUpsertWithWhereUniqueWithoutToUserInput = {
+  where: Prisma.PokeWhereUniqueInput
+  update: Prisma.XOR<Prisma.PokeUpdateWithoutToUserInput, Prisma.PokeUncheckedUpdateWithoutToUserInput>
+  create: Prisma.XOR<Prisma.PokeCreateWithoutToUserInput, Prisma.PokeUncheckedCreateWithoutToUserInput>
+}
+
+export type PokeUpdateWithWhereUniqueWithoutToUserInput = {
+  where: Prisma.PokeWhereUniqueInput
+  data: Prisma.XOR<Prisma.PokeUpdateWithoutToUserInput, Prisma.PokeUncheckedUpdateWithoutToUserInput>
+}
+
+export type PokeUpdateManyWithWhereWithoutToUserInput = {
+  where: Prisma.PokeScalarWhereInput
+  data: Prisma.XOR<Prisma.PokeUpdateManyMutationInput, Prisma.PokeUncheckedUpdateManyWithoutToUserInput>
+}
+
+export type PokeCreateWithoutHabitInput = {
   id?: string
-  senderId: string
-  receiverId: string
+  createdAt?: Date | string
+  fromUser: Prisma.UserCreateNestedOneWithoutSentPokesInput
+  toUser: Prisma.UserCreateNestedOneWithoutReceivedPokesInput
+}
+
+export type PokeUncheckedCreateWithoutHabitInput = {
+  id?: string
+  fromUserId: string
+  toUserId: string
   createdAt?: Date | string
 }
 
-export type PokeUpdateWithoutPairInput = {
+export type PokeCreateOrConnectWithoutHabitInput = {
+  where: Prisma.PokeWhereUniqueInput
+  create: Prisma.XOR<Prisma.PokeCreateWithoutHabitInput, Prisma.PokeUncheckedCreateWithoutHabitInput>
+}
+
+export type PokeCreateManyHabitInputEnvelope = {
+  data: Prisma.PokeCreateManyHabitInput | Prisma.PokeCreateManyHabitInput[]
+  skipDuplicates?: boolean
+}
+
+export type PokeUpsertWithWhereUniqueWithoutHabitInput = {
+  where: Prisma.PokeWhereUniqueInput
+  update: Prisma.XOR<Prisma.PokeUpdateWithoutHabitInput, Prisma.PokeUncheckedUpdateWithoutHabitInput>
+  create: Prisma.XOR<Prisma.PokeCreateWithoutHabitInput, Prisma.PokeUncheckedCreateWithoutHabitInput>
+}
+
+export type PokeUpdateWithWhereUniqueWithoutHabitInput = {
+  where: Prisma.PokeWhereUniqueInput
+  data: Prisma.XOR<Prisma.PokeUpdateWithoutHabitInput, Prisma.PokeUncheckedUpdateWithoutHabitInput>
+}
+
+export type PokeUpdateManyWithWhereWithoutHabitInput = {
+  where: Prisma.PokeScalarWhereInput
+  data: Prisma.XOR<Prisma.PokeUpdateManyMutationInput, Prisma.PokeUncheckedUpdateManyWithoutHabitInput>
+}
+
+export type PokeCreateManyFromUserInput = {
+  id?: string
+  toUserId: string
+  habitId: string
+  createdAt?: Date | string
+}
+
+export type PokeCreateManyToUserInput = {
+  id?: string
+  fromUserId: string
+  habitId: string
+  createdAt?: Date | string
+}
+
+export type PokeUpdateWithoutFromUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  receiverId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  toUser?: Prisma.UserUpdateOneRequiredWithoutReceivedPokesNestedInput
+  habit?: Prisma.HabitUpdateOneRequiredWithoutPokesNestedInput
+}
+
+export type PokeUncheckedUpdateWithoutFromUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  toUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PokeUncheckedUpdateWithoutPairInput = {
+export type PokeUncheckedUpdateManyWithoutFromUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  receiverId?: Prisma.StringFieldUpdateOperationsInput | string
+  toUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PokeUncheckedUpdateManyWithoutPairInput = {
+export type PokeUpdateWithoutToUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderId?: Prisma.StringFieldUpdateOperationsInput | string
-  receiverId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fromUser?: Prisma.UserUpdateOneRequiredWithoutSentPokesNestedInput
+  habit?: Prisma.HabitUpdateOneRequiredWithoutPokesNestedInput
+}
+
+export type PokeUncheckedUpdateWithoutToUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PokeUncheckedUpdateManyWithoutToUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PokeCreateManyHabitInput = {
+  id?: string
+  fromUserId: string
+  toUserId: string
+  createdAt?: Date | string
+}
+
+export type PokeUpdateWithoutHabitInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  fromUser?: Prisma.UserUpdateOneRequiredWithoutSentPokesNestedInput
+  toUser?: Prisma.UserUpdateOneRequiredWithoutReceivedPokesNestedInput
+}
+
+export type PokeUncheckedUpdateWithoutHabitInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  toUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PokeUncheckedUpdateManyWithoutHabitInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  toUserId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -442,60 +666,74 @@ export type PokeUncheckedUpdateManyWithoutPairInput = {
 
 export type PokeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  pairId?: boolean
-  senderId?: boolean
-  receiverId?: boolean
+  fromUserId?: boolean
+  toUserId?: boolean
+  habitId?: boolean
   createdAt?: boolean
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["poke"]>
 
 export type PokeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  pairId?: boolean
-  senderId?: boolean
-  receiverId?: boolean
+  fromUserId?: boolean
+  toUserId?: boolean
+  habitId?: boolean
   createdAt?: boolean
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["poke"]>
 
 export type PokeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  pairId?: boolean
-  senderId?: boolean
-  receiverId?: boolean
+  fromUserId?: boolean
+  toUserId?: boolean
+  habitId?: boolean
   createdAt?: boolean
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["poke"]>
 
 export type PokeSelectScalar = {
   id?: boolean
-  pairId?: boolean
-  senderId?: boolean
-  receiverId?: boolean
+  fromUserId?: boolean
+  toUserId?: boolean
+  habitId?: boolean
   createdAt?: boolean
 }
 
-export type PokeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "pairId" | "senderId" | "receiverId" | "createdAt", ExtArgs["result"]["poke"]>
+export type PokeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fromUserId" | "toUserId" | "habitId" | "createdAt", ExtArgs["result"]["poke"]>
 export type PokeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
 }
 export type PokeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
 }
 export type PokeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  pair?: boolean | Prisma.HabitPairDefaultArgs<ExtArgs>
+  fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
 }
 
 export type $PokePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Poke"
   objects: {
-    pair: Prisma.$HabitPairPayload<ExtArgs>
+    fromUser: Prisma.$UserPayload<ExtArgs>
+    toUser: Prisma.$UserPayload<ExtArgs>
+    habit: Prisma.$HabitPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    pairId: string
-    senderId: string
-    receiverId: string
+    fromUserId: string
+    toUserId: string
+    habitId: string
     createdAt: Date
   }, ExtArgs["result"]["poke"]>
   composites: {}
@@ -891,7 +1129,9 @@ readonly fields: PokeFieldRefs;
  */
 export interface Prisma__PokeClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  pair<T extends Prisma.HabitPairDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HabitPairDefaultArgs<ExtArgs>>): Prisma.Prisma__HabitPairClient<runtime.Types.Result.GetResult<Prisma.$HabitPairPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  fromUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  toUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  habit<T extends Prisma.HabitDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.HabitDefaultArgs<ExtArgs>>): Prisma.Prisma__HabitClient<runtime.Types.Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -922,9 +1162,9 @@ export interface Prisma__PokeClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface PokeFieldRefs {
   readonly id: Prisma.FieldRef<"Poke", 'String'>
-  readonly pairId: Prisma.FieldRef<"Poke", 'String'>
-  readonly senderId: Prisma.FieldRef<"Poke", 'String'>
-  readonly receiverId: Prisma.FieldRef<"Poke", 'String'>
+  readonly fromUserId: Prisma.FieldRef<"Poke", 'String'>
+  readonly toUserId: Prisma.FieldRef<"Poke", 'String'>
+  readonly habitId: Prisma.FieldRef<"Poke", 'String'>
   readonly createdAt: Prisma.FieldRef<"Poke", 'DateTime'>
 }
     

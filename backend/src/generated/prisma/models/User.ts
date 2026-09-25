@@ -27,25 +27,34 @@ export type AggregateUser = {
 export type UserMinAggregateOutputType = {
   id: string | null
   email: string | null
-  name: string | null
-  createdAt: Date | null
   passwordHash: string | null
+  name: string | null
+  avatarUrl: string | null
+  lastSeenAt: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: string | null
   email: string | null
-  name: string | null
-  createdAt: Date | null
   passwordHash: string | null
+  name: string | null
+  avatarUrl: string | null
+  lastSeenAt: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
   email: number
-  name: number
-  createdAt: number
   passwordHash: number
+  name: number
+  avatarUrl: number
+  lastSeenAt: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -53,25 +62,34 @@ export type UserCountAggregateOutputType = {
 export type UserMinAggregateInputType = {
   id?: true
   email?: true
-  name?: true
-  createdAt?: true
   passwordHash?: true
+  name?: true
+  avatarUrl?: true
+  lastSeenAt?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
   email?: true
-  name?: true
-  createdAt?: true
   passwordHash?: true
+  name?: true
+  avatarUrl?: true
+  lastSeenAt?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
   email?: true
-  name?: true
-  createdAt?: true
   passwordHash?: true
+  name?: true
+  avatarUrl?: true
+  lastSeenAt?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -150,9 +168,12 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: string
   email: string
-  name: string | null
-  createdAt: Date
   passwordHash: string
+  name: string
+  avatarUrl: string | null
+  lastSeenAt: Date | null
+  createdAt: Date
+  updatedAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -179,25 +200,35 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  name?: Prisma.StringNullableFilter<"User"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   passwordHash?: Prisma.StringFilter<"User"> | string
-  sentInvites?: Prisma.PairInviteListRelationFilter
-  pairMemberships?: Prisma.PairMemberListRelationFilter
-  refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  name?: Prisma.StringFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  lastSeenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  duoMemberships?: Prisma.DuoMemberListRelationFilter
+  checkIns?: Prisma.CheckInListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  sentPokes?: Prisma.PokeListRelationFilter
+  receivedPokes?: Prisma.PokeListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
-  sentInvites?: Prisma.PairInviteOrderByRelationAggregateInput
-  pairMemberships?: Prisma.PairMemberOrderByRelationAggregateInput
-  refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
+  name?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+  duoMemberships?: Prisma.DuoMemberOrderByRelationAggregateInput
+  checkIns?: Prisma.CheckInOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  sentPokes?: Prisma.PokeOrderByRelationAggregateInput
+  receivedPokes?: Prisma.PokeOrderByRelationAggregateInput
+  refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -206,21 +237,29 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  name?: Prisma.StringNullableFilter<"User"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   passwordHash?: Prisma.StringFilter<"User"> | string
-  sentInvites?: Prisma.PairInviteListRelationFilter
-  pairMemberships?: Prisma.PairMemberListRelationFilter
-  refreshTokens?: Prisma.RefreshTokenListRelationFilter
+  name?: Prisma.StringFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  lastSeenAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  duoMemberships?: Prisma.DuoMemberListRelationFilter
+  checkIns?: Prisma.CheckInListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  sentPokes?: Prisma.PokeListRelationFilter
+  receivedPokes?: Prisma.PokeListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -232,105 +271,146 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
+  name?: Prisma.StringWithAggregatesFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  lastSeenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  sentInvites?: Prisma.PairInviteCreateNestedManyWithoutSenderInput
-  pairMemberships?: Prisma.PairMemberCreateNestedManyWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutToUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  sentInvites?: Prisma.PairInviteUncheckedCreateNestedManyWithoutSenderInput
-  pairMemberships?: Prisma.PairMemberUncheckedCreateNestedManyWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutToUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUpdateManyWithoutSenderNestedInput
-  pairMemberships?: Prisma.PairMemberUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUncheckedUpdateManyWithoutSenderNestedInput
-  pairMemberships?: Prisma.PairMemberUncheckedUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrder
+  lastSeenAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -344,6 +424,10 @@ export type StringFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -364,32 +448,32 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
-export type UserCreateNestedOneWithoutPairMembershipsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPairMembershipsInput, Prisma.UserUncheckedCreateWithoutPairMembershipsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPairMembershipsInput
+export type UserCreateNestedOneWithoutDuoMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDuoMembershipsInput, Prisma.UserUncheckedCreateWithoutDuoMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDuoMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutPairMembershipsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPairMembershipsInput, Prisma.UserUncheckedCreateWithoutPairMembershipsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPairMembershipsInput
-  upsert?: Prisma.UserUpsertWithoutPairMembershipsInput
+export type UserUpdateOneRequiredWithoutDuoMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDuoMembershipsInput, Prisma.UserUncheckedCreateWithoutDuoMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDuoMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutDuoMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPairMembershipsInput, Prisma.UserUpdateWithoutPairMembershipsInput>, Prisma.UserUncheckedUpdateWithoutPairMembershipsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDuoMembershipsInput, Prisma.UserUpdateWithoutDuoMembershipsInput>, Prisma.UserUncheckedUpdateWithoutDuoMembershipsInput>
 }
 
-export type UserCreateNestedOneWithoutSentInvitesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSentInvitesInput, Prisma.UserUncheckedCreateWithoutSentInvitesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentInvitesInput
+export type UserCreateNestedOneWithoutCheckInsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCheckInsInput, Prisma.UserUncheckedCreateWithoutCheckInsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCheckInsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutSentInvitesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSentInvitesInput, Prisma.UserUncheckedCreateWithoutSentInvitesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentInvitesInput
-  upsert?: Prisma.UserUpsertWithoutSentInvitesInput
+export type UserUpdateOneRequiredWithoutCheckInsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCheckInsInput, Prisma.UserUncheckedCreateWithoutCheckInsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCheckInsInput
+  upsert?: Prisma.UserUpsertWithoutCheckInsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentInvitesInput, Prisma.UserUpdateWithoutSentInvitesInput>, Prisma.UserUncheckedUpdateWithoutSentInvitesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCheckInsInput, Prisma.UserUpdateWithoutCheckInsInput>, Prisma.UserUncheckedUpdateWithoutCheckInsInput>
 }
 
 export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -406,26 +490,64 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
+export type UserCreateNestedOneWithoutSentPokesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentPokesInput, Prisma.UserUncheckedCreateWithoutSentPokesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentPokesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReceivedPokesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedPokesInput, Prisma.UserUncheckedCreateWithoutReceivedPokesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedPokesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentPokesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentPokesInput, Prisma.UserUncheckedCreateWithoutSentPokesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentPokesInput
+  upsert?: Prisma.UserUpsertWithoutSentPokesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentPokesInput, Prisma.UserUpdateWithoutSentPokesInput>, Prisma.UserUncheckedUpdateWithoutSentPokesInput>
+}
+
+export type UserUpdateOneRequiredWithoutReceivedPokesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedPokesInput, Prisma.UserUncheckedCreateWithoutReceivedPokesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedPokesInput
+  upsert?: Prisma.UserUpsertWithoutReceivedPokesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedPokesInput, Prisma.UserUpdateWithoutReceivedPokesInput>, Prisma.UserUncheckedUpdateWithoutReceivedPokesInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  sentInvites?: Prisma.PairInviteCreateNestedManyWithoutSenderInput
-  pairMemberships?: Prisma.PairMemberCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutToUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  sentInvites?: Prisma.PairInviteUncheckedCreateNestedManyWithoutSenderInput
-  pairMemberships?: Prisma.PairMemberUncheckedCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutToUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -447,164 +569,224 @@ export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
 export type UserUpdateWithoutRefreshTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUpdateManyWithoutSenderNestedInput
-  pairMemberships?: Prisma.PairMemberUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutToUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUncheckedUpdateManyWithoutSenderNestedInput
-  pairMemberships?: Prisma.PairMemberUncheckedUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutToUserNestedInput
 }
 
-export type UserCreateWithoutPairMembershipsInput = {
+export type UserCreateWithoutDuoMembershipsInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  sentInvites?: Prisma.PairInviteCreateNestedManyWithoutSenderInput
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutPairMembershipsInput = {
-  id?: string
-  email: string
-  name?: string | null
-  createdAt?: Date | string
-  passwordHash: string
-  sentInvites?: Prisma.PairInviteUncheckedCreateNestedManyWithoutSenderInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutPairMembershipsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutPairMembershipsInput, Prisma.UserUncheckedCreateWithoutPairMembershipsInput>
-}
-
-export type UserUpsertWithoutPairMembershipsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutPairMembershipsInput, Prisma.UserUncheckedUpdateWithoutPairMembershipsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutPairMembershipsInput, Prisma.UserUncheckedCreateWithoutPairMembershipsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutPairMembershipsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutPairMembershipsInput, Prisma.UserUncheckedUpdateWithoutPairMembershipsInput>
-}
-
-export type UserUpdateWithoutPairMembershipsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUpdateManyWithoutSenderNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutPairMembershipsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUncheckedUpdateManyWithoutSenderNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutSentInvitesInput = {
-  id?: string
-  email: string
-  name?: string | null
-  createdAt?: Date | string
-  passwordHash: string
-  pairMemberships?: Prisma.PairMemberCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutToUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutSentInvitesInput = {
+export type UserUncheckedCreateWithoutDuoMembershipsInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  pairMemberships?: Prisma.PairMemberUncheckedCreateNestedManyWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutToUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutSentInvitesInput = {
+export type UserCreateOrConnectWithoutDuoMembershipsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutSentInvitesInput, Prisma.UserUncheckedCreateWithoutSentInvitesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDuoMembershipsInput, Prisma.UserUncheckedCreateWithoutDuoMembershipsInput>
 }
 
-export type UserUpsertWithoutSentInvitesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutSentInvitesInput, Prisma.UserUncheckedUpdateWithoutSentInvitesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutSentInvitesInput, Prisma.UserUncheckedCreateWithoutSentInvitesInput>
+export type UserUpsertWithoutDuoMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDuoMembershipsInput, Prisma.UserUncheckedUpdateWithoutDuoMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDuoMembershipsInput, Prisma.UserUncheckedCreateWithoutDuoMembershipsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutSentInvitesInput = {
+export type UserUpdateToOneWithWhereWithoutDuoMembershipsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutSentInvitesInput, Prisma.UserUncheckedUpdateWithoutSentInvitesInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDuoMembershipsInput, Prisma.UserUncheckedUpdateWithoutDuoMembershipsInput>
 }
 
-export type UserUpdateWithoutSentInvitesInput = {
+export type UserUpdateWithoutDuoMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  pairMemberships?: Prisma.PairMemberUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutSentInvitesInput = {
+export type UserUncheckedUpdateWithoutDuoMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  pairMemberships?: Prisma.PairMemberUncheckedUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCheckInsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutToUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCheckInsInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutToUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCheckInsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCheckInsInput, Prisma.UserUncheckedCreateWithoutCheckInsInput>
+}
+
+export type UserUpsertWithoutCheckInsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCheckInsInput, Prisma.UserUncheckedUpdateWithoutCheckInsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCheckInsInput, Prisma.UserUncheckedCreateWithoutCheckInsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCheckInsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCheckInsInput, Prisma.UserUncheckedUpdateWithoutCheckInsInput>
+}
+
+export type UserUpdateWithoutCheckInsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCheckInsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  sentInvites?: Prisma.PairInviteCreateNestedManyWithoutSenderInput
-  pairMemberships?: Prisma.PairMemberCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutToUserInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
   id?: string
   email: string
-  name?: string | null
-  createdAt?: Date | string
   passwordHash: string
-  sentInvites?: Prisma.PairInviteUncheckedCreateNestedManyWithoutSenderInput
-  pairMemberships?: Prisma.PairMemberUncheckedCreateNestedManyWithoutUserInput
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutFromUserInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutToUserInput
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -627,22 +809,192 @@ export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
 export type UserUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUpdateManyWithoutSenderNestedInput
-  pairMemberships?: Prisma.PairMemberUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutToUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
-  sentInvites?: Prisma.PairInviteUncheckedUpdateManyWithoutSenderNestedInput
-  pairMemberships?: Prisma.PairMemberUncheckedUpdateManyWithoutUserNestedInput
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutFromUserNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSentPokesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutToUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSentPokesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutToUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSentPokesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentPokesInput, Prisma.UserUncheckedCreateWithoutSentPokesInput>
+}
+
+export type UserCreateWithoutReceivedPokesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutFromUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutReceivedPokesInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  lastSeenAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedCreateNestedManyWithoutUserInput
+  checkIns?: Prisma.CheckInUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutFromUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutReceivedPokesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedPokesInput, Prisma.UserUncheckedCreateWithoutReceivedPokesInput>
+}
+
+export type UserUpsertWithoutSentPokesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentPokesInput, Prisma.UserUncheckedUpdateWithoutSentPokesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentPokesInput, Prisma.UserUncheckedCreateWithoutSentPokesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentPokesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentPokesInput, Prisma.UserUncheckedUpdateWithoutSentPokesInput>
+}
+
+export type UserUpdateWithoutSentPokesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentPokesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutToUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutReceivedPokesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedPokesInput, Prisma.UserUncheckedUpdateWithoutReceivedPokesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedPokesInput, Prisma.UserUncheckedCreateWithoutReceivedPokesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReceivedPokesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedPokesInput, Prisma.UserUncheckedUpdateWithoutReceivedPokesInput>
+}
+
+export type UserUpdateWithoutReceivedPokesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutFromUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReceivedPokesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  duoMemberships?: Prisma.DuoMemberUncheckedUpdateManyWithoutUserNestedInput
+  checkIns?: Prisma.CheckInUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutFromUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -652,17 +1004,21 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
  */
 
 export type UserCountOutputType = {
-  sentInvites: number
-  pairMemberships: number
-  refreshTokens: number
+  duoMemberships: number
+  checkIns: number
   notifications: number
+  sentPokes: number
+  receivedPokes: number
+  refreshTokens: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sentInvites?: boolean | UserCountOutputTypeCountSentInvitesArgs
-  pairMemberships?: boolean | UserCountOutputTypeCountPairMembershipsArgs
-  refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
+  duoMemberships?: boolean | UserCountOutputTypeCountDuoMembershipsArgs
+  checkIns?: boolean | UserCountOutputTypeCountCheckInsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  sentPokes?: boolean | UserCountOutputTypeCountSentPokesArgs
+  receivedPokes?: boolean | UserCountOutputTypeCountReceivedPokesArgs
+  refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs
 }
 
 /**
@@ -678,22 +1034,15 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountSentInvitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PairInviteWhereInput
+export type UserCountOutputTypeCountDuoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DuoMemberWhereInput
 }
 
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountPairMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PairMemberWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RefreshTokenWhereInput
+export type UserCountOutputTypeCountCheckInsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CheckInWhereInput
 }
 
 /**
@@ -703,50 +1052,87 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentPokesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PokeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReceivedPokesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PokeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefreshTokenWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  name?: boolean
-  createdAt?: boolean
   passwordHash?: boolean
-  sentInvites?: boolean | Prisma.User$sentInvitesArgs<ExtArgs>
-  pairMemberships?: boolean | Prisma.User$pairMembershipsArgs<ExtArgs>
-  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  name?: boolean
+  avatarUrl?: boolean
+  lastSeenAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
+  duoMemberships?: boolean | Prisma.User$duoMembershipsArgs<ExtArgs>
+  checkIns?: boolean | Prisma.User$checkInsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  sentPokes?: boolean | Prisma.User$sentPokesArgs<ExtArgs>
+  receivedPokes?: boolean | Prisma.User$receivedPokesArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  name?: boolean
-  createdAt?: boolean
   passwordHash?: boolean
+  name?: boolean
+  avatarUrl?: boolean
+  lastSeenAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
-  name?: boolean
-  createdAt?: boolean
   passwordHash?: boolean
+  name?: boolean
+  avatarUrl?: boolean
+  lastSeenAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
   email?: boolean
-  name?: boolean
-  createdAt?: boolean
   passwordHash?: boolean
+  name?: boolean
+  avatarUrl?: boolean
+  lastSeenAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "createdAt" | "passwordHash", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "avatarUrl" | "lastSeenAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sentInvites?: boolean | Prisma.User$sentInvitesArgs<ExtArgs>
-  pairMemberships?: boolean | Prisma.User$pairMembershipsArgs<ExtArgs>
-  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
+  duoMemberships?: boolean | Prisma.User$duoMembershipsArgs<ExtArgs>
+  checkIns?: boolean | Prisma.User$checkInsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  sentPokes?: boolean | Prisma.User$sentPokesArgs<ExtArgs>
+  receivedPokes?: boolean | Prisma.User$receivedPokesArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -755,17 +1141,22 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    sentInvites: Prisma.$PairInvitePayload<ExtArgs>[]
-    pairMemberships: Prisma.$PairMemberPayload<ExtArgs>[]
-    refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
+    duoMemberships: Prisma.$DuoMemberPayload<ExtArgs>[]
+    checkIns: Prisma.$CheckInPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    sentPokes: Prisma.$PokePayload<ExtArgs>[]
+    receivedPokes: Prisma.$PokePayload<ExtArgs>[]
+    refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
-    name: string | null
-    createdAt: Date
     passwordHash: string
+    name: string
+    avatarUrl: string | null
+    lastSeenAt: Date | null
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1160,10 +1551,12 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  sentInvites<T extends Prisma.User$sentInvitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentInvitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PairInvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  pairMemberships<T extends Prisma.User$pairMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pairMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PairMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  duoMemberships<T extends Prisma.User$duoMembershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$duoMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DuoMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  checkIns<T extends Prisma.User$checkInsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$checkInsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CheckInPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentPokes<T extends Prisma.User$sentPokesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentPokesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedPokes<T extends Prisma.User$receivedPokesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedPokesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1195,9 +1588,12 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly name: Prisma.FieldRef<"User", 'String'>
-  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
+  readonly name: Prisma.FieldRef<"User", 'String'>
+  readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
+  readonly lastSeenAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 
@@ -1591,75 +1987,51 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.sentInvites
+ * User.duoMemberships
  */
-export type User$sentInvitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$duoMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PairInvite
+   * Select specific fields to fetch from the DuoMember
    */
-  select?: Prisma.PairInviteSelect<ExtArgs> | null
+  select?: Prisma.DuoMemberSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PairInvite
+   * Omit specific fields from the DuoMember
    */
-  omit?: Prisma.PairInviteOmit<ExtArgs> | null
+  omit?: Prisma.DuoMemberOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PairInviteInclude<ExtArgs> | null
-  where?: Prisma.PairInviteWhereInput
-  orderBy?: Prisma.PairInviteOrderByWithRelationInput | Prisma.PairInviteOrderByWithRelationInput[]
-  cursor?: Prisma.PairInviteWhereUniqueInput
+  include?: Prisma.DuoMemberInclude<ExtArgs> | null
+  where?: Prisma.DuoMemberWhereInput
+  orderBy?: Prisma.DuoMemberOrderByWithRelationInput | Prisma.DuoMemberOrderByWithRelationInput[]
+  cursor?: Prisma.DuoMemberWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PairInviteScalarFieldEnum | Prisma.PairInviteScalarFieldEnum[]
+  distinct?: Prisma.DuoMemberScalarFieldEnum | Prisma.DuoMemberScalarFieldEnum[]
 }
 
 /**
- * User.pairMemberships
+ * User.checkIns
  */
-export type User$pairMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$checkInsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PairMember
+   * Select specific fields to fetch from the CheckIn
    */
-  select?: Prisma.PairMemberSelect<ExtArgs> | null
+  select?: Prisma.CheckInSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PairMember
+   * Omit specific fields from the CheckIn
    */
-  omit?: Prisma.PairMemberOmit<ExtArgs> | null
+  omit?: Prisma.CheckInOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PairMemberInclude<ExtArgs> | null
-  where?: Prisma.PairMemberWhereInput
-  orderBy?: Prisma.PairMemberOrderByWithRelationInput | Prisma.PairMemberOrderByWithRelationInput[]
-  cursor?: Prisma.PairMemberWhereUniqueInput
+  include?: Prisma.CheckInInclude<ExtArgs> | null
+  where?: Prisma.CheckInWhereInput
+  orderBy?: Prisma.CheckInOrderByWithRelationInput | Prisma.CheckInOrderByWithRelationInput[]
+  cursor?: Prisma.CheckInWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PairMemberScalarFieldEnum | Prisma.PairMemberScalarFieldEnum[]
-}
-
-/**
- * User.refreshTokens
- */
-export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the RefreshToken
-   */
-  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the RefreshToken
-   */
-  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
-  where?: Prisma.RefreshTokenWhereInput
-  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
-  cursor?: Prisma.RefreshTokenWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
+  distinct?: Prisma.CheckInScalarFieldEnum | Prisma.CheckInScalarFieldEnum[]
 }
 
 /**
@@ -1684,6 +2056,78 @@ export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.sentPokes
+ */
+export type User$sentPokesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Poke
+   */
+  select?: Prisma.PokeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Poke
+   */
+  omit?: Prisma.PokeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PokeInclude<ExtArgs> | null
+  where?: Prisma.PokeWhereInput
+  orderBy?: Prisma.PokeOrderByWithRelationInput | Prisma.PokeOrderByWithRelationInput[]
+  cursor?: Prisma.PokeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PokeScalarFieldEnum | Prisma.PokeScalarFieldEnum[]
+}
+
+/**
+ * User.receivedPokes
+ */
+export type User$receivedPokesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Poke
+   */
+  select?: Prisma.PokeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Poke
+   */
+  omit?: Prisma.PokeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PokeInclude<ExtArgs> | null
+  where?: Prisma.PokeWhereInput
+  orderBy?: Prisma.PokeOrderByWithRelationInput | Prisma.PokeOrderByWithRelationInput[]
+  cursor?: Prisma.PokeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PokeScalarFieldEnum | Prisma.PokeScalarFieldEnum[]
+}
+
+/**
+ * User.refreshTokens
+ */
+export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RefreshToken
+   */
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RefreshToken
+   */
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
+  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RefreshTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
 }
 
 /**

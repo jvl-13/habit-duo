@@ -53,9 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   RefreshToken: 'RefreshToken',
-  HabitPair: 'HabitPair',
-  PairMember: 'PairMember',
-  PairInvite: 'PairInvite',
+  Duo: 'Duo',
+  DuoMember: 'DuoMember',
+  Habit: 'Habit',
   CheckIn: 'CheckIn',
   Notification: 'Notification',
   Poke: 'Poke'
@@ -80,9 +80,12 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  passwordHash: 'passwordHash',
   name: 'name',
+  avatarUrl: 'avatarUrl',
+  lastSeenAt: 'lastSeenAt',
   createdAt: 'createdAt',
-  passwordHash: 'passwordHash'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -90,61 +93,58 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const RefreshTokenScalarFieldEnum = {
   id: 'id',
-  token: 'token',
+  tokenHash: 'tokenHash',
   userId: 'userId',
   expiresAt: 'expiresAt',
-  revoked: 'revoked'
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt'
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
-export const HabitPairScalarFieldEnum = {
+export const DuoScalarFieldEnum = {
   id: 'id',
-  habitName: 'habitName',
-  deadlineHour: 'deadlineHour',
-  timezone: 'timezone',
-  currentStreak: 'currentStreak',
-  bestStreak: 'bestStreak',
   status: 'status',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type HabitPairScalarFieldEnum = (typeof HabitPairScalarFieldEnum)[keyof typeof HabitPairScalarFieldEnum]
+export type DuoScalarFieldEnum = (typeof DuoScalarFieldEnum)[keyof typeof DuoScalarFieldEnum]
 
 
-export const PairMemberScalarFieldEnum = {
-  id: 'id',
+export const DuoMemberScalarFieldEnum = {
+  duoId: 'duoId',
   userId: 'userId',
-  pairId: 'pairId',
-  role: 'role',
   joinedAt: 'joinedAt'
 } as const
 
-export type PairMemberScalarFieldEnum = (typeof PairMemberScalarFieldEnum)[keyof typeof PairMemberScalarFieldEnum]
+export type DuoMemberScalarFieldEnum = (typeof DuoMemberScalarFieldEnum)[keyof typeof DuoMemberScalarFieldEnum]
 
 
-export const PairInviteScalarFieldEnum = {
+export const HabitScalarFieldEnum = {
   id: 'id',
-  pairId: 'pairId',
-  senderId: 'senderId',
-  token: 'token',
-  email: 'email',
-  status: 'status',
-  expiresAt: 'expiresAt'
+  duoId: 'duoId',
+  name: 'name',
+  description: 'description',
+  frequency: 'frequency',
+  deadline: 'deadline',
+  startDate: 'startDate',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
-export type PairInviteScalarFieldEnum = (typeof PairInviteScalarFieldEnum)[keyof typeof PairInviteScalarFieldEnum]
+export type HabitScalarFieldEnum = (typeof HabitScalarFieldEnum)[keyof typeof HabitScalarFieldEnum]
 
 
 export const CheckInScalarFieldEnum = {
   id: 'id',
-  pairId: 'pairId',
+  habitId: 'habitId',
   userId: 'userId',
-  imageUrl: 'imageUrl',
-  note: 'note',
   date: 'date',
-  onTime: 'onTime',
+  photoUrl: 'photoUrl',
+  note: 'note',
   createdAt: 'createdAt'
 } as const
 
@@ -165,9 +165,9 @@ export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[k
 
 export const PokeScalarFieldEnum = {
   id: 'id',
-  pairId: 'pairId',
-  senderId: 'senderId',
-  receiverId: 'receiverId',
+  fromUserId: 'fromUserId',
+  toUserId: 'toUserId',
+  habitId: 'habitId',
   createdAt: 'createdAt'
 } as const
 

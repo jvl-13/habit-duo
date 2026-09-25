@@ -27,7 +27,7 @@ export type AggregateNotification = {
 export type NotificationMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  type: $Enums.NotifType | null
+  type: $Enums.NotificationType | null
   read: boolean | null
   createdAt: Date | null
 }
@@ -35,7 +35,7 @@ export type NotificationMinAggregateOutputType = {
 export type NotificationMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  type: $Enums.NotifType | null
+  type: $Enums.NotificationType | null
   read: boolean | null
   createdAt: Date | null
 }
@@ -152,7 +152,7 @@ export type NotificationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type NotificationGroupByOutputType = {
   id: string
   userId: string
-  type: $Enums.NotifType
+  type: $Enums.NotificationType
   payload: runtime.JsonValue
   read: boolean
   createdAt: Date
@@ -182,7 +182,7 @@ export type NotificationWhereInput = {
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   id?: Prisma.StringFilter<"Notification"> | string
   userId?: Prisma.StringFilter<"Notification"> | string
-  type?: Prisma.EnumNotifTypeFilter<"Notification"> | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
   payload?: Prisma.JsonFilter<"Notification">
   read?: Prisma.BoolFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
@@ -205,7 +205,7 @@ export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.NotificationWhereInput[]
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   userId?: Prisma.StringFilter<"Notification"> | string
-  type?: Prisma.EnumNotifTypeFilter<"Notification"> | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
   payload?: Prisma.JsonFilter<"Notification">
   read?: Prisma.BoolFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
@@ -230,7 +230,7 @@ export type NotificationScalarWhereWithAggregatesInput = {
   NOT?: Prisma.NotificationScalarWhereWithAggregatesInput | Prisma.NotificationScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Notification"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Notification"> | string
-  type?: Prisma.EnumNotifTypeWithAggregatesFilter<"Notification"> | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeWithAggregatesFilter<"Notification"> | $Enums.NotificationType
   payload?: Prisma.JsonWithAggregatesFilter<"Notification">
   read?: Prisma.BoolWithAggregatesFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Notification"> | Date | string
@@ -238,7 +238,7 @@ export type NotificationScalarWhereWithAggregatesInput = {
 
 export type NotificationCreateInput = {
   id?: string
-  type: $Enums.NotifType
+  type: $Enums.NotificationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: boolean
   createdAt?: Date | string
@@ -248,7 +248,7 @@ export type NotificationCreateInput = {
 export type NotificationUncheckedCreateInput = {
   id?: string
   userId: string
-  type: $Enums.NotifType
+  type: $Enums.NotificationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: boolean
   createdAt?: Date | string
@@ -256,7 +256,7 @@ export type NotificationUncheckedCreateInput = {
 
 export type NotificationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumNotifTypeFieldUpdateOperationsInput | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -266,7 +266,7 @@ export type NotificationUpdateInput = {
 export type NotificationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumNotifTypeFieldUpdateOperationsInput | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -275,7 +275,7 @@ export type NotificationUncheckedUpdateInput = {
 export type NotificationCreateManyInput = {
   id?: string
   userId: string
-  type: $Enums.NotifType
+  type: $Enums.NotificationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: boolean
   createdAt?: Date | string
@@ -283,7 +283,7 @@ export type NotificationCreateManyInput = {
 
 export type NotificationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumNotifTypeFieldUpdateOperationsInput | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -292,7 +292,7 @@ export type NotificationUpdateManyMutationInput = {
 export type NotificationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumNotifTypeFieldUpdateOperationsInput | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -375,13 +375,13 @@ export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
 }
 
-export type EnumNotifTypeFieldUpdateOperationsInput = {
-  set?: $Enums.NotifType
+export type EnumNotificationTypeFieldUpdateOperationsInput = {
+  set?: $Enums.NotificationType
 }
 
 export type NotificationCreateWithoutUserInput = {
   id?: string
-  type: $Enums.NotifType
+  type: $Enums.NotificationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: boolean
   createdAt?: Date | string
@@ -389,7 +389,7 @@ export type NotificationCreateWithoutUserInput = {
 
 export type NotificationUncheckedCreateWithoutUserInput = {
   id?: string
-  type: $Enums.NotifType
+  type: $Enums.NotificationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: boolean
   createdAt?: Date | string
@@ -427,7 +427,7 @@ export type NotificationScalarWhereInput = {
   NOT?: Prisma.NotificationScalarWhereInput | Prisma.NotificationScalarWhereInput[]
   id?: Prisma.StringFilter<"Notification"> | string
   userId?: Prisma.StringFilter<"Notification"> | string
-  type?: Prisma.EnumNotifTypeFilter<"Notification"> | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
   payload?: Prisma.JsonFilter<"Notification">
   read?: Prisma.BoolFilter<"Notification"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Notification"> | Date | string
@@ -435,7 +435,7 @@ export type NotificationScalarWhereInput = {
 
 export type NotificationCreateManyUserInput = {
   id?: string
-  type: $Enums.NotifType
+  type: $Enums.NotificationType
   payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: boolean
   createdAt?: Date | string
@@ -443,7 +443,7 @@ export type NotificationCreateManyUserInput = {
 
 export type NotificationUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumNotifTypeFieldUpdateOperationsInput | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -451,7 +451,7 @@ export type NotificationUpdateWithoutUserInput = {
 
 export type NotificationUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumNotifTypeFieldUpdateOperationsInput | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -459,7 +459,7 @@ export type NotificationUncheckedUpdateWithoutUserInput = {
 
 export type NotificationUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumNotifTypeFieldUpdateOperationsInput | $Enums.NotifType
+  type?: Prisma.EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
   payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   read?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -525,7 +525,7 @@ export type $NotificationPayload<ExtArgs extends runtime.Types.Extensions.Intern
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    type: $Enums.NotifType
+    type: $Enums.NotificationType
     payload: runtime.JsonValue
     read: boolean
     createdAt: Date
@@ -955,7 +955,7 @@ export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends run
 export interface NotificationFieldRefs {
   readonly id: Prisma.FieldRef<"Notification", 'String'>
   readonly userId: Prisma.FieldRef<"Notification", 'String'>
-  readonly type: Prisma.FieldRef<"Notification", 'NotifType'>
+  readonly type: Prisma.FieldRef<"Notification", 'NotificationType'>
   readonly payload: Prisma.FieldRef<"Notification", 'Json'>
   readonly read: Prisma.FieldRef<"Notification", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Notification", 'DateTime'>
