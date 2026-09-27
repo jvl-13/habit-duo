@@ -33,3 +33,11 @@ export const NotificationType = {
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const DuoMemberRole = {
+  INVITER: 'INVITER',
+  INVITEE: 'INVITEE'
+} as const
+
+export type DuoMemberRole = (typeof DuoMemberRole)[keyof typeof DuoMemberRole]

@@ -24,6 +24,11 @@ enum NotificationType {
   DUO_INVITATION
 }
 
+enum DuoMemberRole {
+  INVITER
+  INVITEE
+}
+
 model User {
   id           String    @id @default(cuid())
   email        String    @unique
@@ -70,12 +75,14 @@ model Duo {
 model DuoMember {
   duoId    String
   userId   String
+  role     DuoMemberRole
   joinedAt DateTime @default(now())
 
   duo  Duo  @relation(fields: [duoId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([duoId, userId])
+  @@index([userId])
 }
 
 model Habit {

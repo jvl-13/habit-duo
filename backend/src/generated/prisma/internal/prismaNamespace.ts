@@ -1094,6 +1094,7 @@ export type DuoScalarFieldEnum = (typeof DuoScalarFieldEnum)[keyof typeof DuoSca
 export const DuoMemberScalarFieldEnum = {
   duoId: 'duoId',
   userId: 'userId',
+  role: 'role',
   joinedAt: 'joinedAt'
 } as const
 
@@ -1237,6 +1238,20 @@ export type EnumDuoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'DuoStatus[]'
  */
 export type ListEnumDuoStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DuoStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DuoMemberRole'
+ */
+export type EnumDuoMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DuoMemberRole'>
+    
+
+
+/**
+ * Reference to a field of type 'DuoMemberRole[]'
+ */
+export type ListEnumDuoMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DuoMemberRole[]'>
     
 
 

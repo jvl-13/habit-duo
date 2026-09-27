@@ -152,6 +152,23 @@ export type EnumDuoStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumDuoStatusFilter<$PrismaModel>
 }
 
+export type EnumDuoMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoMemberRole | Prisma.EnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoMemberRoleFilter<$PrismaModel> | $Enums.DuoMemberRole
+}
+
+export type EnumDuoMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoMemberRole | Prisma.EnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.DuoMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDuoMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDuoMemberRoleFilter<$PrismaModel>
+}
+
 export type EnumHabitFrequencyFilter<$PrismaModel = never> = {
   equals?: $Enums.HabitFrequency | Prisma.EnumHabitFrequencyFieldRefInput<$PrismaModel>
   in?: $Enums.HabitFrequency[] | Prisma.ListEnumHabitFrequencyFieldRefInput<$PrismaModel>
@@ -399,6 +416,23 @@ export type NestedEnumDuoStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDuoStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDuoStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumDuoMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoMemberRole | Prisma.EnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoMemberRoleFilter<$PrismaModel> | $Enums.DuoMemberRole
+}
+
+export type NestedEnumDuoMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoMemberRole | Prisma.EnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoMemberRole[] | Prisma.ListEnumDuoMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.DuoMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDuoMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDuoMemberRoleFilter<$PrismaModel>
 }
 
 export type NestedEnumHabitFrequencyFilter<$PrismaModel = never> = {

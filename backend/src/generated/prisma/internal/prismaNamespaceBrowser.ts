@@ -116,6 +116,7 @@ export type DuoScalarFieldEnum = (typeof DuoScalarFieldEnum)[keyof typeof DuoSca
 export const DuoMemberScalarFieldEnum = {
   duoId: 'duoId',
   userId: 'userId',
+  role: 'role',
   joinedAt: 'joinedAt'
 } as const
 

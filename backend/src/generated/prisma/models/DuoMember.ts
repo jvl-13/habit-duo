@@ -27,18 +27,21 @@ export type AggregateDuoMember = {
 export type DuoMemberMinAggregateOutputType = {
   duoId: string | null
   userId: string | null
+  role: $Enums.DuoMemberRole | null
   joinedAt: Date | null
 }
 
 export type DuoMemberMaxAggregateOutputType = {
   duoId: string | null
   userId: string | null
+  role: $Enums.DuoMemberRole | null
   joinedAt: Date | null
 }
 
 export type DuoMemberCountAggregateOutputType = {
   duoId: number
   userId: number
+  role: number
   joinedAt: number
   _all: number
 }
@@ -47,18 +50,21 @@ export type DuoMemberCountAggregateOutputType = {
 export type DuoMemberMinAggregateInputType = {
   duoId?: true
   userId?: true
+  role?: true
   joinedAt?: true
 }
 
 export type DuoMemberMaxAggregateInputType = {
   duoId?: true
   userId?: true
+  role?: true
   joinedAt?: true
 }
 
 export type DuoMemberCountAggregateInputType = {
   duoId?: true
   userId?: true
+  role?: true
   joinedAt?: true
   _all?: true
 }
@@ -138,6 +144,7 @@ export type DuoMemberGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type DuoMemberGroupByOutputType = {
   duoId: string
   userId: string
+  role: $Enums.DuoMemberRole
   joinedAt: Date
   _count: DuoMemberCountAggregateOutputType | null
   _min: DuoMemberMinAggregateOutputType | null
@@ -165,6 +172,7 @@ export type DuoMemberWhereInput = {
   NOT?: Prisma.DuoMemberWhereInput | Prisma.DuoMemberWhereInput[]
   duoId?: Prisma.StringFilter<"DuoMember"> | string
   userId?: Prisma.StringFilter<"DuoMember"> | string
+  role?: Prisma.EnumDuoMemberRoleFilter<"DuoMember"> | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFilter<"DuoMember"> | Date | string
   duo?: Prisma.XOR<Prisma.DuoScalarRelationFilter, Prisma.DuoWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -173,6 +181,7 @@ export type DuoMemberWhereInput = {
 export type DuoMemberOrderByWithRelationInput = {
   duoId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   duo?: Prisma.DuoOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
@@ -185,6 +194,7 @@ export type DuoMemberWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DuoMemberWhereInput | Prisma.DuoMemberWhereInput[]
   duoId?: Prisma.StringFilter<"DuoMember"> | string
   userId?: Prisma.StringFilter<"DuoMember"> | string
+  role?: Prisma.EnumDuoMemberRoleFilter<"DuoMember"> | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFilter<"DuoMember"> | Date | string
   duo?: Prisma.XOR<Prisma.DuoScalarRelationFilter, Prisma.DuoWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -193,6 +203,7 @@ export type DuoMemberWhereUniqueInput = Prisma.AtLeast<{
 export type DuoMemberOrderByWithAggregationInput = {
   duoId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   _count?: Prisma.DuoMemberCountOrderByAggregateInput
   _max?: Prisma.DuoMemberMaxOrderByAggregateInput
@@ -205,10 +216,12 @@ export type DuoMemberScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DuoMemberScalarWhereWithAggregatesInput | Prisma.DuoMemberScalarWhereWithAggregatesInput[]
   duoId?: Prisma.StringWithAggregatesFilter<"DuoMember"> | string
   userId?: Prisma.StringWithAggregatesFilter<"DuoMember"> | string
+  role?: Prisma.EnumDuoMemberRoleWithAggregatesFilter<"DuoMember"> | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"DuoMember"> | Date | string
 }
 
 export type DuoMemberCreateInput = {
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
   duo: Prisma.DuoCreateNestedOneWithoutMembersInput
   user: Prisma.UserCreateNestedOneWithoutDuoMembershipsInput
@@ -217,10 +230,12 @@ export type DuoMemberCreateInput = {
 export type DuoMemberUncheckedCreateInput = {
   duoId: string
   userId: string
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
 }
 
 export type DuoMemberUpdateInput = {
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   duo?: Prisma.DuoUpdateOneRequiredWithoutMembersNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutDuoMembershipsNestedInput
@@ -229,22 +244,26 @@ export type DuoMemberUpdateInput = {
 export type DuoMemberUncheckedUpdateInput = {
   duoId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DuoMemberCreateManyInput = {
   duoId: string
   userId: string
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
 }
 
 export type DuoMemberUpdateManyMutationInput = {
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DuoMemberUncheckedUpdateManyInput = {
   duoId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -266,18 +285,21 @@ export type DuoMemberDuoIdUserIdCompoundUniqueInput = {
 export type DuoMemberCountOrderByAggregateInput = {
   duoId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
 }
 
 export type DuoMemberMaxOrderByAggregateInput = {
   duoId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
 }
 
 export type DuoMemberMinOrderByAggregateInput = {
   duoId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
 }
 
@@ -365,13 +387,19 @@ export type DuoMemberUncheckedUpdateManyWithoutDuoNestedInput = {
   deleteMany?: Prisma.DuoMemberScalarWhereInput | Prisma.DuoMemberScalarWhereInput[]
 }
 
+export type EnumDuoMemberRoleFieldUpdateOperationsInput = {
+  set?: $Enums.DuoMemberRole
+}
+
 export type DuoMemberCreateWithoutUserInput = {
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
   duo: Prisma.DuoCreateNestedOneWithoutMembersInput
 }
 
 export type DuoMemberUncheckedCreateWithoutUserInput = {
   duoId: string
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
 }
 
@@ -407,16 +435,19 @@ export type DuoMemberScalarWhereInput = {
   NOT?: Prisma.DuoMemberScalarWhereInput | Prisma.DuoMemberScalarWhereInput[]
   duoId?: Prisma.StringFilter<"DuoMember"> | string
   userId?: Prisma.StringFilter<"DuoMember"> | string
+  role?: Prisma.EnumDuoMemberRoleFilter<"DuoMember"> | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFilter<"DuoMember"> | Date | string
 }
 
 export type DuoMemberCreateWithoutDuoInput = {
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDuoMembershipsInput
 }
 
 export type DuoMemberUncheckedCreateWithoutDuoInput = {
   userId: string
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
 }
 
@@ -448,41 +479,49 @@ export type DuoMemberUpdateManyWithWhereWithoutDuoInput = {
 
 export type DuoMemberCreateManyUserInput = {
   duoId: string
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
 }
 
 export type DuoMemberUpdateWithoutUserInput = {
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   duo?: Prisma.DuoUpdateOneRequiredWithoutMembersNestedInput
 }
 
 export type DuoMemberUncheckedUpdateWithoutUserInput = {
   duoId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DuoMemberUncheckedUpdateManyWithoutUserInput = {
   duoId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DuoMemberCreateManyDuoInput = {
   userId: string
+  role: $Enums.DuoMemberRole
   joinedAt?: Date | string
 }
 
 export type DuoMemberUpdateWithoutDuoInput = {
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutDuoMembershipsNestedInput
 }
 
 export type DuoMemberUncheckedUpdateWithoutDuoInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DuoMemberUncheckedUpdateManyWithoutDuoInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumDuoMemberRoleFieldUpdateOperationsInput | $Enums.DuoMemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -491,6 +530,7 @@ export type DuoMemberUncheckedUpdateManyWithoutDuoInput = {
 export type DuoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   duoId?: boolean
   userId?: boolean
+  role?: boolean
   joinedAt?: boolean
   duo?: boolean | Prisma.DuoDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -499,6 +539,7 @@ export type DuoMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type DuoMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   duoId?: boolean
   userId?: boolean
+  role?: boolean
   joinedAt?: boolean
   duo?: boolean | Prisma.DuoDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -507,6 +548,7 @@ export type DuoMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type DuoMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   duoId?: boolean
   userId?: boolean
+  role?: boolean
   joinedAt?: boolean
   duo?: boolean | Prisma.DuoDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -515,10 +557,11 @@ export type DuoMemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type DuoMemberSelectScalar = {
   duoId?: boolean
   userId?: boolean
+  role?: boolean
   joinedAt?: boolean
 }
 
-export type DuoMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"duoId" | "userId" | "joinedAt", ExtArgs["result"]["duoMember"]>
+export type DuoMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"duoId" | "userId" | "role" | "joinedAt", ExtArgs["result"]["duoMember"]>
 export type DuoMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   duo?: boolean | Prisma.DuoDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -541,6 +584,7 @@ export type $DuoMemberPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     duoId: string
     userId: string
+    role: $Enums.DuoMemberRole
     joinedAt: Date
   }, ExtArgs["result"]["duoMember"]>
   composites: {}
@@ -969,6 +1013,7 @@ export interface Prisma__DuoMemberClient<T, Null = never, ExtArgs extends runtim
 export interface DuoMemberFieldRefs {
   readonly duoId: Prisma.FieldRef<"DuoMember", 'String'>
   readonly userId: Prisma.FieldRef<"DuoMember", 'String'>
+  readonly role: Prisma.FieldRef<"DuoMember", 'DuoMemberRole'>
   readonly joinedAt: Prisma.FieldRef<"DuoMember", 'DateTime'>
 }
     
