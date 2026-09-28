@@ -9,7 +9,7 @@ export class UpdateHabitDto {
     @IsOptional()
     @IsString()
     @MaxLength(500)
-    descrription? : string;
+    description? : string;
 
     @IsOptional()
     @IsString()
