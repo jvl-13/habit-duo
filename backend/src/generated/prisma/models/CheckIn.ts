@@ -28,6 +28,7 @@ export type CheckInMinAggregateOutputType = {
   id: string | null
   habitId: string | null
   userId: string | null
+  dayKey: string | null
   date: Date | null
   photoUrl: string | null
   note: string | null
@@ -38,6 +39,7 @@ export type CheckInMaxAggregateOutputType = {
   id: string | null
   habitId: string | null
   userId: string | null
+  dayKey: string | null
   date: Date | null
   photoUrl: string | null
   note: string | null
@@ -48,6 +50,7 @@ export type CheckInCountAggregateOutputType = {
   id: number
   habitId: number
   userId: number
+  dayKey: number
   date: number
   photoUrl: number
   note: number
@@ -60,6 +63,7 @@ export type CheckInMinAggregateInputType = {
   id?: true
   habitId?: true
   userId?: true
+  dayKey?: true
   date?: true
   photoUrl?: true
   note?: true
@@ -70,6 +74,7 @@ export type CheckInMaxAggregateInputType = {
   id?: true
   habitId?: true
   userId?: true
+  dayKey?: true
   date?: true
   photoUrl?: true
   note?: true
@@ -80,6 +85,7 @@ export type CheckInCountAggregateInputType = {
   id?: true
   habitId?: true
   userId?: true
+  dayKey?: true
   date?: true
   photoUrl?: true
   note?: true
@@ -163,6 +169,7 @@ export type CheckInGroupByOutputType = {
   id: string
   habitId: string
   userId: string
+  dayKey: string
   date: Date
   photoUrl: string | null
   note: string | null
@@ -194,6 +201,7 @@ export type CheckInWhereInput = {
   id?: Prisma.StringFilter<"CheckIn"> | string
   habitId?: Prisma.StringFilter<"CheckIn"> | string
   userId?: Prisma.StringFilter<"CheckIn"> | string
+  dayKey?: Prisma.StringFilter<"CheckIn"> | string
   date?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
   photoUrl?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
@@ -206,6 +214,7 @@ export type CheckInOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   date?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -216,24 +225,26 @@ export type CheckInOrderByWithRelationInput = {
 
 export type CheckInWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  habitId_userId_date?: Prisma.CheckInHabitIdUserIdDateCompoundUniqueInput
+  habitId_userId_dayKey?: Prisma.CheckInHabitIdUserIdDayKeyCompoundUniqueInput
   AND?: Prisma.CheckInWhereInput | Prisma.CheckInWhereInput[]
   OR?: Prisma.CheckInWhereInput[]
   NOT?: Prisma.CheckInWhereInput | Prisma.CheckInWhereInput[]
   habitId?: Prisma.StringFilter<"CheckIn"> | string
   userId?: Prisma.StringFilter<"CheckIn"> | string
+  dayKey?: Prisma.StringFilter<"CheckIn"> | string
   date?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
   photoUrl?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
   habit?: Prisma.XOR<Prisma.HabitScalarRelationFilter, Prisma.HabitWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "habitId_userId_date">
+}, "id" | "habitId_userId_dayKey">
 
 export type CheckInOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   date?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -250,6 +261,7 @@ export type CheckInScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
   habitId?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
   userId?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
+  dayKey?: Prisma.StringWithAggregatesFilter<"CheckIn"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"CheckIn"> | Date | string
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"CheckIn"> | string | null
   note?: Prisma.StringNullableWithAggregatesFilter<"CheckIn"> | string | null
@@ -258,6 +270,7 @@ export type CheckInScalarWhereWithAggregatesInput = {
 
 export type CheckInCreateInput = {
   id?: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -270,6 +283,7 @@ export type CheckInUncheckedCreateInput = {
   id?: string
   habitId: string
   userId: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -278,6 +292,7 @@ export type CheckInUncheckedCreateInput = {
 
 export type CheckInUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -290,6 +305,7 @@ export type CheckInUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -300,6 +316,7 @@ export type CheckInCreateManyInput = {
   id?: string
   habitId: string
   userId: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -308,6 +325,7 @@ export type CheckInCreateManyInput = {
 
 export type CheckInUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -318,6 +336,7 @@ export type CheckInUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -334,16 +353,17 @@ export type CheckInOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type CheckInHabitIdUserIdDateCompoundUniqueInput = {
+export type CheckInHabitIdUserIdDayKeyCompoundUniqueInput = {
   habitId: string
   userId: string
-  date: Date | string
+  dayKey: string
 }
 
 export type CheckInCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   date?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   note?: Prisma.SortOrder
@@ -354,6 +374,7 @@ export type CheckInMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   date?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   note?: Prisma.SortOrder
@@ -364,6 +385,7 @@ export type CheckInMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   date?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   note?: Prisma.SortOrder
@@ -456,6 +478,7 @@ export type CheckInUncheckedUpdateManyWithoutHabitNestedInput = {
 
 export type CheckInCreateWithoutUserInput = {
   id?: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -466,6 +489,7 @@ export type CheckInCreateWithoutUserInput = {
 export type CheckInUncheckedCreateWithoutUserInput = {
   id?: string
   habitId: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -505,6 +529,7 @@ export type CheckInScalarWhereInput = {
   id?: Prisma.StringFilter<"CheckIn"> | string
   habitId?: Prisma.StringFilter<"CheckIn"> | string
   userId?: Prisma.StringFilter<"CheckIn"> | string
+  dayKey?: Prisma.StringFilter<"CheckIn"> | string
   date?: Prisma.DateTimeFilter<"CheckIn"> | Date | string
   photoUrl?: Prisma.StringNullableFilter<"CheckIn"> | string | null
   note?: Prisma.StringNullableFilter<"CheckIn"> | string | null
@@ -513,6 +538,7 @@ export type CheckInScalarWhereInput = {
 
 export type CheckInCreateWithoutHabitInput = {
   id?: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -523,6 +549,7 @@ export type CheckInCreateWithoutHabitInput = {
 export type CheckInUncheckedCreateWithoutHabitInput = {
   id?: string
   userId: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -558,6 +585,7 @@ export type CheckInUpdateManyWithWhereWithoutHabitInput = {
 export type CheckInCreateManyUserInput = {
   id?: string
   habitId: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -566,6 +594,7 @@ export type CheckInCreateManyUserInput = {
 
 export type CheckInUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -576,6 +605,7 @@ export type CheckInUpdateWithoutUserInput = {
 export type CheckInUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -585,6 +615,7 @@ export type CheckInUncheckedUpdateWithoutUserInput = {
 export type CheckInUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -594,6 +625,7 @@ export type CheckInUncheckedUpdateManyWithoutUserInput = {
 export type CheckInCreateManyHabitInput = {
   id?: string
   userId: string
+  dayKey: string
   date: Date | string
   photoUrl?: string | null
   note?: string | null
@@ -602,6 +634,7 @@ export type CheckInCreateManyHabitInput = {
 
 export type CheckInUpdateWithoutHabitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -612,6 +645,7 @@ export type CheckInUpdateWithoutHabitInput = {
 export type CheckInUncheckedUpdateWithoutHabitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -621,6 +655,7 @@ export type CheckInUncheckedUpdateWithoutHabitInput = {
 export type CheckInUncheckedUpdateManyWithoutHabitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -633,6 +668,7 @@ export type CheckInSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   habitId?: boolean
   userId?: boolean
+  dayKey?: boolean
   date?: boolean
   photoUrl?: boolean
   note?: boolean
@@ -645,6 +681,7 @@ export type CheckInSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   habitId?: boolean
   userId?: boolean
+  dayKey?: boolean
   date?: boolean
   photoUrl?: boolean
   note?: boolean
@@ -657,6 +694,7 @@ export type CheckInSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   habitId?: boolean
   userId?: boolean
+  dayKey?: boolean
   date?: boolean
   photoUrl?: boolean
   note?: boolean
@@ -669,13 +707,14 @@ export type CheckInSelectScalar = {
   id?: boolean
   habitId?: boolean
   userId?: boolean
+  dayKey?: boolean
   date?: boolean
   photoUrl?: boolean
   note?: boolean
   createdAt?: boolean
 }
 
-export type CheckInOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "habitId" | "userId" | "date" | "photoUrl" | "note" | "createdAt", ExtArgs["result"]["checkIn"]>
+export type CheckInOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "habitId" | "userId" | "dayKey" | "date" | "photoUrl" | "note" | "createdAt", ExtArgs["result"]["checkIn"]>
 export type CheckInInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   habit?: boolean | Prisma.HabitDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -699,6 +738,7 @@ export type $CheckInPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     habitId: string
     userId: string
+    dayKey: string
     date: Date
     photoUrl: string | null
     note: string | null
@@ -1131,6 +1171,7 @@ export interface CheckInFieldRefs {
   readonly id: Prisma.FieldRef<"CheckIn", 'String'>
   readonly habitId: Prisma.FieldRef<"CheckIn", 'String'>
   readonly userId: Prisma.FieldRef<"CheckIn", 'String'>
+  readonly dayKey: Prisma.FieldRef<"CheckIn", 'String'>
   readonly date: Prisma.FieldRef<"CheckIn", 'DateTime'>
   readonly photoUrl: Prisma.FieldRef<"CheckIn", 'String'>
   readonly note: Prisma.FieldRef<"CheckIn", 'String'>

@@ -76,7 +76,7 @@ model DuoMember {
   duoId    String
   userId   String
   role     DuoMemberRole
-  joinedAt DateTime @default(now())
+  joinedAt DateTime      @default(now())
 
   duo  Duo  @relation(fields: [duoId], references: [id], onDelete: Cascade)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -106,6 +106,7 @@ model CheckIn {
   id        String   @id @default(cuid())
   habitId   String
   userId    String
+  dayKey    String
   date      DateTime
   photoUrl  String?
   note      String?
@@ -114,8 +115,8 @@ model CheckIn {
   habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([habitId, userId, date])
-  @@index([habitId, date])
+  @@unique([habitId, userId, dayKey])
+  @@index([habitId, dayKey])
 }
 
 model Notification {

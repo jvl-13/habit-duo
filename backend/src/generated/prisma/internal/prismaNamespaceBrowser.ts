@@ -143,6 +143,7 @@ export const CheckInScalarFieldEnum = {
   id: 'id',
   habitId: 'habitId',
   userId: 'userId',
+  dayKey: 'dayKey',
   date: 'date',
   photoUrl: 'photoUrl',
   note: 'note',
