@@ -2,6 +2,8 @@ import { ConflictException, ForbiddenException, Injectable, NotFoundException } 
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CreateCheckInDto } from './dto/create-check-in.dto.js';
 import type { Express } from 'express';
+import { unlink } from 'node:fs/promises';
+import { join } from 'node:path';
 
 @Injectable()
 export class CheckInService {
@@ -239,13 +241,45 @@ export class CheckInService {
             );
         }
 
-        return this.prisma.checkIn.update({
-            where: {
-                id: checkinId,
-            },
-            data: {
-                photoUrl,
-            },
-        });
+        // Keep the old photo path before updating the database.
+        const oldPhotoUrl = checkIn.photoUrl;
+
+        const updatedCheckIn =
+            await this.prisma.checkIn.update({
+                where: {
+                    id: checkinId,
+                },
+                data: {
+                    photoUrl,
+                },
+            });
+
+        // Delete the old local file if one existed.
+        if (oldPhotoUrl) {
+            const oldFilePath = join(
+                process.cwd(),
+                oldPhotoUrl.replace(/^\/+/, ''),
+            );
+
+            try {
+                await unlink(oldFilePath);
+            } catch (error) {
+                // Ignore missing old files.
+                if (
+                    error &&
+                    typeof error === 'object' &&
+                    'code' in error &&
+                    error.code !== 'ENOENT'
+                ) {
+                    console.error(
+                        'Failed to delete old check-in photo:',
+                        error,
+                    );
+                }
+            }
+        }
+
+        return updatedCheckIn;
+
     }
 }
