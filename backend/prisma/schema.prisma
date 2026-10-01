@@ -137,11 +137,13 @@ model Poke {
   fromUserId String
   toUserId   String
   habitId    String
+  dayKey     String
   createdAt  DateTime @default(now())
 
   fromUser User  @relation("SentPokes", fields: [fromUserId], references: [id], onDelete: Cascade)
   toUser   User  @relation("ReceivedPokes", fields: [toUserId], references: [id], onDelete: Cascade)
   habit    Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
 
+  @@unique([fromUserId, habitId, dayKey])
   @@index([toUserId, createdAt])
 }

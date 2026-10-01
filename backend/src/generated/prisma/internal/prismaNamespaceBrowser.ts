@@ -170,6 +170,7 @@ export const PokeScalarFieldEnum = {
   fromUserId: 'fromUserId',
   toUserId: 'toUserId',
   habitId: 'habitId',
+  dayKey: 'dayKey',
   createdAt: 'createdAt'
 } as const
 

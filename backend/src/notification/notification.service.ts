@@ -65,4 +65,23 @@ export class NotificationService {
             },
         });
     }
+
+    async createPokeNotification(
+        recipientUserId: string, 
+        data: {
+            habitId: string;
+            habitName: string;
+            fromUserId: string;
+            fromUserName: string;
+            pokeId: string;
+        }
+    ) {
+        return this.prisma.notification.create({
+            data: {
+                userId: recipientUserId,
+                type: 'POKE_RECEIVED',
+                payload: data,
+            },
+        });
+    }
 }

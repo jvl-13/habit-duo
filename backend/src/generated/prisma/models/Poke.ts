@@ -29,6 +29,7 @@ export type PokeMinAggregateOutputType = {
   fromUserId: string | null
   toUserId: string | null
   habitId: string | null
+  dayKey: string | null
   createdAt: Date | null
 }
 
@@ -37,6 +38,7 @@ export type PokeMaxAggregateOutputType = {
   fromUserId: string | null
   toUserId: string | null
   habitId: string | null
+  dayKey: string | null
   createdAt: Date | null
 }
 
@@ -45,6 +47,7 @@ export type PokeCountAggregateOutputType = {
   fromUserId: number
   toUserId: number
   habitId: number
+  dayKey: number
   createdAt: number
   _all: number
 }
@@ -55,6 +58,7 @@ export type PokeMinAggregateInputType = {
   fromUserId?: true
   toUserId?: true
   habitId?: true
+  dayKey?: true
   createdAt?: true
 }
 
@@ -63,6 +67,7 @@ export type PokeMaxAggregateInputType = {
   fromUserId?: true
   toUserId?: true
   habitId?: true
+  dayKey?: true
   createdAt?: true
 }
 
@@ -71,6 +76,7 @@ export type PokeCountAggregateInputType = {
   fromUserId?: true
   toUserId?: true
   habitId?: true
+  dayKey?: true
   createdAt?: true
   _all?: true
 }
@@ -152,6 +158,7 @@ export type PokeGroupByOutputType = {
   fromUserId: string
   toUserId: string
   habitId: string
+  dayKey: string
   createdAt: Date
   _count: PokeCountAggregateOutputType | null
   _min: PokeMinAggregateOutputType | null
@@ -181,6 +188,7 @@ export type PokeWhereInput = {
   fromUserId?: Prisma.StringFilter<"Poke"> | string
   toUserId?: Prisma.StringFilter<"Poke"> | string
   habitId?: Prisma.StringFilter<"Poke"> | string
+  dayKey?: Prisma.StringFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeFilter<"Poke"> | Date | string
   fromUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   toUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -192,6 +200,7 @@ export type PokeOrderByWithRelationInput = {
   fromUserId?: Prisma.SortOrder
   toUserId?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   fromUser?: Prisma.UserOrderByWithRelationInput
   toUser?: Prisma.UserOrderByWithRelationInput
@@ -200,23 +209,26 @@ export type PokeOrderByWithRelationInput = {
 
 export type PokeWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  fromUserId_habitId_dayKey?: Prisma.PokeFromUserIdHabitIdDayKeyCompoundUniqueInput
   AND?: Prisma.PokeWhereInput | Prisma.PokeWhereInput[]
   OR?: Prisma.PokeWhereInput[]
   NOT?: Prisma.PokeWhereInput | Prisma.PokeWhereInput[]
   fromUserId?: Prisma.StringFilter<"Poke"> | string
   toUserId?: Prisma.StringFilter<"Poke"> | string
   habitId?: Prisma.StringFilter<"Poke"> | string
+  dayKey?: Prisma.StringFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeFilter<"Poke"> | Date | string
   fromUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   toUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   habit?: Prisma.XOR<Prisma.HabitScalarRelationFilter, Prisma.HabitWhereInput>
-}, "id">
+}, "id" | "fromUserId_habitId_dayKey">
 
 export type PokeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   fromUserId?: Prisma.SortOrder
   toUserId?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PokeCountOrderByAggregateInput
   _max?: Prisma.PokeMaxOrderByAggregateInput
@@ -231,11 +243,13 @@ export type PokeScalarWhereWithAggregatesInput = {
   fromUserId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
   toUserId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
   habitId?: Prisma.StringWithAggregatesFilter<"Poke"> | string
+  dayKey?: Prisma.StringWithAggregatesFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Poke"> | Date | string
 }
 
 export type PokeCreateInput = {
   id?: string
+  dayKey: string
   createdAt?: Date | string
   fromUser: Prisma.UserCreateNestedOneWithoutSentPokesInput
   toUser: Prisma.UserCreateNestedOneWithoutReceivedPokesInput
@@ -247,11 +261,13 @@ export type PokeUncheckedCreateInput = {
   fromUserId: string
   toUserId: string
   habitId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
 export type PokeUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fromUser?: Prisma.UserUpdateOneRequiredWithoutSentPokesNestedInput
   toUser?: Prisma.UserUpdateOneRequiredWithoutReceivedPokesNestedInput
@@ -263,6 +279,7 @@ export type PokeUncheckedUpdateInput = {
   fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
   toUserId?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -271,11 +288,13 @@ export type PokeCreateManyInput = {
   fromUserId: string
   toUserId: string
   habitId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
 export type PokeUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -284,6 +303,7 @@ export type PokeUncheckedUpdateManyInput = {
   fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
   toUserId?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -297,11 +317,18 @@ export type PokeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type PokeFromUserIdHabitIdDayKeyCompoundUniqueInput = {
+  fromUserId: string
+  habitId: string
+  dayKey: string
+}
+
 export type PokeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fromUserId?: Prisma.SortOrder
   toUserId?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -310,6 +337,7 @@ export type PokeMaxOrderByAggregateInput = {
   fromUserId?: Prisma.SortOrder
   toUserId?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -318,6 +346,7 @@ export type PokeMinOrderByAggregateInput = {
   fromUserId?: Prisma.SortOrder
   toUserId?: Prisma.SortOrder
   habitId?: Prisma.SortOrder
+  dayKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -449,6 +478,7 @@ export type PokeUncheckedUpdateManyWithoutHabitNestedInput = {
 
 export type PokeCreateWithoutFromUserInput = {
   id?: string
+  dayKey: string
   createdAt?: Date | string
   toUser: Prisma.UserCreateNestedOneWithoutReceivedPokesInput
   habit: Prisma.HabitCreateNestedOneWithoutPokesInput
@@ -458,6 +488,7 @@ export type PokeUncheckedCreateWithoutFromUserInput = {
   id?: string
   toUserId: string
   habitId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
@@ -473,6 +504,7 @@ export type PokeCreateManyFromUserInputEnvelope = {
 
 export type PokeCreateWithoutToUserInput = {
   id?: string
+  dayKey: string
   createdAt?: Date | string
   fromUser: Prisma.UserCreateNestedOneWithoutSentPokesInput
   habit: Prisma.HabitCreateNestedOneWithoutPokesInput
@@ -482,6 +514,7 @@ export type PokeUncheckedCreateWithoutToUserInput = {
   id?: string
   fromUserId: string
   habitId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
@@ -519,6 +552,7 @@ export type PokeScalarWhereInput = {
   fromUserId?: Prisma.StringFilter<"Poke"> | string
   toUserId?: Prisma.StringFilter<"Poke"> | string
   habitId?: Prisma.StringFilter<"Poke"> | string
+  dayKey?: Prisma.StringFilter<"Poke"> | string
   createdAt?: Prisma.DateTimeFilter<"Poke"> | Date | string
 }
 
@@ -540,6 +574,7 @@ export type PokeUpdateManyWithWhereWithoutToUserInput = {
 
 export type PokeCreateWithoutHabitInput = {
   id?: string
+  dayKey: string
   createdAt?: Date | string
   fromUser: Prisma.UserCreateNestedOneWithoutSentPokesInput
   toUser: Prisma.UserCreateNestedOneWithoutReceivedPokesInput
@@ -549,6 +584,7 @@ export type PokeUncheckedCreateWithoutHabitInput = {
   id?: string
   fromUserId: string
   toUserId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
@@ -582,6 +618,7 @@ export type PokeCreateManyFromUserInput = {
   id?: string
   toUserId: string
   habitId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
@@ -589,11 +626,13 @@ export type PokeCreateManyToUserInput = {
   id?: string
   fromUserId: string
   habitId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
 export type PokeUpdateWithoutFromUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   toUser?: Prisma.UserUpdateOneRequiredWithoutReceivedPokesNestedInput
   habit?: Prisma.HabitUpdateOneRequiredWithoutPokesNestedInput
@@ -603,6 +642,7 @@ export type PokeUncheckedUpdateWithoutFromUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   toUserId?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -610,11 +650,13 @@ export type PokeUncheckedUpdateManyWithoutFromUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   toUserId?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PokeUpdateWithoutToUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fromUser?: Prisma.UserUpdateOneRequiredWithoutSentPokesNestedInput
   habit?: Prisma.HabitUpdateOneRequiredWithoutPokesNestedInput
@@ -624,6 +666,7 @@ export type PokeUncheckedUpdateWithoutToUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -631,6 +674,7 @@ export type PokeUncheckedUpdateManyWithoutToUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
   habitId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -638,11 +682,13 @@ export type PokeCreateManyHabitInput = {
   id?: string
   fromUserId: string
   toUserId: string
+  dayKey: string
   createdAt?: Date | string
 }
 
 export type PokeUpdateWithoutHabitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fromUser?: Prisma.UserUpdateOneRequiredWithoutSentPokesNestedInput
   toUser?: Prisma.UserUpdateOneRequiredWithoutReceivedPokesNestedInput
@@ -652,6 +698,7 @@ export type PokeUncheckedUpdateWithoutHabitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
   toUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -659,6 +706,7 @@ export type PokeUncheckedUpdateManyWithoutHabitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUserId?: Prisma.StringFieldUpdateOperationsInput | string
   toUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  dayKey?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -669,6 +717,7 @@ export type PokeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   fromUserId?: boolean
   toUserId?: boolean
   habitId?: boolean
+  dayKey?: boolean
   createdAt?: boolean
   fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -680,6 +729,7 @@ export type PokeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   fromUserId?: boolean
   toUserId?: boolean
   habitId?: boolean
+  dayKey?: boolean
   createdAt?: boolean
   fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -691,6 +741,7 @@ export type PokeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   fromUserId?: boolean
   toUserId?: boolean
   habitId?: boolean
+  dayKey?: boolean
   createdAt?: boolean
   fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -702,10 +753,11 @@ export type PokeSelectScalar = {
   fromUserId?: boolean
   toUserId?: boolean
   habitId?: boolean
+  dayKey?: boolean
   createdAt?: boolean
 }
 
-export type PokeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fromUserId" | "toUserId" | "habitId" | "createdAt", ExtArgs["result"]["poke"]>
+export type PokeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fromUserId" | "toUserId" | "habitId" | "dayKey" | "createdAt", ExtArgs["result"]["poke"]>
 export type PokeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fromUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   toUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -734,6 +786,7 @@ export type $PokePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     fromUserId: string
     toUserId: string
     habitId: string
+    dayKey: string
     createdAt: Date
   }, ExtArgs["result"]["poke"]>
   composites: {}
@@ -1165,6 +1218,7 @@ export interface PokeFieldRefs {
   readonly fromUserId: Prisma.FieldRef<"Poke", 'String'>
   readonly toUserId: Prisma.FieldRef<"Poke", 'String'>
   readonly habitId: Prisma.FieldRef<"Poke", 'String'>
+  readonly dayKey: Prisma.FieldRef<"Poke", 'String'>
   readonly createdAt: Prisma.FieldRef<"Poke", 'DateTime'>
 }
     
