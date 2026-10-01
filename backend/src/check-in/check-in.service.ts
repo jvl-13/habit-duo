@@ -4,11 +4,14 @@ import { CreateCheckInDto } from './dto/create-check-in.dto.js';
 import type { Express } from 'express';
 import { unlink } from 'node:fs/promises';
 import { join } from 'node:path';
+import { NotificationService } from '../notification/notification.service.js';
+import { use } from 'passport';
 
 @Injectable()
 export class CheckInService {
     constructor(
         private readonly prisma: PrismaService,
+        private readonly notificationService: NotificationService,
     ) { }
 
     async create(userId: string, habitId: string, dto: CreateCheckInDto) {
@@ -63,7 +66,7 @@ export class CheckInService {
             throw new ConflictException('You have already checked in today');
         }
 
-        return this.prisma.checkIn.create({
+        const checkIn = await this.prisma.checkIn.create({
             data: {
                 habitId,
                 userId,
@@ -72,6 +75,37 @@ export class CheckInService {
                 note: dto.note,
             }
         });
+
+        const partner = habit.duo.members.find(
+            (member) => member.userId !== userId,
+        )
+
+        if (partner) {
+            const user = await this.prisma.user.findUnique({
+                where: {
+                    id: userId,
+                },
+                select: {
+                    id: true,
+                    name: true,
+                },
+            });
+
+            if (user) {
+                await this.notificationService.createCheckInNotification(
+                    partner.userId, 
+                    {
+                        habitId: habit.id,
+                        habitName: habit.name,
+                        checkInId: checkIn.id,
+                        userId: user.id,
+                        userName: user.name,
+                    }
+                )
+            }
+        }
+
+        return checkIn;
     }
 
     async findByHabit(userId: string, habitId: string) {

@@ -8,6 +8,7 @@ import { HabitModule } from './habit/habit.module.js';
 import { CheckInModule } from './check-in/check-in.module.js';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { NotificationModule } from './notification/notification.module.js';
 
 @Module({
   imports: [
@@ -20,7 +21,9 @@ import { join } from 'path';
     AuthModule, 
     DuoModule, 
     HabitModule, 
-    CheckInModule
+    CheckInModule, 
+    NotificationModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],
