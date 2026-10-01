@@ -5,7 +5,8 @@ import type { Request } from 'express';
 import { CreateCheckInDto } from './dto/create-check-in.dto.js';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { join } from 'node:path';
+import { unlink } from 'node:fs/promises';
 
 @Controller()
 @UseGuards(JwtAuthGuard)
@@ -55,9 +56,16 @@ export class CheckInController {
                     file,
                     callback,
                 ) => {
-                    const extension = extname(
-                        file.originalname,
-                    );
+                    const extensionMap: Record<
+                        string,
+                        string
+                    > = {
+                        'image/jpeg': '.jpg',
+                        'image/png': '.png',
+                        'image/webp': '.webp',
+                    };
+
+                    const extension = extensionMap[file.mimetype];
 
                     const filename = `${Date.now()}-${Math.round(
                         Math.random() * 1e9,
@@ -92,7 +100,7 @@ export class CheckInController {
             },
         }),
     )
-    uploadPhoto(@Req() req: Request, @Param('id') checkInId: string, @UploadedFile() file: Express.Multer.File) {
+    async uploadPhoto(@Req() req: Request, @Param('id') checkInId: string, @UploadedFile() file: Express.Multer.File) {
         if (!req.user) {
             throw new UnauthorizedException();
         }
@@ -103,11 +111,29 @@ export class CheckInController {
 
         const photoUrl = `/uploads/check-ins/${file.filename}`;
 
-        return this.checkInService.uploadsPhoto(
-            req.user.userId,
-            checkInId,
-            photoUrl,
-        );
+        try {
+            return await this.checkInService.uploadsPhoto(
+                req.user.userId,
+                checkInId,
+                photoUrl,
+            )
+        } catch (error) {
+            const filePath = join(
+                process.cwd(),
+                'uploads',
+                'check-ins',
+                file.filename,
+            );
+
+            try {
+                await unlink(filePath);
+            } catch (deleteError) {
+                console.error('Failed to clean up uploaded file: ',
+                    deleteError,
+                )
+            }
+            throw error;
+        }
 
     }
 

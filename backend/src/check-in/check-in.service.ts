@@ -282,4 +282,16 @@ export class CheckInService {
         return updatedCheckIn;
 
     }
+
+    private async deleteLocalFile(filePath: string) {
+        try {
+            await unlink(filePath);
+        } catch (error) {
+            if (error && typeof error === 'object' && 'code' in error && error.code !== 'ENOENT') {
+                console.error('Failed to delete local file: ',
+                    error,
+                )
+            }
+        }
+    }
 }
