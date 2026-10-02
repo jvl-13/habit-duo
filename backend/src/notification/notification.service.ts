@@ -1,10 +1,12 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service.js';
+import { NotificationGateway } from './notification.gateway.js';
 
 @Injectable()
 export class NotificationService {
     constructor(
         private readonly prisma: PrismaService,
+        private readonly notificationGateway: NotificationGateway,
     ) {}
 
     async createCheckInNotification(
@@ -17,13 +19,20 @@ export class NotificationService {
             userName: string;
         },
     ) {
-        return this.prisma.notification.create({
+        const notification = await this.prisma.notification.create({
             data: {
                 userId: recipientUserId,
                 type: 'CHECKIN_CREATED',
                 payload: data,
             },
         });
+
+        this.notificationGateway.emitNotification(
+            recipientUserId,
+            notification,
+        );
+
+        return notification;
     }
 
     async findMyNotifications(userId: string) {
@@ -76,12 +85,19 @@ export class NotificationService {
             pokeId: string;
         }
     ) {
-        return this.prisma.notification.create({
+        const notification = await this.prisma.notification.create({
             data: {
                 userId: recipientUserId,
                 type: 'POKE_RECEIVED',
                 payload: data,
             },
         });
+
+        this.notificationGateway.emitNotification(
+            recipientUserId,
+            notification,
+        );
+
+        return notification;
     }
 }
