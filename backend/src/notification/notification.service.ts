@@ -27,6 +27,11 @@ export class NotificationService {
             },
         });
 
+        console.log(
+            '[Notification] Sending realtime notification to: ',
+            recipientUserId,
+        );
+
         this.notificationGateway.emitNotification(
             recipientUserId,
             notification,

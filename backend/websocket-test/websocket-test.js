@@ -48,3 +48,28 @@ socket.on('connect_error', (error) => {
     error.message,
   );
 });
+
+socket.on('presence:update', (presence) => {
+  console.log('PRESENCE UPDATE:');
+  console.log(
+    JSON.stringify(
+      presence,
+      null,
+      2,
+    ),
+  );
+});
+
+socket.io.on('reconnect', (attempt) => {
+  console.log(
+    'Reconnected after attempts:',
+    attempt,
+  );
+});
+
+socket.io.on('reconnect_attempt', (attempt) => {
+  console.log(
+    'Reconnect attempt:',
+    attempt,
+  );
+});
