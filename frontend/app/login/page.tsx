@@ -41,7 +41,7 @@ export default function LoginPage() {
             console.log('Logged in user: ', result.user);
 
             window.location.href = '/';
-            
+
         } catch (error) {
             setServerError(
                 error instanceof Error ? error.message : 'Login unsuccessfully',
@@ -94,7 +94,7 @@ export default function LoginPage() {
                     )}
 
                     <button type='submit' disabled={isSubmitting} className='w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50'>
-                        {isSubmitting ? 'Registering...' : 'Register'}
+                        {isSubmitting ? 'Logging in...' : 'Log in'}
                     </button>
                 </form>
 

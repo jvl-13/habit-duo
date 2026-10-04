@@ -24,3 +24,16 @@ export function register (data: ReigsterRequest) {
 export function getMe() {
     return apiFetch<User>('/auth/me');
 }
+
+export function refreshAccessToken(refreshToken: string) {
+    return apiFetch<{
+        accessToken: string;
+        refreshToken: string;
+    }>('/auth/refresh', {
+        method: 'POST',
+        body: JSON.stringify({
+            refreshToken,
+        }),
+        skipAuth: true,
+    });
+}

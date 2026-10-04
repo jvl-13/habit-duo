@@ -1,4 +1,4 @@
-import { Controller, Body, Post, UseGuards, Req, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Body, Post, UseGuards, Req, Get, HttpCode, HttpStatus, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service.js';
 import { RegisterDto } from './dto/register.dto.js';
 import { LoginDto } from './dto/login.dto.js';
@@ -24,7 +24,10 @@ export class AuthController {
     @UseGuards(JwtAuthGuard)
     @Get('me')
     me(@Req() req: Request) {
-        return req.user;
+        if (!req.user) {
+            throw new UnauthorizedException();
+        }
+        return this.authService.getMe(req.user.userId);
     }
 
     @Post('refresh')
