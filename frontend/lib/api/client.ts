@@ -8,7 +8,7 @@ interface ApiFetchOprions extends RequestInit{
     retry?: boolean;
 }
 
-export async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
+export async function apiFetch<T>(path: string, options?: ApiFetchOprions): Promise<T> {
     const {
         skipAuth = false,
         retry = true,
