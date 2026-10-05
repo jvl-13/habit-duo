@@ -56,7 +56,7 @@ export default function LoginPage() {
                     Habit Duo
                 </h1>
 
-                <p className='mt-2 text-muted-foreground'>Register to your account</p>
+                <p className='mt-2 text-muted-foreground'>Log in to your account</p>
 
                 <form className='mt-8 space-y-5' onSubmit={handleSubmit(onSubmit)}>
                     <div>

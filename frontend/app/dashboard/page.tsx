@@ -1,49 +1,92 @@
-import { ProtectedRoute } from "@/components/auth/protected-route";
-import { useAuth } from "@/lib/auth/auth-context";
+'use client';
+
+import { ProtectedRoute } from '@/components/auth/protected-route';
+import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
+import { ProgressCard } from '@/components/dashboard/progress-card';
+import { HabitCard } from '@/components/dashboard/habit-card';
+import { DuoCard } from '@/components/dashboard/duo-card';
+import { ActivityCard } from '@/components/dashboard/activity-card';
+
+const habits = [
+    {
+        name: 'Morning Workout',
+        description: '30 minutes of exercise',
+        streak: 7,
+        completed: true,
+    },
+    {
+        name: 'Read 20 minutes',
+        description: 'Read a book before bedtime',
+        streak: 3,
+        completed: false,
+    },
+    {
+        name: 'Drink 2L of water',
+        description: 'Stay hydrated throughout the day',
+        streak: 5,
+        completed: true,
+    },
+];
 
 export default function DashboardPage() {
     return (
         <ProtectedRoute>
-            <DashboardContent />
-        </ProtectedRoute>
-    );
-}
-
-function DashboardContent() {
-    const {
-        user,
-        logout,
-    } = useAuth();
-
-    return (
-        <main className="min-h-screen bg-background">
-            <div className="mx-auto max-w-6xl px-6 py-8">
-                <header className="flex items-center justify-between border-b pb-6">
-                    <div>
-                        <h1 className="text-2xl font-bold">
-                            Habit Duo
+            <DashboardLayout>
+                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                    {/* Welcome */}
+                    <div className="mb-8">
+                        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                            Good morning 👋
                         </h1>
 
-                        <p className="mt-1 text-sm text-muted-foreground">
-                            Welcome, {user?.name}
+                        <p className="mt-2 text-muted-foreground">
+                            Let keep your habits going today.
                         </p>
                     </div>
 
-                    <button 
-                        onClick={logout}
-                        className="rounded-md border px-4 py-2 text-sm hover:bg-muted"
-                    >
-                        Logout
-                    </button>
-                </header>
+                    {/* Main grid */}
+                    <div className="grid gap-6 lg:grid-cols-3">
+                        {/* Left content */}
+                        <div className="space-y-6 lg:col-span-2">
+                            <ProgressCard />
 
-                <section className="mt-8">
-                    <h2 className="text-xl font-semibold">
-                        Dashboard
-                    </h2>
-                    <p className="mt-2 text-muted-foreground">......</p>
-                </section>
-            </div>
-        </main>
-    )
+                            <section>
+                                <div className="mb-4 flex items-center justify-between">
+                                    <div>
+                                        <p className="text-sm font-medium text-muted-foreground">
+                                            Today
+                                        </p>
+
+                                        <h2 className="text-xl font-semibold">
+                                            Your habits
+                                        </h2>
+                                    </div>
+
+                                    <button className="text-sm font-medium text-primary hover:underline">
+                                        View all
+                                    </button>
+                                </div>
+
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    {habits.map((habit) => (
+                                        <HabitCard
+                                            key={habit.name}
+                                            {...habit}
+                                        />
+                                    ))}
+                                </div>
+                            </section>
+                        </div>
+
+                        {/* Right content */}
+                        <div className="space-y-6">
+                            <DuoCard />
+
+                            <ActivityCard />
+                        </div>
+                    </div>
+                </div>
+            </DashboardLayout>
+        </ProtectedRoute>
+    );
 }
