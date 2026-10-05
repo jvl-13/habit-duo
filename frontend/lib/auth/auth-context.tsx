@@ -1,102 +1,106 @@
 'use client';
 
 import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
 } from 'react';
 
 import { getMe } from '@/lib/api/auth/auth-api';
 import {
-  clearTokens,
-  getAccessToken,
+    clearTokens,
+    getAccessToken,
 } from './token-storage';
 
 import type { User } from '@/lib/api/auth/type';
+import { useRouter } from 'next/router';
 
 interface AuthContextValue {
-  user: User | null;
-  isLoading: boolean;
-  isAuthenticated: boolean;
-  logout: () => void;
-  refreshUser: () => Promise<void>;
+    user: User | null;
+    isLoading: boolean;
+    isAuthenticated: boolean;
+    logout: () => void;
+    refreshUser: () => Promise<void>;
 }
 
 const AuthContext =
-  createContext<AuthContextValue | undefined>(
-    undefined,
-  );
+    createContext<AuthContextValue | undefined>(
+        undefined,
+    );
 
 export function AuthProvider({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  const [user, setUser] =
-    useState<User | null>(null);
+    const router = useRouter();
 
-  const [isLoading, setIsLoading] =
-    useState(true);
+    const [user, setUser] =
+        useState<User | null>(null);
 
-  const refreshUser = async () => {
-    const accessToken = getAccessToken();
+    const [isLoading, setIsLoading] =
+        useState(true);
 
-    if (!accessToken) {
-      setUser(null);
-      return;
-    }
+    const refreshUser = async () => {
+        const accessToken = getAccessToken();
 
-    try {
-      const currentUser = await getMe();
-      setUser(currentUser);
-    } catch {
-      clearTokens();
-      setUser(null);
-    }
-  };
+        if (!accessToken) {
+            setUser(null);
+            return;
+        }
 
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        await refreshUser();
-      } finally {
-        setIsLoading(false);
-      }
+        try {
+            const currentUser = await getMe();
+            setUser(currentUser);
+        } catch {
+            clearTokens();
+            setUser(null);
+        }
     };
 
-    loadUser();
-  }, []);
+    useEffect(() => {
+        const loadUser = async () => {
+            try {
+                await refreshUser();
+            } finally {
+                setIsLoading(false);
+            }
+        };
 
-  const logout = () => {
-    clearTokens();
-    setUser(null);
-    window.location.href = '/login';
-  };
+        loadUser();
+    }, []);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        isAuthenticated: !!user,
-        logout,
-        refreshUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+    const logout = () => {
+        clearTokens();
+        setUser(null);
+        //window.location.href = '/login';
+        router.push('/login');
+    };
+
+    return (
+        <AuthContext.Provider
+            value={{
+                user,
+                isLoading,
+                isAuthenticated: !!user,
+                logout,
+                refreshUser,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
+    const context = useContext(AuthContext);
 
-  if (!context) {
-    throw new Error(
-      'useAuth must be used inside AuthProvider',
-    );
-  }
+    if (!context) {
+        throw new Error(
+            'useAuth must be used inside AuthProvider',
+        );
+    }
 
-  return context;
+    return context;
 }

@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { saveToken } from '@/lib/auth/token-storage';
 import { login } from '@/lib/api/auth/auth-api';
+import { useRouter } from 'next/router';
 
 const loginSchema = z.object({
     email: z.string().email('Invalid email'),
@@ -15,6 +16,8 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+    const router = useRouter();
+
     const [serverError, setServerError] = useState<string | null>(null);
 
     const {
@@ -40,7 +43,8 @@ export default function LoginPage() {
 
             console.log('Logged in user: ', result.user);
 
-            window.location.href = '/';
+            //window.location.href = '/';
+            router.push('/');
 
         } catch (error) {
             setServerError(

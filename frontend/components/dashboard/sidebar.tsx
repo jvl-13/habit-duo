@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Settings, Bell, CheckCircle2, Home, LogOut, Users } from 'lucide-react';
+import { Settings, Bell, CheckCircle2, Home, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
 
