@@ -14,7 +14,7 @@ import {
 } from './token-storage';
 
 import type { User } from '@/lib/api/auth/type';
-import { useRouter } from 'next/router';
+//import { useRouter } from 'next/router';
 
 interface AuthContextValue {
     user: User | null;
@@ -34,7 +34,7 @@ export function AuthProvider({
 }: {
     children: React.ReactNode;
 }) {
-    const router = useRouter();
+    //const router = useRouter();
 
     const [user, setUser] =
         useState<User | null>(null);
@@ -74,8 +74,8 @@ export function AuthProvider({
     const logout = () => {
         clearTokens();
         setUser(null);
-        //window.location.href = '/login';
-        router.push('/login');
+        window.location.href = '/login';
+        //router.push('/login');
     };
 
     return (

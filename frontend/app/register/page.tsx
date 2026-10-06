@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { register as registerUser } from '@/lib/api/auth/auth-api';
+//import { useRouter } from 'next/router';
 
 const registerSchema = z
     .object({
@@ -41,6 +42,8 @@ type RegisterForm = z.infer<
 >;
 
 export default function RegisterPage() {
+    //const router = useRouter();
+
     const [serverError, setServerError] =
         useState<string | null>(null);
 
@@ -62,6 +65,7 @@ export default function RegisterPage() {
         if (!isSuccess) return;
         const timer = setTimeout(() => {
             window.location.href = '/login';
+            //router.push('/login');
         }, 1500);
 
         return () => clearTimeout(timer);
