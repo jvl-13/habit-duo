@@ -97,13 +97,12 @@ function DashboardContent() {
                                         .map((habit) => (
                                             <HabitCard
                                                 key={habit.id}
+                                                id={habit.id}
                                                 name={habit.name}
                                                 description={
-                                                    habit.description ??
-                                                    'No description'
+                                                    habit.description ?? 'No description'
                                                 }
                                                 streak={0}
-                                                completed={false}
                                             />
                                         ))}
                                 </div>
