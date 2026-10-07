@@ -40,7 +40,7 @@ function DashboardContent() {
 
             <div className="grid gap-6 lg:grid-cols-3">
                 <div className="space-y-6 lg:col-span-2">
-                    <ProgressCard />
+                    <ProgressCard  habits={habits ?? []}/>
 
                     <section>
                         <div className="mb-4 flex items-center justify-between">
