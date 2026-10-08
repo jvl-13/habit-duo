@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Settings, Bell, CheckCircle2, Home, Users } from 'lucide-react';
+import { CalendarDays, Settings, Bell, CheckCircle2, Home, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from "next/navigation";
 
@@ -15,6 +15,11 @@ const navigation = [
         label: 'My Habits',
         href: '/dashboard/habits',
         icon: CheckCircle2,
+    },
+    {
+        label: 'History',
+        href: '/dashboard/habits/history',
+        icon: CalendarDays,
     },
     {
         label: 'My Duo',
