@@ -70,6 +70,12 @@ export async function apiFetch<T>(path: string, options?: ApiFetchOprions): Prom
         }
     }
 
+    console.log('[API request]', {
+        url: `${API_URL}${path}`,
+        hasAccessToken: Boolean(accessToken),
+        skipAuth,
+    });
+
     const data = await response.json().catch(() => null);
 
     if (!response.ok) {

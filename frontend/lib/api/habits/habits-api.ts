@@ -14,5 +14,5 @@ export interface Habit {
 }
 
 export function getHabits() {
-    return apiFetch<Habit[]>('//habits');
+    return apiFetch<Habit[]>('/habits');
 }

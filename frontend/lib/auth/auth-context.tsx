@@ -14,7 +14,7 @@ import {
 } from './token-storage';
 
 import type { User } from '@/lib/api/auth/type';
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface AuthContextValue {
     user: User | null;
@@ -22,6 +22,7 @@ interface AuthContextValue {
     isAuthenticated: boolean;
     logout: () => void;
     refreshUser: () => Promise<void>;
+    setAuthenticatedUser: (user: User) => void;
 }
 
 const AuthContext =
@@ -34,7 +35,7 @@ export function AuthProvider({
 }: {
     children: React.ReactNode;
 }) {
-    //const router = useRouter();
+    const router = useRouter();
 
     const [user, setUser] =
         useState<User | null>(null);
@@ -59,6 +60,10 @@ export function AuthProvider({
         }
     };
 
+    const setAuthenticatedUser = (user: User) => {
+        setUser(user);
+    }
+
     useEffect(() => {
         const loadUser = async () => {
             try {
@@ -74,8 +79,8 @@ export function AuthProvider({
     const logout = () => {
         clearTokens();
         setUser(null);
-        window.location.href = '/login';
-        //router.push('/login');
+        //window.location.href = '/login';
+        router.push('/login');
     };
 
     return (
@@ -86,6 +91,7 @@ export function AuthProvider({
                 isAuthenticated: !!user,
                 logout,
                 refreshUser,
+                setAuthenticatedUser,
             }}
         >
             {children}
