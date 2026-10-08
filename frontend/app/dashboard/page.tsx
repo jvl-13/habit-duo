@@ -8,6 +8,7 @@ import { DuoCard } from '@/components/dashboard/duo-card';
 import { ActivityCard } from '@/components/dashboard/activity-card';
 
 import { useHabits } from '@/lib/queries/habit-queries';
+import { getDayKey, isHabitAvailableOnDay } from '@/lib/date/day-key';
 
 export default function DashboardPage() {
     return (
@@ -20,11 +21,26 @@ export default function DashboardPage() {
 }
 
 function DashboardContent() {
+    const todayKey = getDayKey();
+
     const {
         data: habits,
         isLoading,
         isError,
     } = useHabits();
+
+    const todaysHabits = (habits ?? []).filter(
+        (habit) =>
+            habit.isActive &&
+            isHabitAvailableOnDay(
+                habit.startDate,
+                todayKey,
+            ),
+    );
+
+    console.log('ALL HABITS:', habits);
+    console.log('TODAY KEY:', todayKey);
+    console.log('TODAY HABITS:', todaysHabits);
 
     return (
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -40,7 +56,7 @@ function DashboardContent() {
 
             <div className="grid gap-6 lg:grid-cols-3">
                 <div className="space-y-6 lg:col-span-2">
-                    <ProgressCard  habits={habits ?? []}/>
+                    <ProgressCard habits={todaysHabits} />
 
                     <section>
                         <div className="mb-4 flex items-center justify-between">
@@ -72,39 +88,34 @@ function DashboardContent() {
 
                         {!isLoading &&
                             !isError &&
-                            habits?.length === 0 && (
+                            todaysHabits.length === 0 && (
                                 <div className="rounded-xl border border-dashed p-8 text-center">
                                     <h3 className="font-semibold">
-                                        No habits yet
+                                        No habits for today
                                     </h3>
 
                                     <p className="mt-2 text-sm text-muted-foreground">
-                                        Create your first habit to get started.
+                                        Create a habit or check your habit schedule.
                                     </p>
                                 </div>
                             )}
 
                         {!isLoading &&
                             !isError &&
-                            habits &&
-                            habits.length > 0 && (
+                            todaysHabits.length > 0 && (
                                 <div className="grid gap-4 sm:grid-cols-2">
-                                    {habits
-                                        .filter(
-                                            (habit) =>
-                                                habit.isActive,
-                                        )
-                                        .map((habit) => (
-                                            <HabitCard
-                                                key={habit.id}
-                                                id={habit.id}
-                                                name={habit.name}
-                                                description={
-                                                    habit.description ?? 'No description'
-                                                }
-                                                streak={0}
-                                            />
-                                        ))}
+                                    {todaysHabits.map((habit) => (
+                                        <HabitCard
+                                            key={habit.id}
+                                            id={habit.id}
+                                            name={habit.name}
+                                            description={
+                                                habit.description ??
+                                                'No description'
+                                            }
+                                            streak={0}
+                                        />
+                                    ))}
                                 </div>
                             )}
                     </section>

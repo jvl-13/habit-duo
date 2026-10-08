@@ -29,7 +29,7 @@ export function HabitCard({
 
   const completedToday =
     checkIns?.some(
-      (checkIn) => checkIn.daykey === todayKey,
+      (checkIn) => checkIn.dayKey === todayKey,
     ) ?? false;
 
   return (

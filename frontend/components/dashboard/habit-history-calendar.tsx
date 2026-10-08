@@ -90,7 +90,7 @@ export function HabitHistoryCalendar({
                 habit.id,
                 new Set(
                     checkIns.map(
-                        (checkIn) => checkIn.daykey,
+                        (checkIn) => checkIn.dayKey,
                     ),
                 ),
             );

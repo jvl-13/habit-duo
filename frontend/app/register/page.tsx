@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { register as registerUser } from '@/lib/api/auth/auth-api';
-//import { useRouter } from 'next/router';
+//import { useRouter } from 'next/navigation';
 
 const registerSchema = z
     .object({

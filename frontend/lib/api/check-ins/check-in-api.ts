@@ -4,7 +4,7 @@ export interface CheckIn {
     id: string;
     habitId: string;
     userId: string;
-    daykey: string;
+    dayKey: string;
     date: string;
     photoUrl: string | null;
     note: string | null;

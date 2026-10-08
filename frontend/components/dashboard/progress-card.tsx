@@ -34,7 +34,7 @@ export function ProgressCard({habits} : ProgressCardProps) {
         (query) => 
             query.data?.some(
                 (checkIn) =>
-                    checkIn.daykey === todayKey,
+                    checkIn.dayKey === todayKey,
             ) ?? false,
     ).length;
 
