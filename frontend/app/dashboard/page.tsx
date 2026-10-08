@@ -38,9 +38,9 @@ function DashboardContent() {
             ),
     );
 
-    console.log('ALL HABITS:', habits);
-    console.log('TODAY KEY:', todayKey);
-    console.log('TODAY HABITS:', todaysHabits);
+    // console.log('ALL HABITS:', habits);
+    // console.log('TODAY KEY:', todayKey);
+    // console.log('TODAY HABITS:', todaysHabits);
 
     return (
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -113,6 +113,7 @@ function DashboardContent() {
                                                 habit.description ??
                                                 'No description'
                                             }
+                                            deadline={habit.deadline}
                                             streak={0}
                                         />
                                     ))}
