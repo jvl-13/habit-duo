@@ -8,7 +8,7 @@ import {
     Clock,
 } from 'lucide-react';
 
-import { useHabitCheckIns } from '@/lib/queries/check-in-queries';
+import { useCreateCheckIn, useHabitCheckIns } from '@/lib/queries/check-in-queries';
 
 interface HabitCardProps {
     id: string;
@@ -30,6 +30,16 @@ export function HabitCard({
         isLoading,
         isError,
     } = useHabitCheckIns(id);
+
+    const {
+        mutate: createCheckIn,
+        isPending: isCheckIn,
+        error: checkInError,
+    } = useCreateCheckIn();
+
+    const handleCheckIn = () => {
+        createCheckIn({ habitId: id});
+    };
 
     const todayKey = new Date()
         .toISOString()
@@ -144,11 +154,21 @@ export function HabitCard({
                 {!isLoading && !isError && !completedToday && (
                     <button
                         type="button"
-                        disabled={isMissed}
+                        onClick={handleCheckIn}
+                        disabled={isMissed || isCheckIn}
                         className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        {isMissed ? 'Deadline passed' : 'Check in'}
+                        {isCheckIn
+                            ? 'Checking in...' : isMissed ? 'Deadline passed' : 'Check in'}
                     </button>
+                )}
+            
+                {checkInError && (
+                    <p className='mt-3 text-sm text-destructive'>
+                        {checkInError instanceof Error
+                            ? checkInError.message
+                            : 'Failed to check in.'}
+                    </p>
                 )}
 
                 {!isLoading && !isError && completedToday && (

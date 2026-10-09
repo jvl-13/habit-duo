@@ -21,3 +21,16 @@ export function getHabitCheckIns (habitId: string) {
         `/habits/${habitId}/check-ins`,
     );
 }
+
+export function createCheckIn(
+    habitId: string,
+    data?: { note? : string},
+) {
+    return apiFetch<CheckIn> (
+        `/habits/${habitId}/check-ins`,
+        {
+            method: 'POST',
+            body: JSON.stringify(data ?? {}),
+        },
+    );
+}
