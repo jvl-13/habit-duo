@@ -7,7 +7,10 @@ import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
 import {
     useHabits,
     useCreateHabit,
+    useUpdateHabit,
+    useDeleteHabit,
 } from '@/lib/queries/habit-queries';
+import { Pencil, Trash2 } from 'lucide-react';
 
 function todayAsDateInput() {
     const now = new Date();
@@ -38,6 +41,15 @@ function HabitsContent() {
 
     const createHabit = useCreateHabit();
 
+    const updateHabit = useUpdateHabit();
+    const deleteHabit = useDeleteHabit();
+
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [deleteTarget, setDeleteTarget] = useState<{
+        id: string;
+        name: string;
+    } | null>(null);
+
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -45,6 +57,17 @@ function HabitsContent() {
     const [formError, setFormError] = useState('');
 
     const activeHabits = habits.filter((habit) => habit.isActive);
+
+    function handleEdit(habit: (typeof habits)[number]) {
+        setEditingId(habit.id);
+        setName(habit.name);
+        setDescription(habit.description ?? '');
+        setDeadline(habit.deadline ?? '');
+        setStartDate(habit.startDate.slice(0, 10));
+        setFormError('');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -63,14 +86,33 @@ function HabitsContent() {
             return;
         }
 
-        try {
-            await createHabit.mutateAsync({
-                name: trimmedName,
-                description: trimmedDescription || undefined,
-                deadline: deadline || undefined,
-                startDate,
-            });
+        const payload = {
+            name: trimmedName,
+            description: trimmedDescription,
+            deadline,
+            startDate,
+        };
 
+        try {
+            if (editingId) {
+                await updateHabit.mutateAsync({
+                    id: editingId,
+                    data: {
+                        ...payload,
+                        description: trimmedDescription,
+                        deadline,
+                    },
+                });
+            } else {
+                await createHabit.mutateAsync({
+                    name: trimmedName,
+                    description: trimmedDescription || undefined,
+                    deadline: deadline || undefined,
+                    startDate,
+                });
+            }
+
+            setEditingId(null);
             setName('');
             setDescription('');
             setDeadline('');
@@ -79,7 +121,7 @@ function HabitsContent() {
             setFormError(
                 error instanceof Error
                     ? error.message
-                    : 'Failed to create habit. Please try again.',
+                    : 'Failed to save habit. Please try again.',
             );
         }
     }
@@ -96,7 +138,9 @@ function HabitsContent() {
             </header>
 
             <section className="rounded-2xl border bg-background p-5 shadow-sm sm:p-6">
-                <h2 className="text-lg font-semibold">Create a new habit</h2>
+                <h2 className="text-lg font-semibold">
+                    {editingId ? 'Edit habit' : 'Create a new habit'}
+                </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                     Choose a habit and set a daily deadline if you need one.
                 </p>
@@ -178,11 +222,32 @@ function HabitsContent() {
 
                     <button
                         type="submit"
-                        disabled={createHabit.isPending}
+                        disabled={createHabit.isPending || updateHabit.isPending}
                         className="rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        {createHabit.isPending ? 'Creating...' : 'Create habit'}
+                        {createHabit.isPending || updateHabit.isPending
+                            ? 'Saving...'
+                            : editingId
+                                ? 'Save changes'
+                                : 'Create habit'}
                     </button>
+
+                    {editingId && (
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setEditingId(null);
+                                setName('');
+                                setDescription('');
+                                setDeadline('');
+                                setStartDate(todayAsDateInput());
+                                setFormError('');
+                            }}
+                            className="ml-2 rounded-lg border px-4 py-2.5 text-sm font-medium hover:bg-muted"
+                        >
+                            Cancel
+                        </button>
+                    )}
                 </form>
             </section>
 
@@ -249,6 +314,100 @@ function HabitsContent() {
                                     <span className="shrink-0 rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-700">
                                         Active
                                     </span>
+                                </div>
+
+                                <div className="mt-4 flex gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => handleEdit(habit)}
+                                        className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium hover:bg-muted"
+                                    >
+                                        <Pencil className="h-4 w-4" />
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setDeleteTarget({
+                                            id: habit.id,
+                                            name: habit.name,
+                                        })}
+                                        className="inline-flex items-center gap-2 rounded-lg border border-destructive/30 px-3 py-2 text-sm font-medium text-destructive hover:bg-destructive/5"
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                        Delete
+                                    </button>
+
+                                    {deleteTarget && (
+                                        <div
+                                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+                                            role="presentation"
+                                            onMouseDown={(event) => {
+                                                if (event.target === event.currentTarget) {
+                                                    setDeleteTarget(null);
+                                                }
+                                            }}
+                                        >
+                                            <div
+                                                role="alertdialog"
+                                                aria-modal="true"
+                                                aria-labelledby="delete-habit-title"
+                                                className="w-full max-w-md rounded-2xl border bg-background p-6 shadow-xl"
+                                            >
+                                                <h2 id="delete-habit-title" className="text-lg font-semibold">
+                                                    Delete habit?
+                                                </h2>
+
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    Are you sure you want to delete "{deleteTarget.name}"?
+                                                    The habit will no longer appear in your active habits.
+                                                </p>
+
+                                                {deleteHabit.isError && (
+                                                    <p role="alert" className="mt-3 text-sm text-destructive">
+                                                        {deleteHabit.error instanceof Error
+                                                            ? deleteHabit.error.message
+                                                            : 'Failed to delete habit.'}
+                                                    </p>
+                                                )}
+
+                                                <div className="mt-6 flex justify-end gap-3">
+                                                    <button
+                                                        type="button"
+                                                        disabled={deleteHabit.isPending}
+                                                        onClick={() => setDeleteTarget(null)}
+                                                        className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-muted disabled:opacity-50"
+                                                    >
+                                                        Cancel
+                                                    </button>
+
+                                                    <button
+                                                        type="button"
+                                                        disabled={deleteHabit.isPending}
+                                                        onClick={async () => {
+                                                            try {
+                                                                await deleteHabit.mutateAsync(deleteTarget.id);
+                                                                setDeleteTarget(null);
+
+                                                                if (editingId === deleteTarget.id) {
+                                                                    setEditingId(null);
+                                                                    setName('');
+                                                                    setDescription('');
+                                                                    setDeadline('');
+                                                                    setStartDate(todayAsDateInput());
+                                                                }
+                                                            } catch {
+                                                                // Error is shown in the confirmation dialog.
+                                                            }
+                                                        }}
+                                                        className="rounded-lg bg-destructive px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
+                                                    >
+                                                        {deleteHabit.isPending ? 'Deleting...' : 'Delete habit'}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <p className="mt-2 min-h-10 whitespace-pre-wrap break-words text-sm text-muted-foreground">
