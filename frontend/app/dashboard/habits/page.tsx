@@ -359,7 +359,7 @@ function HabitsContent() {
                                                 </h2>
 
                                                 <p className="mt-2 text-sm text-muted-foreground">
-                                                    Are you sure you want to delete "{deleteTarget.name}"?
+                                                    Are you sure you want to delete `${deleteTarget.name}`?
                                                     The habit will no longer appear in your active habits.
                                                 </p>
 

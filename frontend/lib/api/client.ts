@@ -3,12 +3,15 @@ import { getAccessToken } from "../auth/token-storage";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-interface ApiFetchOprions extends RequestInit{
+interface ApiFetchOptions extends RequestInit {
     skipAuth?: boolean;
     retry?: boolean;
 }
 
-export async function apiFetch<T>(path: string, options?: ApiFetchOprions): Promise<T> {
+export async function apiFetch<T>(
+    path: string,
+    options?: ApiFetchOptions,
+): Promise<T> {
     const {
         skipAuth = false,
         retry = true,
@@ -17,71 +20,63 @@ export async function apiFetch<T>(path: string, options?: ApiFetchOprions): Prom
 
     const accessToken = getAccessToken();
 
-    const headers = new Headers(fetchOptions.headers);
+    function buildHeaders(token?: string | null) {
+        const headers = new Headers(fetchOptions.headers);
+        const isFormData = fetchOptions.body instanceof FormData;
 
-    headers.set('Content-Type', 'application/json');
+        // FormData cần trình duyệt tự thiết lập multipart boundary.
+        if (isFormData) {
+            headers.delete("Content-Type");
+        } else if (fetchOptions.body !== undefined && !headers.has("Content-Type")) {
+            headers.set("Content-Type", "application/json");
+        }
 
-    if (accessToken && !skipAuth) {
-        headers.set(
-            'Authorization',
-            `Bearer ${accessToken}`,
-        )
+        if (token && !skipAuth) {
+            headers.set("Authorization", `Bearer ${token}`);
+        }
+
+        return headers;
     }
-    
-    const response = await fetch(
-        `${API_URL}${path}`,
-        {
-            ...fetchOptions,
-            headers,
-        },
-    );
 
-    if (
-        response.status === 401 &&
-        !skipAuth &&
-        retry
-    ) {
+    const response = await fetch(`${API_URL}${path}`, {
+        ...fetchOptions,
+        headers: buildHeaders(accessToken),
+    });
+
+    if (response.status === 401 && !skipAuth && retry) {
         try {
             const newAccessToken = await refreshSession();
 
-            const retryHeaders = new Headers(fetchOptions.headers);
-
-            retryHeaders.set('Content-Type', 'application/json');
-
-            retryHeaders.set('Authorization', `Bearer ${newAccessToken}`);
-
-            const retryResponse = await fetch(
-                `${API_URL}${path}`,
-                {
-                    ...fetchOptions,
-                    headers: retryHeaders,
-                },
-            );
+            const retryResponse = await fetch(`${API_URL}${path}`, {
+                ...fetchOptions,
+                headers: buildHeaders(newAccessToken),
+            });
 
             const retryData = await retryResponse.json().catch(() => null);
 
             if (!retryResponse.ok) {
-                throw new Error(retryData?.message ?? 'Something went wrong');
+                throw new Error(
+                    retryData?.message ?? "Something went wrong",
+                );
             }
 
             return retryData as T;
-        } catch {
-            throw new Error('Session expired. Please log in again.');
+        } catch (error) {
+            if (
+                error instanceof Error &&
+                error.message !== "Session expired. Please log in again."
+            ) {
+                throw error;
+            }
+
+            throw new Error("Session expired. Please log in again.");
         }
     }
-
-    // console.log('[API request]', {
-    //     url: `${API_URL}${path}`,
-    //     hasAccessToken: Boolean(accessToken),
-    //     skipAuth,
-    // });
 
     const data = await response.json().catch(() => null);
 
     if (!response.ok) {
-        throw new Error(
-            data?.message ?? 'Something went wrong',
-        );
+        throw new Error(data?.message ?? "Something went wrong");
     }
 
     return data as T;

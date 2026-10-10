@@ -16,7 +16,7 @@ export interface CheckIn {
     };
 }
 
-export function getHabitCheckIns (habitId: string) {
+export function getHabitCheckIns(habitId: string) {
     return apiFetch<CheckIn[]>(
         `/habits/${habitId}/check-ins`,
     );
@@ -24,13 +24,29 @@ export function getHabitCheckIns (habitId: string) {
 
 export function createCheckIn(
     habitId: string,
-    data?: { note? : string},
+    data?: { note?: string },
 ) {
-    return apiFetch<CheckIn> (
+    return apiFetch<CheckIn>(
         `/habits/${habitId}/check-ins`,
         {
             method: 'POST',
             body: JSON.stringify(data ?? {}),
+        },
+    );
+}
+
+export function uploadCheckInPhoto(
+    checkInId: string,
+    photo: File,
+) {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    return apiFetch<CheckIn>(
+        `/check-ins/${checkInId}/photo`,
+        {
+            method: 'POST',
+            body: formData,
         },
     );
 }

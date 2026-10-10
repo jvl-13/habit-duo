@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createCheckIn, getHabitCheckIns } from "../api/check-ins/check-in-api";
+import { uploadCheckInPhoto } from '@/lib/api/check-ins/check-in-api';
 
 export function useHabitCheckIns(habitId: string) {
     return useQuery({
@@ -19,10 +20,10 @@ export function useCreateCheckIn() {
         mutationFn: ({
             habitId,
             note,
-        } : {
+        }: {
             habitId: string;
-            note? : string;
-        }) => 
+            note?: string;
+        }) =>
             createCheckIn(
                 habitId,
                 note ? { note } : {},
@@ -34,6 +35,31 @@ export function useCreateCheckIn() {
                 }),
                 queryClient.invalidateQueries({
                     queryKey: ['habits'],
+                }),
+            ]);
+        },
+    });
+}
+
+export function useUploadCheckInPhoto() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({
+            checkInId,
+            photo,
+        }: {
+            checkInId: string;
+            photo: File;
+        }) => uploadCheckInPhoto(checkInId, photo),
+
+        onSuccess: async (updatedCheckIn) => {
+            await Promise.all([
+                queryClient.invalidateQueries({
+                    queryKey: ['check-ins', updatedCheckIn.habitId],
+                }),
+                queryClient.invalidateQueries({
+                    queryKey: ['check-in-history'],
                 }),
             ]);
         },
