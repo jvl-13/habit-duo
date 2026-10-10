@@ -1,5 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createHabit, CreateHabitInput, deleteHabit, getHabits, updateHabit, UpdateHabitInput } from '../api/habits/habits-api';
+//import { createHabit, CreateHabitInput, deleteHabit, getHabits, Habit, updateHabit, UpdateHabitInput } from '../api/habits/habits-api';
+import {
+  createHabit,
+  deleteHabit,
+  getHabits,
+  updateHabit,
+  type Habit,
+  type CreateHabitInput,
+  type UpdateHabitInput,
+} from "@/lib/api/habits/habits-api";
 
 export function useHabits() {
     return useQuery({
@@ -14,7 +23,31 @@ export function useCreateHabit() {
     return useMutation({
         mutationFn: (data: CreateHabitInput) => 
             createHabit(data),
-        onSuccess: async () => {
+        // onSuccess: async () => {
+        //     await queryClient.invalidateQueries({
+        //         queryKey: ['habits'],
+        //     });
+        // },
+        onSuccess: async (newHabit) => {
+            queryClient.setQueryData<Habit[]>(
+                ['habits'],
+                (currentHabits) => {
+                    if(!currentHabits) {
+                        return [newHabit];
+                    }
+
+                    const alreadyExists = currentHabits.some(
+                        (habit) => habit.id === newHabit.id,
+                    );
+
+                    if (alreadyExists) {
+                        return currentHabits;
+                    }
+
+                    return [...currentHabits, newHabit];
+                },
+            );
+
             await queryClient.invalidateQueries({
                 queryKey: ['habits'],
             });
