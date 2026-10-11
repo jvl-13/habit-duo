@@ -158,6 +158,9 @@ export function HabitCard({
         ? photoUrl 
         : `${process.env.NEXT_PUBLIC_API_URL}${photoUrl.startsWith('/') ? '' : '/'}${photoUrl}`
         :null;
+    
+    console.log('photoUrl:', photoUrl);
+    console.log('photoSrc:', photoSrc);
 
     return (
         <div className="rounded-2xl border bg-background p-5 shadow-sm transition-shadow hover:shadow-md">
