@@ -1,10 +1,17 @@
-import { useAuth } from '@/lib/auth/auth-context';
-import { useMyDuo } from '@/lib/queries/duo-queries';
+
+'use client';
+
+import { useEffect, useState, type FormEvent } from 'react';
 import {
     MoreHorizontal,
     UserRound,
+    Loader2,
+    MailPlus,
+    CheckCircle2,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+
+import { useAuth } from '@/lib/auth/auth-context';
+import { useMyDuo, useInvitePartner } from '@/lib/queries/duo-queries';
 
 export function DuoCard() {
     const { user } = useAuth();
@@ -15,7 +22,16 @@ export function DuoCard() {
         isError,
     } = useMyDuo();
 
+    const {
+        mutate: invitePartner,
+        isPending: isInviting,
+        isSuccess: inviteSuccess,
+        error: inviteError,
+        reset: resetInvite,
+    } = useInvitePartner();
+
     const [now, setNow] = useState<number | null>(null);
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
         setNow(Date.now());
@@ -23,67 +39,163 @@ export function DuoCard() {
         const interval = setInterval(() => {
             setNow(Date.now());
         }, 30000);
+
         return () => clearInterval(interval);
     }, []);
 
+    const handleInvite = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const normalizedEmail = email.trim().toLowerCase();
+
+        if (!normalizedEmail) {
+            return;
+        }
+
+        resetInvite();
+        invitePartner({ email: normalizedEmail });
+    };
+
     if (isLoading) {
         return (
-            <section className='rounded-2xl border bg-background p-6 shadow-sm'>
-                <div className='h-5 w-24 animate-pulse rounded bg-muted' />
-
-                <div className='mt-6 h-16 animate-pulse rounded bg-muted' />
+            <section className="rounded-2xl border bg-background p-6 shadow-sm">
+                <div className="h-5 w-24 animate-pulse rounded bg-muted" />
+                <div className="mt-6 h-16 animate-pulse rounded bg-muted" />
             </section>
-        )
+        );
     }
 
     if (isError) {
         return (
-            <section className='rounded-2xl border bg-background p-6 shadow-sm'>
-                <p className='text-sm text-destructive'>
+            <section className="rounded-2xl border bg-background p-6 shadow-sm">
+                <p className="text-sm text-destructive">
                     Failed to load your duo.
                 </p>
             </section>
         );
     }
 
-    if (!duo) {
+    // No duo, or a previous duo has ended/rejected.
+    if (!duo || duo.status === 'ENDED' || duo.status === 'REJECTED') {
         return (
-            <section className='rounded-2xl border bg-background p-6 shadow-sm'>
-                <p className='text-sm text-muted-foreground'>
+            <section className="rounded-2xl border bg-background p-6 shadow-sm">
+                <p className="text-sm text-muted-foreground">
                     Your Duo
                 </p>
 
-                <h2 className='mt-1 text-lg font-semibold'>
-                    No partner yet.
+                <h2 className="mt-1 text-lg font-semibold">
+                    {duo?.status === 'ENDED' || duo?.status === 'REJECTED'
+                        ? 'Ready for a new Duo?'
+                        : 'No partner yet.'}
                 </h2>
 
-                <p className='mt-2 text-sm text-muted-foreground'>
-                    Invite someone to start building habits together.
+                <p className="mt-2 text-sm text-muted-foreground">
+                    Invite a friend to build habits and keep each other accountable.
                 </p>
 
-                <button className='mt-5 w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground'>
-                    Invite a partner
-                </button>
+                <form onSubmit={handleInvite} className="mt-5 space-y-3">
+                    <label
+                        htmlFor="partner-email"
+                        className="block text-sm font-medium"
+                    >
+                        Partner email
+                    </label>
+
+                    <input
+                        id="partner-email"
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(event) => {
+                            setEmail(event.target.value);
+                            if (inviteSuccess || inviteError) {
+                                resetInvite();
+                            }
+                        }}
+                        placeholder="friend@example.com"
+                        disabled={isInviting}
+                        className="w-full rounded-lg border bg-background px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                    />
+
+                    <button
+                        type="submit"
+                        disabled={isInviting || !email.trim()}
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                        {isInviting ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                        ) : (
+                            <MailPlus className="h-4 w-4" />
+                        )}
+
+                        {isInviting ? 'Sending invitation...' : 'Invite a partner'}
+                    </button>
+                </form>
+
+                {inviteSuccess && (
+                    <p className="mt-3 flex items-center gap-2 text-sm text-green-600">
+                        <CheckCircle2 className="h-4 w-4" />
+                        Invitation sent successfully.
+                    </p>
+                )}
+
+                {inviteError && (
+                    <p className="mt-3 text-sm text-destructive">
+                        {inviteError instanceof Error
+                            ? inviteError.message
+                            : 'Failed to send invitation.'}
+                    </p>
+                )}
             </section>
-        )
+        );
+    }
+
+    // A pending invitation may not yet have a second member.
+    if (duo.status === 'PENDING') {
+        const inviter = duo.members.find(
+            (member) => member.role === 'INVITER',
+        );
+
+        const isInviter = inviter?.userId === user?.id;
+
+        return (
+            <section className="rounded-2xl border bg-background p-6 shadow-sm">
+                <p className="text-sm font-medium text-muted-foreground">
+                    Your Duo
+                </p>
+
+                <h2 className="mt-1 text-lg font-semibold">
+                    Invitation pending
+                </h2>
+
+                <p className="mt-2 text-sm text-muted-foreground">
+                    {isInviter
+                        ? 'Your invitation is waiting for your friend to respond.'
+                        : 'You have a Duo invitation waiting for your response.'}
+                </p>
+            </section>
+        );
     }
 
     const partner = duo.members.find(
-        (member) => member.userId !== user?.id, 
+        (member) => member.userId !== user?.id,
     );
 
     if (!partner) {
-        return null;
+        return (
+            <section className="rounded-2xl border bg-background p-6 shadow-sm">
+                <p className="text-sm text-muted-foreground">
+                    Your Duo is active, but partner details are unavailable.
+                </p>
+            </section>
+        );
     }
 
-    const isOnline = now !== null &&
-    partner.user.lastSeenAt !== null &&
-    now -
-      new Date(
-        partner.user.lastSeenAt,
-      ).getTime() <
-      60_000;
-    
+    const isOnline =
+        now !== null &&
+        partner.user.lastSeenAt !== null &&
+        now - new Date(partner.user.lastSeenAt).getTime() < 60000;
+
     return (
         <section className="rounded-2xl border bg-background p-6 shadow-sm">
             <div className="flex items-center justify-between">
@@ -93,69 +205,57 @@ export function DuoCard() {
                     </p>
 
                     <h2 className="mt-1 text-lg font-semibold">
-                        Partner
+                        {partner.user.name}
                     </h2>
                 </div>
 
-                <button className="rounded-md p-2 hover:bg-muted">
+                <button
+                    type="button"
+                    aria-label="Duo options"
+                    className="rounded-md p-2 hover:bg-muted"
+                >
                     <MoreHorizontal className="h-5 w-5" />
                 </button>
             </div>
 
             <div className="mt-5 flex items-center gap-4">
-                <div className="relative">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        {partner.user.avatarUrl ? (
-                            <img
-                                src={partner.user.avatarUrl}
-                                alt={partner.user.name}
-                                className='h-full w-full object-cover'
-                            />
-                        ) : (
-                            <UserRound className="h-6 w-6" />
-                        )}     
-                    </div>
+                <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/10 text-primary">
+                    {partner.user.avatarUrl ? (
+                        <img
+                            src={partner.user.avatarUrl}
+                            alt={partner.user.name}
+                            className="h-full w-full object-cover"
+                        />
+                    ) : (
+                        <UserRound className="h-6 w-6" />
+                    )}
 
-                    <span className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background ${
-                        isOnline
-                            ? 'bg-green-500'
-                            : 'bg-muted-foreground'}`}
+                    <span
+                        className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background ${
+                            isOnline ? 'bg-green-500' : 'bg-muted-foreground'
+                        }`}
                     />
                 </div>
 
                 <div>
-                    <p className="font-medium">
-                        {partner.user.name}
-                    </p>
+                    <p className="font-medium">{partner.user.name}</p>
 
-                    <p className={`text-sm ${
-                        isOnline
-                            ? 'text-green-600'
-                            : 'text-muted-foreground'}`}>
+                    <p
+                        className={`text-sm ${
+                            isOnline
+                                ? 'text-green-600'
+                                : 'text-muted-foreground'
+                        }`}
+                    >
                         {isOnline ? 'Online' : 'Offline'}
                     </p>
                 </div>
             </div>
 
-            {/* <div className="mt-6 rounded-xl bg-muted/50 p-4">
-                <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                        Today progress
-                    </span>
-
-                    <span className="font-medium">
-                        2 / 3
-                    </span>
-                </div>
-
-                <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted">
-                    <div
-                        className="h-full w-2/3 rounded-full bg-primary"
-                    />
-                </div>
-            </div> */}
-
-            <button className="mt-4 w-full rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted">
+            <button
+                type="button"
+                className="mt-4 w-full rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted"
+            >
                 Poke {partner.user.name}
             </button>
         </section>
