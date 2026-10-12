@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 
 import { useAuth } from '@/lib/auth/auth-context';
-import { useMyDuo, useInvitePartner } from '@/lib/queries/duo-queries';
+import { useMyDuo, useInvitePartner, useAcceptDuoInvitation, useRejectDuoInvitation } from '@/lib/queries/duo-queries';
 
 export function DuoCard() {
     const { user } = useAuth();
@@ -29,6 +29,20 @@ export function DuoCard() {
         error: inviteError,
         reset: resetInvite,
     } = useInvitePartner();
+
+    const {
+        mutate: acceptInvitation,
+        isPending: isAccepting,
+        error: acceptError,
+    } = useAcceptDuoInvitation();
+
+    const {
+        mutate: rejectInvitation,
+        isPending: isRejecting,
+        error: rejectError,
+    } = useRejectDuoInvitation();
+
+    const isResponding = isAccepting || isRejecting;
 
     const [now, setNow] = useState<number | null>(null);
     const [email, setEmail] = useState('');
@@ -151,12 +165,22 @@ export function DuoCard() {
     }
 
     // A pending invitation may not yet have a second member.
+
     if (duo.status === 'PENDING') {
         const inviter = duo.members.find(
             (member) => member.role === 'INVITER',
         );
 
+        const invitee = duo.members.find(
+            (member) => member.role === 'INVITEE',
+        );
+
         const isInviter = inviter?.userId === user?.id;
+        const isInvitee = invitee?.userId === user?.id;
+
+        const otherMember = duo.members.find(
+            (member) => member.userId !== user?.id,
+        );
 
         return (
             <section className="rounded-2xl border bg-background p-6 shadow-sm">
@@ -168,14 +192,68 @@ export function DuoCard() {
                     Invitation pending
                 </h2>
 
-                <p className="mt-2 text-sm text-muted-foreground">
-                    {isInviter
-                        ? 'Your invitation is waiting for your friend to respond.'
-                        : 'You have a Duo invitation waiting for your response.'}
-                </p>
+                {isInviter ? (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                        Your invitation is waiting for your friend to respond.
+                    </p>
+                ) : isInvitee ? (
+                    <>
+                        <p className="mt-2 text-sm text-muted-foreground">
+                            {inviter?.user.name ?? 'Your friend'} invited you
+                            to build habits together.
+                        </p>
+
+                        <div className="mt-5 flex gap-3">
+                            <button
+                                type="button"
+                                disabled={isResponding}
+                                onClick={() => acceptInvitation(duo.id)}
+                                className="flex flex-1 items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                                {isAccepting ? 'Accepting...' : 'Accept'}
+                            </button>
+
+                            <button
+                                type="button"
+                                disabled={isResponding}
+                                onClick={() => rejectInvitation(duo.id)}
+                                className="flex flex-1 items-center justify-center rounded-lg border px-4 py-2.5 text-sm font-medium hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                                {isRejecting ? 'Rejecting...' : 'Reject'}
+                            </button>
+                        </div>
+
+                        {acceptError && (
+                            <p className="mt-3 text-sm text-destructive">
+                                {acceptError instanceof Error
+                                    ? acceptError.message
+                                    : 'Failed to accept invitation.'}
+                            </p>
+                        )}
+
+                        {rejectError && (
+                            <p className="mt-3 text-sm text-destructive">
+                                {rejectError instanceof Error
+                                    ? rejectError.message
+                                    : 'Failed to reject invitation.'}
+                            </p>
+                        )}
+                    </>
+                ) : (
+                    <p className="mt-2 text-sm text-muted-foreground">
+                        You are not listed as a member of this invitation.
+                    </p>
+                )}
+
+                {otherMember && isInviter && (
+                    <p className="mt-3 text-sm text-muted-foreground">
+                        Invited: {otherMember.user.name}
+                    </p>
+                )}
             </section>
         );
     }
+
 
     const partner = duo.members.find(
         (member) => member.userId !== user?.id,
@@ -231,9 +309,8 @@ export function DuoCard() {
                     )}
 
                     <span
-                        className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background ${
-                            isOnline ? 'bg-green-500' : 'bg-muted-foreground'
-                        }`}
+                        className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background ${isOnline ? 'bg-green-500' : 'bg-muted-foreground'
+                            }`}
                     />
                 </div>
 
@@ -241,11 +318,10 @@ export function DuoCard() {
                     <p className="font-medium">{partner.user.name}</p>
 
                     <p
-                        className={`text-sm ${
-                            isOnline
+                        className={`text-sm ${isOnline
                                 ? 'text-green-600'
                                 : 'text-muted-foreground'
-                        }`}
+                            }`}
                     >
                         {isOnline ? 'Online' : 'Offline'}
                     </p>

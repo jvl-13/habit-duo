@@ -80,7 +80,7 @@ export function AuthProvider({
         clearTokens();
         setUser(null);
         //window.location.href = '/login';
-        router.push('/login');
+        router.push('/');
     };
 
     return (
