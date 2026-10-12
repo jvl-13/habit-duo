@@ -7,11 +7,13 @@ import {
     Loader2,
     Clock,
     ImagePlus,
+    BellRing,
 } from 'lucide-react';
 
 import { useCreateCheckIn, useHabitCheckIns, useUploadCheckInPhoto } from '@/lib/queries/check-in-queries';
 import { useAuth } from '@/lib/auth/auth-context';
 import { ChangeEvent, useState } from 'react';
+import { usePokePartner } from '@/lib/queries/poke-queries';
 
 interface HabitCardProps {
     id: string;
@@ -58,22 +60,33 @@ export function HabitCard({
         error: uploadError,
     } = useUploadCheckInPhoto();
 
+    const {
+        mutate: pokePartner,
+        isPending: isPoking,
+        error: pokeError,
+    } = usePokePartner();
+
 
     const todayKey = new Date()
         .toISOString()
         .slice(0, 10);
 
     const ownCheckInToday = checkIns?.find(
-        (checkIn) => 
+        (checkIn) =>
             checkIn.userId === user?.id &&
             checkIn.dayKey === todayKey,
     );
 
+    const partnerCheckInToday = checkIns?.find(
+        (checkIn) =>
+            checkIn.userId !== user?.id &&
+            checkIn.dayKey === todayKey,
+    );
 
     const completedToday = Boolean(ownCheckInToday);
 
     const handleCheckIn = () => {
-        createCheckIn({ habitId: id});
+        createCheckIn({ habitId: id });
     };
 
     const handlePhotoChange = (
@@ -150,15 +163,15 @@ export function HabitCard({
         : isMissed
             ? 'bg-red-100 text-red-700'
             : 'bg-blue-100 text-blue-700';
-    
+
     const photoUrl = ownCheckInToday?.photoUrl;
 
-    const photoSrc = photoUrl 
-        ? photoUrl.startsWith('http') 
-        ? photoUrl 
-        : `${process.env.NEXT_PUBLIC_API_URL}${photoUrl.startsWith('/') ? '' : '/'}${photoUrl}`
-        :null;
-    
+    const photoSrc = photoUrl
+        ? photoUrl.startsWith('http')
+            ? photoUrl
+            : `${process.env.NEXT_PUBLIC_API_URL}${photoUrl.startsWith('/') ? '' : '/'}${photoUrl}`
+        : null;
+
     console.log('photoUrl:', photoUrl);
     console.log('photoSrc:', photoSrc);
 
@@ -174,11 +187,10 @@ export function HabitCard({
                 </div>
 
                 <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
-                        completedToday
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${completedToday
                             ? 'bg-green-100 text-green-600'
                             : 'bg-muted text-muted-foreground'
-                    }`}
+                        }`}
                 >
                     {completedToday ? (
                         <Check className="h-5 w-5" />
@@ -243,6 +255,30 @@ export function HabitCard({
                     {checkInError instanceof Error
                         ? checkInError.message
                         : 'Failed to check in.'}
+                </p>
+            )}
+
+            {!partnerCheckInToday && (
+                <button
+                    type="button"
+                    onClick={() => pokePartner(id)}
+                    disabled={isPoking || isLoading || isError}
+                    className="mt-3 inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                    {isPoking ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                        <BellRing className="h-4 w-4" />
+                    )}
+                    {isPoking ? 'Sending...' : 'Poke partner'}
+                </button>
+            )}
+
+            {pokeError && (
+                <p className="mt-2 text-sm text-red-600">
+                    {pokeError instanceof Error
+                        ? pokeError.message
+                        : 'Could not poke your partner.'}
                 </p>
             )}
 
