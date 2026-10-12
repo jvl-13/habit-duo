@@ -1,10 +1,10 @@
 'use client';
 
 import { useAuth } from "@/lib/auth/auth-context";
-import { Bell, Menu } from "lucide-react";
+import { Bell, LogOut, Menu } from "lucide-react";
 
 export function Topbar() {
-    const {user} = useAuth();
+    const { user, logout } = useAuth();
 
     return (
         <header className="flex h-16 items-center justify-between border-b bg-background px-4 md:px-6">
@@ -36,9 +36,19 @@ export function Topbar() {
 
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
                     {user?.name
-                    ?.charAt(0)
-                    .toUpperCase() ?? 'U'}
+                        ?.charAt(0)
+                        .toUpperCase() ?? 'U'}
                 </div>
+
+                <button
+                    type="button"
+                    onClick={() => void logout()}
+                    title="Log out"
+                    aria-label="Log out"
+                    className="group flex h-10 w-10 items-center justify-center rounded-xl border border-transparent text-muted-foreground transition-all duration-200 hover:border-red-200 hover:bg-red-50 hover:text-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 dark:hover:border-red-900 dark:hover:bg-red-950/40 dark:hover:text-red-400"
+                >
+                    <LogOut className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </button>
             </div>
         </header>
     )

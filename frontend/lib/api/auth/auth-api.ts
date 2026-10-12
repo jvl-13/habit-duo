@@ -37,3 +37,9 @@ export function refreshAccessToken(refreshToken: string) {
         skipAuth: true,
     });
 }
+
+export function logout() {
+    return apiFetch<void>('/auth/logout', {
+        method: 'POST',
+    });
+}

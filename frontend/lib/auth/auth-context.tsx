@@ -2,12 +2,13 @@
 
 import {
     createContext,
+    useCallback,
     useContext,
     useEffect,
     useState,
 } from 'react';
 
-import { getMe } from '@/lib/api/auth/auth-api';
+import { getMe, logout as logoutApi } from '@/lib/api/auth/auth-api';
 import {
     clearTokens,
     getAccessToken,
@@ -20,7 +21,7 @@ interface AuthContextValue {
     user: User | null;
     isLoading: boolean;
     isAuthenticated: boolean;
-    logout: () => void;
+    logout: () => Promise<void>;
     refreshUser: () => Promise<void>;
     setAuthenticatedUser: (user: User) => void;
 }
@@ -76,12 +77,18 @@ export function AuthProvider({
         loadUser();
     }, []);
 
-    const logout = () => {
-        clearTokens();
-        setUser(null);
-        //window.location.href = '/login';
-        router.push('/');
-    };
+    const logout = useCallback(async () => {
+        try {
+            await logoutApi();
+        } catch(error) {
+            console.error('Logout API failed: ', error);
+        } finally {
+            clearTokens();
+            setUser(null);
+            //window.location.href = '/login';
+            router.replace('/login');
+        }
+    }, [router]);
 
     return (
         <AuthContext.Provider
