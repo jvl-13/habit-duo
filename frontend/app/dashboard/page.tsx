@@ -5,10 +5,11 @@ import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
 import { ProgressCard } from '@/components/dashboard/progress-card';
 import { HabitCard } from '@/components/dashboard/habit-card';
 import { DuoCard } from '@/components/dashboard/duo-card';
-import { ActivityCard } from '@/components/dashboard/activity-card';
-
+//import { ActivityCard } from '@/components/dashboard/activity-card';
 import { useHabits } from '@/lib/queries/habit-queries';
 import { getDayKey, isHabitAvailableOnDay } from '@/lib/date/day-key';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
     return (
@@ -19,6 +20,22 @@ export default function DashboardPage() {
         </ProtectedRoute>
     );
 }
+
+
+function getGreeting() {
+    const hour = new Date().getHours();
+
+    if (hour >= 5 && hour < 12) {
+        return 'Good morning 👋';
+    }
+
+    if (hour >= 12 && hour < 18) {
+        return 'Good afternoon ☀️';
+    }
+
+    return 'Good evening 🌙';
+}
+
 
 function DashboardContent() {
     const todayKey = getDayKey();
@@ -38,6 +55,8 @@ function DashboardContent() {
             ),
     );
 
+    const displayedHabits = todaysHabits.slice(0, 4);
+
     // console.log('ALL HABITS:', habits);
     // console.log('TODAY KEY:', todayKey);
     // console.log('TODAY HABITS:', todaysHabits);
@@ -46,7 +65,7 @@ function DashboardContent() {
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <div className="mb-8">
                 <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                    Good morning 👋
+                    {getGreeting()}
                 </h1>
 
                 <p className="mt-2 text-muted-foreground">
@@ -69,6 +88,16 @@ function DashboardContent() {
                                     Your habits
                                 </h2>
                             </div>
+
+                            {todaysHabits.length > 4 && (
+                                <Link
+                                    href="/dashboard/habits"
+                                    className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                                >
+                                    View all
+                                    <ArrowRight className="h-4 w-4" />
+                                </Link>
+                            )}
                         </div>
 
                         {isLoading && (
@@ -104,7 +133,7 @@ function DashboardContent() {
                             !isError &&
                             todaysHabits.length > 0 && (
                                 <div className="grid gap-4 sm:grid-cols-2">
-                                    {todaysHabits.map((habit) => (
+                                    {displayedHabits.map((habit) => (
                                         <HabitCard
                                             key={habit.id}
                                             id={habit.id}
@@ -124,7 +153,7 @@ function DashboardContent() {
 
                 <div className="space-y-6">
                     <DuoCard />
-                    <ActivityCard />
+                    {/* <ActivityCard /> */}
                 </div>
             </div>
         </div>

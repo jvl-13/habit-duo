@@ -18,19 +18,19 @@ const navigation = [
     },
     {
         label: 'History',
-        href: '/dashboard/habits/history',
+        href: '/dashboard/history',
         icon: CalendarDays,
     },
-    {
-        label: 'My Duo',
-        href: '/dashboard/duo',
-        icon: Users,
-    },
-    {
-        label: 'Activity',
-        href: '/dashboard/activity',
-        icon: Bell,
-    },
+    // {
+    //     label: 'My Duo',
+    //     href: '/dashboard/duo',
+    //     icon: Users,
+    // },
+    // {
+    //     label: 'Activity',
+    //     href: '/dashboard/activity',
+    //     icon: Bell,
+    // },
 ];
 
 export function Sidebar(){
