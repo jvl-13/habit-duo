@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/lib/auth/auth-context";
 import { Bell, LogOut, Menu } from "lucide-react";
+import { NotificationBell } from "./notification-bell";
 
 export function Topbar() {
     const { user, logout } = useAuth();
@@ -19,10 +20,12 @@ export function Topbar() {
             </div>
 
             <div className="ml-auto flex items-center gap-4">
-                <button className="relative rounded-full p-2 hover:bg-muted" aria-label="Notifications">
+                {/* <button className="relative rounded-full p-2 hover:bg-muted" aria-label="Notifications">
                     <Bell className="h-5 w-5" />
                     <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-primary" />
-                </button>
+                </button> */}
+
+                <NotificationBell />
 
                 <div className="hidden text-right sm:block">
                     <p className="text-sm font-medium">
