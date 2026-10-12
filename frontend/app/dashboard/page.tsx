@@ -1,15 +1,24 @@
+
 'use client';
+
+import { useEffect, useState } from 'react';
 
 import { ProtectedRoute } from '@/components/auth/protected-route';
 import { DashboardLayout } from '@/components/dashboard/dashboard-layout';
 import { ProgressCard } from '@/components/dashboard/progress-card';
 import { HabitCard } from '@/components/dashboard/habit-card';
 import { DuoCard } from '@/components/dashboard/duo-card';
-//import { ActivityCard } from '@/components/dashboard/activity-card';
+
 import { useHabits } from '@/lib/queries/habit-queries';
-import { getDayKey, isHabitAvailableOnDay } from '@/lib/date/day-key';
-import { ArrowRight } from 'lucide-react';
+import {
+    getDayKey,
+    isHabitAvailableOnDay,
+} from '@/lib/date/day-key';
+
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+
+const HABITS_PER_PAGE = 4;
 
 export default function DashboardPage() {
     return (
@@ -20,7 +29,6 @@ export default function DashboardPage() {
         </ProtectedRoute>
     );
 }
-
 
 function getGreeting() {
     const hour = new Date().getHours();
@@ -36,7 +44,6 @@ function getGreeting() {
     return 'Good evening 🌙';
 }
 
-
 function DashboardContent() {
     const todayKey = getDayKey();
 
@@ -45,6 +52,8 @@ function DashboardContent() {
         isLoading,
         isError,
     } = useHabits();
+
+    const [currentPage, setCurrentPage] = useState(1);
 
     const todaysHabits = (habits ?? []).filter(
         (habit) =>
@@ -55,11 +64,34 @@ function DashboardContent() {
             ),
     );
 
-    const displayedHabits = todaysHabits.slice(0, 4);
+    const totalPages = Math.max(
+        1,
+        Math.ceil(todaysHabits.length / HABITS_PER_PAGE),
+    );
 
-    // console.log('ALL HABITS:', habits);
-    // console.log('TODAY KEY:', todayKey);
-    // console.log('TODAY HABITS:', todaysHabits);
+    // Keep the current page valid when habits are added or removed.
+    const safePage = Math.min(currentPage, totalPages);
+
+    useEffect(() => {
+        if (currentPage !== safePage) {
+            setCurrentPage(safePage);
+        }
+    }, [currentPage, safePage]);
+
+    const startIndex = (safePage - 1) * HABITS_PER_PAGE;
+
+    const displayedHabits = todaysHabits.slice(
+        startIndex,
+        startIndex + HABITS_PER_PAGE,
+    );
+
+    const goToPreviousPage = () => {
+        setCurrentPage((page) => Math.max(1, page - 1));
+    };
+
+    const goToNextPage = () => {
+        setCurrentPage((page) => Math.min(totalPages, page + 1));
+    };
 
     return (
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -69,7 +101,7 @@ function DashboardContent() {
                 </h1>
 
                 <p className="mt-2 text-muted-foreground">
-                    Let keep your habits going today.
+                    Let&apos;s keep your habits going today.
                 </p>
             </div>
 
@@ -78,7 +110,7 @@ function DashboardContent() {
                     <ProgressCard habits={todaysHabits} />
 
                     <section>
-                        <div className="mb-4 flex items-center justify-between">
+                        <div className="mb-4 flex items-center justify-between gap-4">
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">
                                     Today
@@ -87,21 +119,32 @@ function DashboardContent() {
                                 <h2 className="text-xl font-semibold">
                                     Your habits
                                 </h2>
+
+                                {!isLoading && !isError && todaysHabits.length > 0 && (
+                                    <p className="mt-1 text-sm text-muted-foreground">
+                                        Showing {startIndex + 1}–
+                                        {Math.min(
+                                            startIndex + HABITS_PER_PAGE,
+                                            todaysHabits.length,
+                                        )}{' '}
+                                        of {todaysHabits.length} habits
+                                    </p>
+                                )}
                             </div>
 
-                            {todaysHabits.length > 4 && (
-                                <Link
-                                    href="/dashboard/habits"
-                                    className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-                                >
-                                    View all
-                                    <ArrowRight className="h-4 w-4" />
-                                </Link>
-                            )}
+                            <Link
+                                href="/dashboard/habits"
+                                className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-primary hover:underline"
+                            >
+                                View all
+                                <ArrowRight className="h-4 w-4" />
+                            </Link>
                         </div>
 
                         {isLoading && (
                             <div className="grid gap-4 sm:grid-cols-2">
+                                <HabitSkeleton />
+                                <HabitSkeleton />
                                 <HabitSkeleton />
                                 <HabitSkeleton />
                             </div>
@@ -126,27 +169,88 @@ function DashboardContent() {
                                     <p className="mt-2 text-sm text-muted-foreground">
                                         Create a habit or check your habit schedule.
                                     </p>
+
+                                    <Link
+                                        href="/dashboard/habits"
+                                        className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+                                    >
+                                        Manage habits
+                                        <ArrowRight className="h-4 w-4" />
+                                    </Link>
                                 </div>
                             )}
 
                         {!isLoading &&
                             !isError &&
                             todaysHabits.length > 0 && (
-                                <div className="grid gap-4 sm:grid-cols-2">
-                                    {displayedHabits.map((habit) => (
-                                        <HabitCard
-                                            key={habit.id}
-                                            id={habit.id}
-                                            name={habit.name}
-                                            description={
-                                                habit.description ??
-                                                'No description'
-                                            }
-                                            deadline={habit.deadline}
-                                            streak={0}
-                                        />
-                                    ))}
-                                </div>
+                                <>
+                                    <div className="grid gap-4 sm:grid-cols-2">
+                                        {displayedHabits.map((habit) => (
+                                            <HabitCard
+                                                key={habit.id}
+                                                id={habit.id}
+                                                name={habit.name}
+                                                description={
+                                                    habit.description ??
+                                                    'No description'
+                                                }
+                                                deadline={habit.deadline}
+                                            />
+                                        ))}
+                                    </div>
+
+                                    {totalPages > 1 && (
+                                        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                                            <button
+                                                type="button"
+                                                onClick={goToPreviousPage}
+                                                disabled={safePage === 1}
+                                                className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+                                            >
+                                                <ArrowLeft className="h-4 w-4" />
+                                                Previous
+                                            </button>
+
+                                            <div className="flex items-center gap-1">
+                                                {Array.from(
+                                                    { length: totalPages },
+                                                    (_, index) => index + 1,
+                                                ).map((page) => (
+                                                    <button
+                                                        key={page}
+                                                        type="button"
+                                                        onClick={() =>
+                                                            setCurrentPage(page)
+                                                        }
+                                                        aria-label={`Go to page ${page}`}
+                                                        aria-current={
+                                                            safePage === page
+                                                                ? 'page'
+                                                                : undefined
+                                                        }
+                                                        className={`h-9 min-w-9 rounded-lg px-3 text-sm font-medium transition-colors ${
+                                                            safePage === page
+                                                                ? 'bg-primary text-primary-foreground'
+                                                                : 'hover:bg-muted'
+                                                        }`}
+                                                    >
+                                                        {page}
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                onClick={goToNextPage}
+                                                disabled={safePage === totalPages}
+                                                className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+                                            >
+                                                Next
+                                                <ArrowRight className="h-4 w-4" />
+                                            </button>
+                                        </div>
+                                    )}
+                                </>
                             )}
                     </section>
                 </div>

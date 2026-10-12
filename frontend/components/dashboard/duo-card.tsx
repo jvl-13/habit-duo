@@ -11,10 +11,24 @@ import {
 } from 'lucide-react';
 
 import { useAuth } from '@/lib/auth/auth-context';
-import { useMyDuo, useInvitePartner, useAcceptDuoInvitation, useRejectDuoInvitation } from '@/lib/queries/duo-queries';
+import { useSocket } from '@/lib/socket/socket-provider';
+
+import {
+    useMyDuo,
+    useInvitePartner,
+    useAcceptDuoInvitation,
+    useRejectDuoInvitation,
+} from '@/lib/queries/duo-queries';
+
+interface PresenceData {
+    userId: string;
+    isOnline: boolean;
+    lastSeenAt: string | null;
+}
 
 export function DuoCard() {
     const { user } = useAuth();
+    const { socket } = useSocket();
 
     const {
         data: duo,
@@ -46,7 +60,17 @@ export function DuoCard() {
 
     const [now, setNow] = useState<number | null>(null);
     const [email, setEmail] = useState('');
+    const [presence, setPresence] = useState<PresenceData | null>(null);
 
+    // Find the partner only when the Duo is active.
+    const partnerUserId =
+        duo?.status === 'ACTIVE'
+            ? duo.members.find(
+                  (member) => member.userId !== user?.id,
+              )?.userId ?? null
+            : null;
+
+    // Keep the current time available for the last-seen fallback.
     useEffect(() => {
         setNow(Date.now());
 
@@ -56,6 +80,31 @@ export function DuoCard() {
 
         return () => clearInterval(interval);
     }, []);
+
+    // Listen for real-time presence events from Socket.IO.
+    useEffect(() => {
+        setPresence(null);
+
+        if (!socket || !partnerUserId) {
+            return;
+        }
+
+        const handlePresence = (data: PresenceData) => {
+            if (data.userId !== partnerUserId) {
+                return;
+            }
+
+            setPresence(data);
+        };
+
+        socket.on('presence:status', handlePresence);
+        socket.on('presence:update', handlePresence);
+
+        return () => {
+            socket.off('presence:status', handlePresence);
+            socket.off('presence:update', handlePresence);
+        };
+    }, [socket, partnerUserId]);
 
     const handleInvite = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -90,7 +139,11 @@ export function DuoCard() {
     }
 
     // No duo, or a previous duo has ended/rejected.
-    if (!duo || duo.status === 'ENDED' || duo.status === 'REJECTED') {
+    if (
+        !duo ||
+        duo.status === 'ENDED' ||
+        duo.status === 'REJECTED'
+    ) {
         return (
             <section className="rounded-2xl border bg-background p-6 shadow-sm">
                 <p className="text-sm text-muted-foreground">
@@ -98,16 +151,21 @@ export function DuoCard() {
                 </p>
 
                 <h2 className="mt-1 text-lg font-semibold">
-                    {duo?.status === 'ENDED' || duo?.status === 'REJECTED'
+                    {duo?.status === 'ENDED' ||
+                    duo?.status === 'REJECTED'
                         ? 'Ready for a new Duo?'
                         : 'No partner yet.'}
                 </h2>
 
                 <p className="mt-2 text-sm text-muted-foreground">
-                    Invite a friend to build habits and keep each other accountable.
+                    Invite a friend to build habits and keep each other
+                    accountable.
                 </p>
 
-                <form onSubmit={handleInvite} className="mt-5 space-y-3">
+                <form
+                    onSubmit={handleInvite}
+                    className="mt-5 space-y-3"
+                >
                     <label
                         htmlFor="partner-email"
                         className="block text-sm font-medium"
@@ -122,6 +180,7 @@ export function DuoCard() {
                         value={email}
                         onChange={(event) => {
                             setEmail(event.target.value);
+
                             if (inviteSuccess || inviteError) {
                                 resetInvite();
                             }
@@ -142,7 +201,9 @@ export function DuoCard() {
                             <MailPlus className="h-4 w-4" />
                         )}
 
-                        {isInviting ? 'Sending invitation...' : 'Invite a partner'}
+                        {isInviting
+                            ? 'Sending invitation...'
+                            : 'Invite a partner'}
                     </button>
                 </form>
 
@@ -164,8 +225,7 @@ export function DuoCard() {
         );
     }
 
-    // A pending invitation may not yet have a second member.
-
+    // Handle pending invitations.
     if (duo.status === 'PENDING') {
         const inviter = duo.members.find(
             (member) => member.role === 'INVITER',
@@ -254,7 +314,7 @@ export function DuoCard() {
         );
     }
 
-
+    // Show the active partner.
     const partner = duo.members.find(
         (member) => member.userId !== user?.id,
     );
@@ -269,10 +329,52 @@ export function DuoCard() {
         );
     }
 
+    // Prefer the live WebSocket state.
+    // Use lastSeenAt as a fallback before receiving a presence event.
     const isOnline =
-        now !== null &&
-        partner.user.lastSeenAt !== null &&
-        now - new Date(partner.user.lastSeenAt).getTime() < 60000;
+        presence?.userId === partner.userId
+            ? presence.isOnline
+            : now !== null &&
+              !!partner.user.lastSeenAt &&
+              now - new Date(partner.user.lastSeenAt).getTime() < 60000;
+
+    const lastSeenAt =
+        presence?.userId === partner.userId
+            ? presence.lastSeenAt
+            : partner.user.lastSeenAt;
+
+    const lastSeenLabel = (() => {
+        if (isOnline || !lastSeenAt) {
+            return null;
+        }
+
+        const timestamp = new Date(lastSeenAt).getTime();
+
+        if (Number.isNaN(timestamp)) {
+            return null;
+        }
+
+        const elapsed = Math.max(0, Date.now() - timestamp);
+        const minutes = Math.floor(elapsed / 60000);
+
+        if (minutes < 1) {
+            return 'Last seen just now';
+        }
+
+        if (minutes < 60) {
+            return `Last seen ${minutes} min${minutes === 1 ? '' : 's'} ago`;
+        }
+
+        const hours = Math.floor(minutes / 60);
+
+        if (hours < 24) {
+            return `Last seen ${hours} hour${hours === 1 ? '' : 's'} ago`;
+        }
+
+        const days = Math.floor(hours / 24);
+
+        return `Last seen ${days} day${days === 1 ? '' : 's'} ago`;
+    })();
 
     return (
         <section className="rounded-2xl border bg-background p-6 shadow-sm">
@@ -309,8 +411,12 @@ export function DuoCard() {
                     )}
 
                     <span
-                        className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background ${isOnline ? 'bg-green-500' : 'bg-muted-foreground'
-                            }`}
+                        aria-label={isOnline ? 'Online' : 'Offline'}
+                        className={`absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-background ${
+                            isOnline
+                                ? 'bg-green-500'
+                                : 'bg-muted-foreground'
+                        }`}
                     />
                 </div>
 
@@ -318,13 +424,20 @@ export function DuoCard() {
                     <p className="font-medium">{partner.user.name}</p>
 
                     <p
-                        className={`text-sm ${isOnline
+                        className={`text-sm ${
+                            isOnline
                                 ? 'text-green-600'
                                 : 'text-muted-foreground'
-                            }`}
+                        }`}
                     >
                         {isOnline ? 'Online' : 'Offline'}
                     </p>
+
+                    {!isOnline && lastSeenLabel && (
+                        <p className="mt-0.5 text-xs text-muted-foreground">
+                            {lastSeenLabel}
+                        </p>
+                    )}
                 </div>
             </div>
 

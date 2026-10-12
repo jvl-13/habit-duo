@@ -10,6 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { NotificationModule } from './notification/notification.module.js';
 import { PokeModule } from './poke/poke.module.js';
+import { PresenceModule } from './presence/presence.module.js';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { PokeModule } from './poke/poke.module.js';
     HabitModule, 
     CheckInModule, 
     NotificationModule, 
-    PokeModule,
+    PokeModule, 
+    PresenceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
