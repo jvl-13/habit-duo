@@ -44,7 +44,8 @@ export function AuthProvider({
     const [isLoading, setIsLoading] =
         useState(true);
 
-    const refreshUser = async () => {
+
+    const refreshUser = useCallback(async () => {
         const accessToken = getAccessToken();
 
         if (!accessToken) {
@@ -54,12 +55,20 @@ export function AuthProvider({
 
         try {
             const currentUser = await getMe();
-            setUser(currentUser);
+
+            // Không khôi phục user nếu phiên đã bị xóa
+            // trong lúc request đang chạy.
+            if (getAccessToken()) {
+                setUser(currentUser);
+            }
         } catch {
-            clearTokens();
-            setUser(null);
+            if (getAccessToken()) {
+                clearTokens();
+                setUser(null);
+            }
         }
-    };
+    }, []);
+
 
     const setAuthenticatedUser = (user: User) => {
         setUser(user);
@@ -80,7 +89,7 @@ export function AuthProvider({
     const logout = useCallback(async () => {
         try {
             await logoutApi();
-        } catch(error) {
+        } catch (error) {
             console.error('Logout API failed: ', error);
         } finally {
             clearTokens();

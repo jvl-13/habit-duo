@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuth } from "@/lib/auth/auth-context";
-import { Bell, LogOut, Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import { NotificationBell } from "./notification-bell";
 
 export function Topbar() {

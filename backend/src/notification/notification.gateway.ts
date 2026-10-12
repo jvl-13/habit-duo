@@ -48,6 +48,11 @@ export class NotificationGateway
 
             await socket.join(`user:${userId}`);
 
+            // Socket có thể đã ngắt trong lúc chờ join.
+            if (!socket.connected) {
+                return;
+            }
+
             const currentConnections =
                 this.connectedUsers.get(userId) ?? 0;
 
@@ -55,6 +60,12 @@ export class NotificationGateway
                 userId,
                 currentConnections + 1,
             );
+
+            socket.data.presenceRegistered = true;
+
+            console.log(
+    `[Presence] REGISTER socket=${socket.id} user=${userId}`,
+);
 
             await this.prisma.user.update({
                 where: {
@@ -85,52 +96,53 @@ export class NotificationGateway
     async handleDisconnect(socket: Socket) {
         const userId = socket.data.userId;
 
-        if (!userId) {
-            console.log(
-                '[Presence] Unknown socket disconnected',
-            );
+        if (!userId || !socket.data.presenceRegistered) {
             return;
         }
+
+        console.log(
+    `[Presence] DISCONNECT socket=${socket.id} user=${userId}`,
+);
+
+        // Mỗi socket chỉ được trừ số lượng một lần.
+        socket.data.presenceRegistered = false;
 
         const currentConnections =
             this.connectedUsers.get(userId) ?? 0;
 
-        const remainingConnections =
-            Math.max(currentConnections - 1, 0);
+        const remainingConnections = Math.max(
+            currentConnections - 1,
+            0,
+        );
 
-        if (remainingConnections === 0) {
-            this.connectedUsers.delete(userId);
-
-            await this.prisma.user.update({
-                where: {
-                    id: userId,
-                },
-                data: {
-                    lastSeenAt: new Date(),
-                },
-            });
-
-            console.log(
-                `[Presence] ${userId} went OFFLINE`,
+        if (remainingConnections > 0) {
+            this.connectedUsers.set(
+                userId,
+                remainingConnections,
             );
 
-            await this.emitPresenceToPartner(
-                userId,
-                false,
+            console.log(
+                `[Presence] ${userId} disconnected one socket. sockets=${remainingConnections}`,
             );
 
             return;
         }
 
-        this.connectedUsers.set(
-            userId,
-            remainingConnections,
-        );
+        this.connectedUsers.delete(userId);
 
-        console.log(
-            `[Presence] ${userId} disconnected one socket. sockets=${remainingConnections
-            }`,
-        );
+        await this.prisma.user.update({
+            where: { id: userId },
+            data: { lastSeenAt: new Date() },
+        });
+
+        // Socket mới có thể đã kết nối trong lúc chờ database.
+        if ((this.connectedUsers.get(userId) ?? 0) > 0) {
+            return;
+        }
+
+        console.log(`[Presence] ${userId} went OFFLINE`);
+
+        await this.emitPresenceToPartner(userId, false);
     }
 
     private async emitPresenceToPartner(

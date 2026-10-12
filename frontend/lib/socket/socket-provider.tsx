@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -9,7 +8,11 @@ import {
 } from 'react';
 import { io, type Socket } from 'socket.io-client';
 
-import { getAccessToken } from '@/lib/auth/token-storage';
+import {
+    getAccessToken,
+    subscribeToTokenChanges,
+} from '@/lib/auth/token-storage';
+import { useAuth } from '@/lib/auth/auth-context';
 
 interface SocketContextValue {
     socket: Socket | null;
@@ -24,41 +27,88 @@ export function SocketProvider({
 }: {
     children: React.ReactNode;
 }) {
+    const { isAuthenticated, isLoading } = useAuth();
     const [socket, setSocket] = useState<Socket | null>(null);
 
     useEffect(() => {
-        let activeSocket: Socket | null = null;
-
-        const token = getAccessToken();
-
-        if (!token) {
+        if (isLoading || !isAuthenticated) {
             setSocket(null);
             return;
         }
 
-        activeSocket = io(
-            process.env.NEXT_PUBLIC_API_URL!,
-            {
-                auth: {
-                    token,
-                },
-            },
-        );
+        let activeSocket: Socket | null = null;
+        let currentToken: string | null = null;
 
-        activeSocket.on('connect_error', (error) => {
-            console.error(
-                '[Socket.IO] Connection error:',
-                error.message,
+        const connectSocket = () => {
+            const token = getAccessToken();
+
+            if (!token) {
+                activeSocket?.disconnect();
+                activeSocket = null;
+                currentToken = null;
+                setSocket(null);
+                return;
+            }
+
+            if (activeSocket && currentToken === token) {
+                return;
+            }
+
+            activeSocket?.disconnect();
+
+            const newSocket = io(
+                process.env.NEXT_PUBLIC_API_URL!,
+                {
+                    autoConnect: false,
+                    auth: { token },
+                },
             );
+
+            // newSocket.on('connect', () => {
+            //     console.log(
+            //         '[SocketProvider] Connected:',
+            //         newSocket.id,
+            //     );
+            // });
+
+            // newSocket.on('disconnect', (reason) => {
+            //     console.log(
+            //         '[SocketProvider] Disconnected:',
+            //         reason,
+            //     );
+            // });
+
+            newSocket.on('connect_error', (error) => {
+                console.error(
+                    '[Socket.IO] Connection error:',
+                    error.message,
+                );
+            });
+
+            // console.trace(
+            //     '[SocketProvider] Creating connection',
+            // );
+
+            activeSocket = newSocket;
+            currentToken = token;
+
+            setSocket(newSocket);
+            newSocket.connect();
+        };
+
+        connectSocket();
+
+        const unsubscribe = subscribeToTokenChanges(() => {
+            connectSocket();
         });
 
-        setSocket(activeSocket);
-
         return () => {
+            unsubscribe();
             activeSocket?.disconnect();
             activeSocket = null;
+            currentToken = null;
         };
-    }, []);
+    }, [isAuthenticated, isLoading]);
 
     return (
         <SocketContext.Provider value={{ socket }}>

@@ -1,3 +1,4 @@
+import { getRefreshToken } from '@/lib/auth/token-storage';
 import { apiFetch } from '../client';
 import { AuthResponse, LoginRequest, ReigsterRequest, User } from './type';
 
@@ -38,8 +39,15 @@ export function refreshAccessToken(refreshToken: string) {
     });
 }
 
-export function logout() {
+export async function logout() {
+    const refreshToken = getRefreshToken();
+
+    if (!refreshToken) {
+        return;
+    }
+
     return apiFetch<void>('/auth/logout', {
         method: 'POST',
+        body: JSON.stringify({ refreshToken }),
     });
 }

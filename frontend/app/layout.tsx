@@ -3,6 +3,7 @@
 import { QueryProvider } from '@/components/providers/query-provider';
 import './globals.css';
 import { AuthProvider } from '@/lib/auth/auth-context';
+import { SocketProvider } from '@/lib/socket/socket-provider';
 
 export default function RootLayout({
   children,
@@ -14,7 +15,9 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <AuthProvider>
-            {children}
+            <SocketProvider>
+              {children}
+            </SocketProvider>
           </AuthProvider>
         </QueryProvider>
       </body>
