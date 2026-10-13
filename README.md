@@ -277,7 +277,7 @@ npm install
 Create or update `frontend/.env.local`:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_API_URL=http://localhost:4000
 ```
 
 If Socket.IO uses a separate environment variable, configure it according to the variable name expected by the frontend's `SocketProvider`.
@@ -308,9 +308,9 @@ If the application does not work as expected, check the terminal output for each
 
 | Variable              | Purpose         | Example                 |
 | --------------------- | --------------- | ----------------------- |
-| `NEXT_PUBLIC_API_URL` | Backend API URL | `http://localhost:4000` |
+| `NEXT_API_URL` | Backend API URL | `http://localhost:4000` |
 
-Only expose values through `NEXT_PUBLIC_*` when they are safe for the browser to access.
+Only expose values through `NEXT_*` when they are safe for the browser to access.
 
 Never put database credentials, JWT secrets, or private keys in public frontend variables.
 

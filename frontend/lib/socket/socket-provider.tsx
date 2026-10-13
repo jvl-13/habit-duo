@@ -57,7 +57,7 @@ export function SocketProvider({
             activeSocket?.disconnect();
 
             const newSocket = io(
-                process.env.NEXT_PUBLIC_API_URL!,
+                process.env.NEXT_API_URL!,
                 {
                     autoConnect: false,
                     auth: { token },

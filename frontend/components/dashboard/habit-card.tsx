@@ -230,7 +230,7 @@ export function HabitCard({
     const photoSrc = photoUrl
         ? photoUrl.startsWith('http')
             ? photoUrl
-            : `${process.env.NEXT_PUBLIC_API_URL}${photoUrl.startsWith('/') ? '' : '/'}${photoUrl}`
+            : `${process.env.NEXT_API_URL}${photoUrl.startsWith('/') ? '' : '/'}${photoUrl}`
         : null;
 
     return (
