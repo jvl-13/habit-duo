@@ -375,7 +375,7 @@ function HabitsContent() {
                                     className="rounded-2xl border bg-background p-5 shadow-sm"
                                 >
                                     <div className="flex items-start justify-between gap-3">
-                                        <h3 className="break-words font-semibold">
+                                        <h3 className="wrap-break-word font-semibold">
                                             {habit.name}
                                         </h3>
 
@@ -384,7 +384,7 @@ function HabitsContent() {
                                         </span>
                                     </div>
 
-                                    <p className="mt-4 min-h-10 whitespace-pre-wrap break-words text-sm text-muted-foreground">
+                                    <p className="mt-4 min-h-10 whitespace-pre-wrap wrap-break-word text-sm text-muted-foreground">
                                         {habit.description || 'No description'}
                                     </p>
 
@@ -537,7 +537,7 @@ function HabitsContent() {
                             id="delete-habit-description"
                             className="mt-2 text-sm text-muted-foreground"
                         >
-                            Are you sure you want to delete "{deleteTarget.name}"?
+                            Are you sure you want to delete {deleteTarget.name}?
                             The habit will no longer appear in your active habits.
                         </p>
 
